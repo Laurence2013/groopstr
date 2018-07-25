@@ -3,7 +3,7 @@ from members.models import *
 
 class Player_table(models.Model):
     player_name = models.CharField(max_length = 100)
-    current_player_value = models.IntegerField(default = 0)
+    current_player_value = models.DecimalField(max_digits = 6, decimal_places = 2, null=True)
     real_football_team = models.CharField(max_length = 100)
     date_updated = models.DateTimeField(auto_now_add = True)
 
@@ -51,7 +51,7 @@ class Man_of_Match_table(models.Model):
         return self.pk
 
 class Own_Goals_table(models.Model):
-    minus_points = models.IntegerField(default = 0)
+    points = models.IntegerField(default = 0)
     player_id = models.ForeignKey(Player_table, on_delete = models.CASCADE)
     date_updated = models.DateTimeField(auto_now_add = True)
 
@@ -59,7 +59,7 @@ class Own_Goals_table(models.Model):
         return self.pk
 
 class Yellow_Card_table(models.Model):
-    minus_points = models.IntegerField(default = 0)
+    points = models.IntegerField(default = 0)
     player_id = models.ForeignKey(Player_table, on_delete = models.CASCADE)
     date_updated = models.DateTimeField(auto_now_add = True)
 
@@ -67,7 +67,7 @@ class Yellow_Card_table(models.Model):
         return self.pk
 
 class Red_Card_table(models.Model):
-    minus_points = models.IntegerField(default = 0)
+    points = models.IntegerField(default = 0)
     player_id = models.ForeignKey(Player_table, on_delete = models.CASCADE)
     date_updated = models.DateTimeField(auto_now_add = True)
 

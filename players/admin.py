@@ -2,6 +2,7 @@ from django.contrib import admin
 from players.models import *
 
 admin.site.register(Player_table)
+admin.site.register(Player_Team_table)
 admin.site.register(Clean_Sheets_table)
 admin.site.register(Goals_Assist_table)
 admin.site.register(Goals_table)
