@@ -12,14 +12,19 @@ class Player_table(models.Model):
 
 class Form_table(models.Model):
     points = models.IntegerField(default = 0)
+    total_points = models.IntegerField(default = 0)
     player_id = models.ForeignKey(Player_table, on_delete = models.CASCADE)
     date_updated = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
         return self.pk
 
+    # class ReadonlyMeta:
+    #     readonly = ['total_points']
+
 class Clean_Sheets_table(models.Model):
     points = models.IntegerField(default = 0)
+    total_points = models.IntegerField(default = 0)
     player_id = models.ForeignKey(Player_table, on_delete = models.CASCADE)
     date_updated = models.DateTimeField(auto_now_add = True)
 
@@ -28,6 +33,7 @@ class Clean_Sheets_table(models.Model):
 
 class Goals_Assist_table(models.Model):
     points = models.IntegerField(default = 0)
+    total_points = models.IntegerField(default = 0)
     player_id = models.ForeignKey(Player_table, on_delete = models.CASCADE)
     date_updated = models.DateTimeField(auto_now_add = True)
 
@@ -36,6 +42,7 @@ class Goals_Assist_table(models.Model):
 
 class Goals_table(models.Model):
     points = models.IntegerField(default = 0)
+    total_points = models.IntegerField(default = 0)
     player_id = models.ForeignKey(Player_table, on_delete = models.CASCADE)
     date_updated = models.DateTimeField(auto_now_add = True)
 
@@ -44,6 +51,7 @@ class Goals_table(models.Model):
 
 class Man_of_Match_table(models.Model):
     points = models.IntegerField(default = 0)
+    total_points = models.IntegerField(default = 0)
     player_id = models.ForeignKey(Player_table, on_delete = models.CASCADE)
     date_updated = models.DateTimeField(auto_now_add = True)
 
@@ -52,6 +60,7 @@ class Man_of_Match_table(models.Model):
 
 class Own_Goals_table(models.Model):
     points = models.IntegerField(default = 0)
+    total_points = models.IntegerField(default = 0)
     player_id = models.ForeignKey(Player_table, on_delete = models.CASCADE)
     date_updated = models.DateTimeField(auto_now_add = True)
 
@@ -60,6 +69,7 @@ class Own_Goals_table(models.Model):
 
 class Yellow_Card_table(models.Model):
     points = models.IntegerField(default = 0)
+    total_points = models.IntegerField(default = 0)
     player_id = models.ForeignKey(Player_table, on_delete = models.CASCADE)
     date_updated = models.DateTimeField(auto_now_add = True)
 
@@ -68,6 +78,7 @@ class Yellow_Card_table(models.Model):
 
 class Red_Card_table(models.Model):
     points = models.IntegerField(default = 0)
+    total_points = models.IntegerField(default = 0)
     player_id = models.ForeignKey(Player_table, on_delete = models.CASCADE)
     date_updated = models.DateTimeField(auto_now_add = True)
 
@@ -77,6 +88,7 @@ class Red_Card_table(models.Model):
 class Team_table(models.Model):
     position = models.CharField(max_length = 50)
     points = models.IntegerField(default = 0)
+    total_points = models.IntegerField(default = 0)
     members_id = models.ForeignKey(Members_table, on_delete = models.CASCADE)
     date_updated = models.DateTimeField(auto_now_add = True)
 
