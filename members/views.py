@@ -1,47 +1,58 @@
-from django.contrib.auth import (
-    authenticate, get_user_model, login, logout
-)
+from django.contrib.auth import (authenticate, get_user_model, login, logout)
 from django.views.generic import View, TemplateView, FormView
-from django.shortcuts import HttpResponse, render
-from members.forms import UserRegisterForm
+from django.shortcuts import HttpResponse, render, redirect
+from members.forms import *
 
-class RegisterView(TemplateView):
-    def get_context_data(self, **kwargs):
-        context = super(RegisterView, self).get_context_data(**kwargs)
-        return context
+class MembersView(View):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated is False:
+            return redirect('login')
+        context = {'username': request.user}
+        return render(request, 'members.html', context)
 
+class RegisterView(View):
     def get(self, request, *args, **kwargs):
         title = 'Register'
-        form = UserRegisterForm(request.POST or None)
-        context = {
-            'form': form,
-            'title': title
-        }
-        return render(request, 'register.html', self.get_context_data(**context))
+        form = UserRegisterForm()
+        return render(request, 'register.html', {'form': form, 'title': title})
 
     def post(self, request, *args, **kwargs):
-        print(request.method == 'POST')
-        print(request.POST)
-        title = 'Register'
+        title = 'Login'
         form = UserRegisterForm(request.POST or None)
+        if form.is_valid():
+            user = form.save(commit = False)
+            password = form.cleaned_data.get('password')
+            user.set_password(password)
+            user.save()
+            new_user = authenticate(username = user.username, password = password)
+            login(request, new_user)
+            return redirect('login')
         context = {
             'form': form,
-            'title': title
+            'title': title,
         }
-        return render(request, 'register.html', self.get_context_data(**context))
+        return render(request, 'register.html', context)
 
-class LoginView(TemplateView):
-    def get_context_data(self, **kwargs):
-        context = super(LoginView, self).get_context_data(**kwargs)
-        return context
-
+class LoginView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'login.html', self.get_context_data(**kwargs))
+        title = 'Login'
+        form = UserLoginForm()
+        context = {'form': form, 'title': title,}
+        return render(request, 'login.html', context)
 
-class LogoutView(TemplateView):
-    def get_context_data(self, **kwargs):
-        context = super(LogoutView, self).get_context_data(**kwargs)
-        return context
+    def post(self, request, *args, **kwargs):
+        form = UserLoginForm(request.POST or None)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username = username, password = password)
+            login(request, user)
+            if request.user.is_authenticated:
+                return redirect('members')
+                    # return render(request, 'members.html', {'username': username})
+        return render(request, 'login.html', {'form': form})
 
+class LogoutView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, 'logout.html', self.get_context_data(**kwargs))
+        logout(request)
+        return redirect('login')

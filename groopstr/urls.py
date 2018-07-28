@@ -18,8 +18,11 @@ from django.urls import path, re_path
 from members.views import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('members/', MembersView.as_view(), name='members'),
     path('register/', RegisterView.as_view(), name='register'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('admin/', admin.site.urls),
     # path('login/', LoginView.as_view(), name='register'),
     # path('logout/', LogoutView.as_view(), name='register'),
 ]
