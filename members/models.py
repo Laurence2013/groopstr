@@ -1,15 +1,15 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 class Personal_Info_table(models.Model):
-    display_name = models.CharField(max_length = 100)
+    team_name = models.CharField(max_length = 100)
     first_name = models.CharField(max_length = 50)
     last_name = models.CharField(max_length = 50)
-    email_address = models.CharField(max_length = 100)
-    contact_no = models.IntegerField(default = 0)
+    has_username = models.ForeignKey(User, on_delete = models.CASCADE, null=True, blank=True)
     date_updated = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
-        return self.display_name
+        return self.team_name
 
 class Current_Position_table(models.Model):
     current_position = models.IntegerField(default = 0)

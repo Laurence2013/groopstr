@@ -1,4 +1,5 @@
 from django import forms
+from members.models import *
 from django.contrib.auth import (authenticate, get_user_model, login, logout)
 
 User = get_user_model()
@@ -22,6 +23,20 @@ class UserLoginForm(forms.Form):
             if not user.is_active:
                 raise forms.ValidationError('This user is no longer active')
         return super(UserLoginForm, self).clean(*args, **kwargs)
+
+class PersonalInfoForm(forms.Form):
+    team_name = forms.CharField()
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+
+    def clean(self, *args, **kwargs):
+        team_name = self.cleaned_data.get('team_name')
+        first_name = self.cleaned_data.get('first_name')
+        last_name = self.cleaned_data.get('last_name')
+        team_name_qs = Personal_Info_table.objects.filter(team_name = team_name)
+        if team_name_qs.exists():
+            raise forms.ValidationError('This team name already exist, choose another one')
+        return super(PersonalInfoForm, self).clean(*args, **kwargs)
 
 class UserRegisterForm(forms.ModelForm):
     email = forms.EmailField(label = 'Email Address')
