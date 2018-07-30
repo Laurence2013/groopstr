@@ -13,16 +13,25 @@ class MembersView(View):
         if request.user.is_staff:
             return redirect('logout')
         if Personal_Info_table.objects.filter(has_username = request.user.id):
-            context = {'username': request.user}
+            if not Members_table.objects.filter(personal_info = request.user.id):
+                new_member = Members_table.objects.create(calculate_team_points = 0, credits_left = 200, total_cost_players_bought = 0.00, profit_gained_players_sold = 0.00, prize_money_minus_bought_sold = 0.00, personal_info = request.user)
+                new_member.save()
+            get_member = Members_table.objects.all()
+            for i in get_member.values('personal_info'):
+                if i.get('personal_info') is request.user.id:
+                    member_info = Members_table.objects.filter(personal_info = i.get('personal_info')).values()
+            context = {
+                'username': request.user,
+                'members': member_info
+            }
             return render(request, 'members.html', context)
+        messages.success(request, 'You need to setup your team name and personal info')
         return redirect('personal_info')
 
 class PersonalinfoView(View):
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated is False:
             return redirect('login')
-        if Personal_Info_table.objects.filter(has_username = request.user.id):
-            print('hello')
         title = 'Personal Info'
         form = PersonalInfoForm()
         return render(request, 'personal_info.html', {'form': form, 'title': title})

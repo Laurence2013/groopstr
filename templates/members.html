@@ -14,5 +14,14 @@
 {{ username }}
 <br />
 <br />
+<ul>
+  {% for member in members %}
+    <li><b>Calculare Team Points: </b>{{ member.calculate_team_points }}</li>
+    <li><b>Credits left: </b>{{ member.credits_left }}</li>
+    <li><b>Cost of Players bought: </b>{{ member.total_cost_players_bought }}</li>
+    <li><b>Profit gained from players sold: </b>{{ member.profit_gained_players_sold }}</li>
+    <li><b>Prize money - players bought: </b>{{ member.prize_money_minus_bought_sold }}</li>
+  {% endfor %}
+</ul>
 <h5><a href="{% url 'members' %}">Click here to view personal info</a></h5>
 {% endblock %}

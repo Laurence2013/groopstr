@@ -3,6 +3,7 @@ from members.models import *
 
 class Player_table(models.Model):
     player_name = models.CharField(max_length = 100)
+    player_position = models.CharField(max_length = 100, default = None)
     current_player_value = models.DecimalField(max_digits = 6, decimal_places = 2, null=True)
     real_football_team = models.CharField(max_length = 100)
     date_updated = models.DateTimeField(auto_now_add = True)
