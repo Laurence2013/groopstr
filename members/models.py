@@ -28,7 +28,7 @@ class Members_table(models.Model):
     total_cost_players_bought = models.DecimalField(max_digits=5, decimal_places=2, default = 0.00)
     profit_gained_players_sold = models.DecimalField(max_digits=5, decimal_places=2, default = 0.00)
     prize_money_minus_bought_sold = models.DecimalField(max_digits=5, decimal_places=2, default = 0.00)
-    personal_info = models.ForeignKey(User, on_delete = models.CASCADE, null=True, blank=True)
+    user_id = models.ForeignKey(User, on_delete = models.CASCADE, null=True, blank=True)
     date_updated = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):

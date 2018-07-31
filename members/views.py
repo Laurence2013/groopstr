@@ -13,13 +13,14 @@ class MembersView(View):
         if request.user.is_staff:
             return redirect('logout')
         if Personal_Info_table.objects.filter(has_username = request.user.id):
-            if not Members_table.objects.filter(personal_info = request.user.id):
-                new_member = Members_table.objects.create(calculate_team_points = 0, credits_left = 200, total_cost_players_bought = 0.00, profit_gained_players_sold = 0.00, prize_money_minus_bought_sold = 0.00, personal_info = request.user)
+            if not Members_table.objects.filter(user_id = request.user.id):
+                new_member = Members_table.objects.create(calculate_team_points = 0, credits_left = 200, total_cost_players_bought = 0.00, profit_gained_players_sold = 0.00, prize_money_minus_bought_sold = 0.00, user_id = request.user)
                 new_member.save()
             get_member = Members_table.objects.all()
-            for i in get_member.values('personal_info'):
-                if i.get('personal_info') is request.user.id:
-                    member_info = Members_table.objects.filter(personal_info = i.get('personal_info')).values()
+            for i in get_member.values('user_id'):
+                if i.get('user_id') is request.user.id:
+                    member_info = Members_table.objects.filter(user_id = i.get('user_id')).values()
+            # if Squad_table.objects.filter()
             context = {
                 'username': request.user,
                 'members': member_info
@@ -91,4 +92,3 @@ class LogoutView(View):
     def get(self, request, *args, **kwargs):
         logout(request)
         return render(request, 'logout.html', {})
-        # return redirect('login')
