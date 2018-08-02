@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<h1>Squad Page</h1>
+
+<h6><b>Username: </b>{{ username }}</h6>
+<br />
+<h6><b>Team name: </b>{{ team_name }}</h6>
+<br />
+<h6><b>Credits: </b>{{ credits }} points</h6>
+<ul>
+  <form action="{% url 'squad' %}" method="POST" class="post-form">{% csrf_token %}
+    {% for player in players %}
+    <li><input type="checkbox" name="player" value="{{ player.id }}"><b>Player name: </b>{{ player.player_name }}
+      <b> - Main position: </b>{{ player.player_position_1 }}
+      <b> - Valuation: </b>{{ player.current_player_value }}</li>
+    {% endfor %}
+    <button type="submit" class="save btn btn-default">Register players</button>
+  </form>
+</ul>
+
+{% endblock %}

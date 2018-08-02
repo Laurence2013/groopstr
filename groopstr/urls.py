@@ -20,7 +20,8 @@ from members.views import *
 urlpatterns = [
     path('personal_info/', PersonalinfoView.as_view(), name='personal_info'),
     path('members/', MembersView.as_view(), name='members'),
-    # path('members/<int:section>/', MembersView.as_view(), name='members'),
+    path('squad/', SquadView.as_view(), name='squad'),
+    # re_path('squad/(?P<player_id>[0-9])/$', SquadView.as_view(), name='squad'),
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),

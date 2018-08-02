@@ -5,6 +5,7 @@ from django.shortcuts import HttpResponse, render, redirect
 from django.contrib import messages
 from members.forms import *
 from members.models import *
+from players.models import *
 
 class MembersView(View):
     def get(self, request, *args, **kwargs):
@@ -20,14 +21,35 @@ class MembersView(View):
             for i in get_member.values('user_id'):
                 if i.get('user_id') is request.user.id:
                     member_info = Members_table.objects.filter(user_id = i.get('user_id')).values()
-            # if Squad_table.objects.filter()
+            if not Squad_table.objects.filter(user_id = request.user.id):
+                team_name = Personal_Info_table.objects.filter(has_username = request.user.id).values_list('team_name')
+                get_team_name = team_name[0][0]
             context = {
                 'username': request.user,
-                'members': member_info
+                'members': member_info,
+                'team_name': get_team_name or None
             }
             return render(request, 'members.html', context)
         messages.success(request, 'You need to setup your team name and personal info')
         return redirect('personal_info')
+
+class SquadView(View):
+    def get(self, request, *args, **kwargs):
+        team_name = Personal_Info_table.objects.filter(has_username = request.user.id).values_list('team_name')
+        credits = Members_table.objects.filter(user_id = request.user.id).values_list('credits_left')
+        players = Player_table.objects.all().values('id','player_name','player_position_1','player_position_2','player_position_3','current_player_value')
+        context = {
+            'username': request.user.username,
+            'team_name': team_name[0][0],
+            'players': players,
+            'credits': credits[0][0],
+        }
+        return render(request, 'squad.html', context)
+
+    def post(self, request, *args, **kwargs):
+        print(request.method == 'POST')
+        print(request.POST.getlist('player'))
+        return HttpResponse(None)
 
 class PersonalinfoView(View):
     def get(self, request, *args, **kwargs):

@@ -21,6 +21,9 @@
     <li><b>Cost of Players bought: </b>{{ member.total_cost_players_bought }}</li>
     <li><b>Profit gained from players sold: </b>{{ member.profit_gained_players_sold }}</li>
     <li><b>Prize money - players bought: </b>{{ member.prize_money_minus_bought_sold }}</li>
+    {% if member.team_name == None %}
+      <h6><a href="{% url 'squad' %}">Click to pick your squad</a></h6>
+    {% endif %}
   {% endfor %}
 </ul>
 <h5><a href="{% url 'members' %}">Click here to view personal info</a></h5>
