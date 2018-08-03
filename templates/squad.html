@@ -12,15 +12,21 @@
 <ul>
   <form action="{% url 'squad' %}" method="POST" class="post-form">{% csrf_token %}
     {% for player in players %}
-    <li><input type="checkbox" name="player" value="{{ player.id }}"><b>Player name: </b>{{ player.player_name }}
+    <li><input type="checkbox" onclick="myfunc()" name="player" value="{{ player.id }}"><b>Player name: </b>{{ player.player_name }}
       <b> - Main position: </b>{{ player.player_position_1 }}
-      <b> - Valuation: </b>{{ player.current_player_value }}</li>
+      <b id="valuation"> - Valuation: </b>{{ player.current_player_value }}</li>
     {% endfor %}
     <button type="submit" class="save btn btn-default">Register players</button>
   </form>
 </ul>
 <script type="text/javascript">
-   var a = "{{ credits }}";
-   console.log(a);
+  function myfunc() {
+    for (i = 1; i < document.getElementsByTagName('input').length; i++) {
+      if (document.getElementsByTagName('input')[i].checked == true) {
+        console.log(document.getElementsByTagName('input')[i]);
+        console.dir(document.getElementsByTagName('input')[i].parentElement.lastChild.data);
+      }
+    }
+  }
 </script>
 {% endblock %}
