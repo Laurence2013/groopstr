@@ -26,5 +26,17 @@
     {% endif %}
   {% endfor %}
 </ul>
+<br />
+<ul>
+  {% if players %}
+    {% for player in players %}
+      <li><b>Player name: </b>{{ player.0 }}</li>
+      <li><b>Main player position: </b>{{ player.player_position_1 }}</li>
+      <li><b>Player position 2: </b>{{ player.player_position_2 }}</li>
+      <li><b>Player position 3: </b>{{ player.player_position_3 }}</li>
+      <li><b>Player valuation: </b>{{ player.current_player_value }}</li>
+    {% endfor %}
+  {% endif %}
+</ul>
 <h5><a href="{% url 'members' %}">Click here to view personal info</a></h5>
 {% endblock %}

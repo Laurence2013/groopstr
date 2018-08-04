@@ -24,10 +24,18 @@ class MembersView(View):
             if not Squad_table.objects.filter(user_id = request.user.id):
                 team_name = Personal_Info_table.objects.filter(has_username = request.user.id).values_list('team_name')
                 get_team_name = team_name[0][0]
+                get_players = None
+            else:
+                get_team_name = None
+                get_squad = Squad_table.objects.filter(user_id = request.user.id).values_list('player_id', flat = True)
+                for i in range(0, len(get_squad)):
+                    get_players.append(list(Player_table.objects.filter(id = get_squad[i]).values_list('player_name','player_position_1','player_position_2','player_position_3','current_player_value')))
+                
             context = {
                 'username': request.user,
                 'members': member_info,
-                'team_name': get_team_name or None
+                'team_name': get_team_name,
+                'players': get_players,
             }
             return render(request, 'members.html', context)
         messages.success(request, 'You need to setup your team name and personal info')
@@ -47,9 +55,14 @@ class SquadView(View):
         return render(request, 'squad.html', context)
 
     def post(self, request, *args, **kwargs):
-        print(request.method == 'POST')
-        print(request.POST.getlist('player'))
-        return HttpResponse(None)
+        if (request.method == 'POST'):
+            list_of_players = request.POST.getlist('player')
+            for i in range(0, len(list_of_players)):
+                if Player_table.objects.filter(id = list_of_players[i]):
+                    get_id = Player_table.objects.filter(id = list_of_players[i]).values_list('id', flat=True)[0]
+                    # save_players = Squad_table.objects.create(player_id = get_id, user_id = request.user.id)
+                    # save_players.save()
+        return redirect('members')
 
 class PersonalinfoView(View):
     def get(self, request, *args, **kwargs):
