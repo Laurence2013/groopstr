@@ -9,6 +9,8 @@
 <h6><b>Team name: </b>{{ team_name }}</h6>
 <br />
 <h6><b>Credits: </b>{{ credits }} points</h6>
+<br />
+<p><b>Net credits: </b><i id="net_credits"></i></p>
 <ul>
   <form action="{% url 'squad' %}" method="POST" class="post-form">{% csrf_token %}
     {% for player in players %}
@@ -16,10 +18,14 @@
       <b> - Main position: </b>{{ player.player_position_1 }}
       <b id="valuation"> - Valuation: </b>{{ player.current_player_value }}</li>
     {% endfor %}
-    <button type="submit" class="save btn btn-default">Register players</button>
+    <button type="submit" id="reg_player" class="save btn btn-default">Register players</button>
   </form>
 </ul>
 <script type="text/javascript">
+  if (document.getElementById("net_credits").innerText == ""){
+    document.getElementById("reg_player").disabled = true;
+    document.getElementById("net_credits").innerHTML = 0;
+  }
   function myfunc() {
     var valuation_sum = [];
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
@@ -29,7 +35,23 @@
         valuation_sum.push(values);
       }
     }
-    console.log({{ credits }} - valuation_sum.reduce(reducer));
+    if (valuation_sum.length > 0) {
+      document.getElementById("reg_player").disabled = false;
+      document.getElementById("net_credits").innerHTML = {{ credits }} - valuation_sum.reduce(reducer);
+    } else {
+      document.getElementById("net_credits").innerHTML = 0;
+      document.getElementById("reg_player").disabled = true;
+    }
+    if (document.getElementById("net_credits").innerText < 0) {
+      document.getElementById("reg_player").disabled = true;
+      alert('You cannot have any more players');
+      for (i = 1; i < document.getElementsByTagName('input').length; i++) {
+        if (document.getElementsByTagName('input')[i].checked == true) {
+          document.getElementsByTagName('input')[i].checked = false;
+          document.getElementById("net_credits").innerHTML = 0;
+        }
+      }
+    }
   }
 </script>
 {% endblock %}
