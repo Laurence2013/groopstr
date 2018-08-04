@@ -21,12 +21,15 @@
 </ul>
 <script type="text/javascript">
   function myfunc() {
+    var valuation_sum = [];
+    const reducer = (accumulator, currentValue) => accumulator + currentValue;
     for (i = 1; i < document.getElementsByTagName('input').length; i++) {
       if (document.getElementsByTagName('input')[i].checked == true) {
-        console.log(document.getElementsByTagName('input')[i]);
-        console.dir(document.getElementsByTagName('input')[i].parentElement.lastChild.data);
+        var values = parseInt(document.getElementsByTagName('input')[i].parentElement.lastChild.data);
+        valuation_sum.push(values);
       }
     }
+    console.log({{ credits }} - valuation_sum.reduce(reducer));
   }
 </script>
 {% endblock %}
