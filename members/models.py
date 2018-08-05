@@ -24,6 +24,7 @@ class Members_table(models.Model):
     # player_sold
     # player_bought
     calculate_team_points = models.IntegerField(default = 0)
+    boolean_team_points = models.BooleanField(default = True)
     credits_left = models.IntegerField(default = 0)
     total_cost_players_bought = models.DecimalField(max_digits=5, decimal_places=2, default = 0.00)
     profit_gained_players_sold = models.DecimalField(max_digits=5, decimal_places=2, default = 0.00)

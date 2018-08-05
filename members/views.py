@@ -26,16 +26,26 @@ class MembersView(View):
                 get_team_name = team_name[0][0]
                 get_players = None
             else:
+                get_players = []
                 get_team_name = None
+                value = 0
+                boolean_credits = Members_table.objects.filter(user_id_id = request.user.id).values_list('boolean_team_points', flat = True)
                 get_squad = Squad_table.objects.filter(user_id = request.user.id).values_list('player_id', flat = True)
+                get_credits_left = Members_table.objects.filter(user_id = request.user.id).values_list('credits_left', flat = True)
                 for i in range(0, len(get_squad)):
                     get_players.append(list(Player_table.objects.filter(id = get_squad[i]).values_list('player_name','player_position_1','player_position_2','player_position_3','current_player_value')))
-                
+                if boolean_credits[0] is True:
+                    for j in range(0, len(get_squad)):
+                        total_valuation = Player_table.objects.filter(id = get_squad[j]).values_list('current_player_value', flat=True)
+                        value = (value + total_valuation[0])
+                    Members_table.objects.filter(user_id_id = request.user.id).update(credits_left = get_credits_left[0] - value)
+                    Members_table.objects.filter(user_id_id = request.user.id).update(boolean_team_points = False)
             context = {
                 'username': request.user,
                 'members': member_info,
                 'team_name': get_team_name,
                 'players': get_players,
+                'has_squad': True if Squad_table.objects.filter(user_id = request.user.id) else False,
             }
             return render(request, 'members.html', context)
         messages.success(request, 'You need to setup your team name and personal info')
@@ -57,6 +67,7 @@ class SquadView(View):
     def post(self, request, *args, **kwargs):
         if (request.method == 'POST'):
             list_of_players = request.POST.getlist('player')
+            print(list_of_players)
             for i in range(0, len(list_of_players)):
                 if Player_table.objects.filter(id = list_of_players[i]):
                     get_id = Player_table.objects.filter(id = list_of_players[i]).values_list('id', flat=True)[0]

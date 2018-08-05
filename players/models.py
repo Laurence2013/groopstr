@@ -87,20 +87,9 @@ class Red_Card_table(models.Model):
 
     def __str__(self):
         return self.pk
-
-# class Team_table(models.Model):
-#     position = models.CharField(max_length = 50)
-#     points = models.IntegerField(default = 0)
-#     total_points = models.IntegerField(default = 0)
-#     members_id = models.ForeignKey(Members_table, on_delete = models.CASCADE)
-#     date_updated = models.DateTimeField(auto_now_add = True)
-#
-#     def __str__(self):
-#         return self.pk
-
+        
 class Squad_table(models.Model):
     player = models.ForeignKey(Player_table, on_delete = models.CASCADE)
-    # team_id = models.ForeignKey(Team_table, on_delete = models.CASCADE)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
     date_updated = models.DateTimeField(auto_now_add = True)
 

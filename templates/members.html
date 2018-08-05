@@ -21,7 +21,7 @@
     <li><b>Cost of Players bought: </b>{{ member.total_cost_players_bought }}</li>
     <li><b>Profit gained from players sold: </b>{{ member.profit_gained_players_sold }}</li>
     <li><b>Prize money - players bought: </b>{{ member.prize_money_minus_bought_sold }}</li>
-    {% if member.team_name == None %}
+    {% if has_squad == False %}
       <h6><a href="{% url 'squad' %}">Click to pick your squad</a></h6>
     {% endif %}
   {% endfor %}
@@ -30,11 +30,11 @@
 <ul>
   {% if players %}
     {% for player in players %}
-      <li><b>Player name: </b>{{ player.0 }}</li>
-      <li><b>Main player position: </b>{{ player.player_position_1 }}</li>
-      <li><b>Player position 2: </b>{{ player.player_position_2 }}</li>
-      <li><b>Player position 3: </b>{{ player.player_position_3 }}</li>
-      <li><b>Player valuation: </b>{{ player.current_player_value }}</li>
+      <li><b>Player name: </b>{{ player.0.0 }}</li>
+      <li><b>Main player position: </b>{{ player.0.1 }}</li>
+      <li><b>Player position 2: </b>{{ player.0.2 }}</li>
+      <li><b>Player position 3: </b>{{ player.0.3 }}</li>
+      <li><b>Player valuation: </b>{{ player.0.4 }}</li>
     {% endfor %}
   {% endif %}
 </ul>
