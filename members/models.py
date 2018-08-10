@@ -21,8 +21,6 @@ class Current_Position_table(models.Model):
         return self.current_position
 
 class Members_table(models.Model):
-    # player_sold
-    # player_bought
     calculate_team_points = models.IntegerField(default = 0)
     boolean_team_points = models.BooleanField(default = True)
     credits_left = models.IntegerField(default = 0)

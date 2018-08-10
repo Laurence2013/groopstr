@@ -7,6 +7,8 @@ class Player_table(models.Model):
     player_position_2 = models.CharField(max_length = 100, blank = True, null=True)
     player_position_3 = models.CharField(max_length = 100, blank = True, null=True)
     current_player_value = models.DecimalField(max_digits = 6, decimal_places = 2, null=True)
+    # total_points = models.IntegerField(default = 0)
+    # Is player playing??
     real_football_team = models.CharField(max_length = 100)
     date_updated = models.DateTimeField(auto_now_add = True)
 
@@ -87,7 +89,7 @@ class Red_Card_table(models.Model):
 
     def __str__(self):
         return self.pk
-        
+
 class Squad_table(models.Model):
     player = models.ForeignKey(Player_table, on_delete = models.CASCADE)
     user = models.ForeignKey(User, on_delete = models.CASCADE)
