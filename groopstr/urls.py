@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, re_path
 from members.views import *
+from admin_updates.views import *
 
 urlpatterns = [
+    path('admin_update/', AdminUpdateView.as_view(), name='admin_update'),
     path('personal_info/', PersonalinfoView.as_view(), name='personal_info'),
     path('members/', MembersView.as_view(), name='members'),
     path('squad/', SquadView.as_view(), name='squad'),

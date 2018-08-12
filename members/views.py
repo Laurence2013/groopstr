@@ -78,18 +78,32 @@ class SquadView(View):
         return render(request, 'squad.html', context)
 
     def post(self, request, *args, **kwargs):
+        get_user_id = request.user.id
         if (request.method == 'POST'):
             list_of_players = request.POST.getlist('player')
-            print(list_of_players)
-            for i in range(0, len(list_of_players)):
-                if Player_table.objects.filter(id = list_of_players[i]):
-                    get_id = Player_table.objects.filter(id = list_of_players[i]).values_list('id', flat=True)[0]
-                    '''
-                    DO NOT delete THIS!!!
-                    '''
-                    save_players = Squad_table.objects.create(player_id = get_id, user_id = request.user.id)
-                    save_players.save()
+            self.__setup_squad(list_of_players, get_user_id)
         return redirect('members')
+
+    def __setup_squad(self, list_of_players, get_user_id):
+        print(get_user_id)
+        for i in range(0, len(list_of_players)):
+            print(list_of_players[i])
+            if Player_table.objects.filter(id = list_of_players[i]):
+                get_position = Player_table.objects.filter(id = list_of_players[i]).values_list('player_position_1')[0]
+            if str(get_position[0]) == str('Goalkeeper'):
+                print('Goalkeeper')
+            if str(get_position[0]) == str('Defender'):
+                print('Defender')
+            if str(get_position[0]) == str('Midfielder'):
+                print('Midfielder')
+            if str(get_position[0]) == str('Forward'):
+                print('Forward')
+        # for i in range(0, len(list_of_players)):
+        #     if Player_table.objects.filter(id = list_of_players[i]):
+        #         get_id = Player_table.objects.filter(id = list_of_players[i]).values_list('id', flat=True)[0]
+        # save_players = Squad_table.objects.create(player_id = get_id, user_id = request.user.id)
+        # save_players.save()
+
 
 class PersonalinfoView(View):
     def get(self, request, *args, **kwargs):

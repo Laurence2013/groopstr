@@ -34,7 +34,12 @@ class Members_table(models.Model):
         return str(self.pk)
 
 class Fixtures_table(models.Model):
+    COMPETITION_TYPES = (
+        ('pl', 'Premier League'),
+        ('cl', 'Champions League'),
+    )
     fixture = models.CharField(max_length = 200)
+    competition = models.CharField(max_length = 50, choices = COMPETITION_TYPES, null=True, blank=True)
     date_updated = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
@@ -47,7 +52,7 @@ class Week_table(models.Model):
     date_updated = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
-        return str(self.week_no)
+        return str(self.pk)
 
 class Formations_table(models.Model):
     FORMATION_TYPES = (
