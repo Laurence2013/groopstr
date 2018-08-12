@@ -10,9 +10,10 @@ class AdminUpdateView(View):
         # week = Week_table.objects.values('week_no').order_by('week_no').reverse()
         # week = [{'week_no': 1}, {'week_no': 1}, {'week_no': 2}, {'week_no': 2}, {'week_no': 3}, {'week_no': 3}, {'week_no': 4}, {'week_no': 4}]
         # week = [{'week_no': 1}, {'week_no': 1}, {'week_no': 2}, {'week_no': 2}, {'week_no': 3}, {'week_no': 3}, {'week_no': 4}, {'week_no': 4}, {'week_no': 4}]
-        week = [{'week_no': 1}, {'week_no': 1}, {'week_no': 2}, {'week_no': 3}, {'week_no': 3}, {'week_no': 4}, {'week_no': 4}]
+        week = [{'week_no': 1}, {'week_no': 1}, {'week_no': 2}, {'week_no': 3}, {'week_no': 3}, {'week_no': 4}, {'week_no': 4}, {'week_no': 5}]
         # week = [{'week_no': 1}, {'week_no': 2}, {'week_no': 2}, {'week_no': 3}, {'week_no': 3}, {'week_no': 4}, {'week_no': 4}]
-        group_week = self.__group_ids(week)
+        get_week = self.__get_current_week_no(week)
+        # group_week = self.__group_ids(week)
         # group_week = self.__group_ids_1(week)
         # group_week2 = self.__group_ids_2(group_week)
         # if group_week2 is False:
@@ -20,6 +21,9 @@ class AdminUpdateView(View):
         # else:
         #     group_week3 = self.__group_ids_3(group_week)
         return HttpResponse('Hello')
+
+    def __get_current_week_no(self, week):
+        print(week.pop())
 
     def __group_ids(self, week):
         week_right = []
