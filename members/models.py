@@ -32,3 +32,37 @@ class Members_table(models.Model):
 
     def __str__(self):
         return str(self.pk)
+
+class Fixtures_table(models.Model):
+    fixture = models.CharField(max_length = 200)
+    date_updated = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return self.fixture
+
+class Week_table(models.Model):
+    week_no = models.IntegerField(default = 0)
+    current_week = models.BooleanField(default = False)
+    fixture_no = models.ForeignKey(Fixtures_table, on_delete = models.CASCADE, null=True, blank=True)
+    date_updated = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return str(self.week_no)
+
+class Formations_table(models.Model):
+    FORMATION_TYPES = (
+        ('formation_1', '4-4-2'),
+        ('formation_2', '4-3-3'),
+        ('formation_3', '4-5-1'),
+        ('formation_4', '5-3-2'),
+        ('formation_5', '5-4-1'),
+        ('formation_6', '3-5-2'),
+        ('formation_7', '3-4-3'),
+    )
+    formation = models.CharField(max_length = 11, choices = FORMATION_TYPES)
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
+    week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
+    date_updated = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return self.formation
