@@ -9,47 +9,53 @@ from players.models import *
 
 class MembersView(View):
     def get(self, request, *args, **kwargs):
+        get_user_id = int(request.user.id)
+        request_user = request.user
         if request.user.is_authenticated is False:
             return redirect('login')
         if request.user.is_staff:
             return redirect('logout')
-        if Personal_Info_table.objects.filter(has_username = request.user.id):
-            if not Members_table.objects.filter(user_id = request.user.id):
-                new_member = Members_table.objects.create(calculate_team_points = 0, credits_left = 200, total_cost_players_bought = 0.00, profit_gained_players_sold = 0.00, prize_money_minus_bought_sold = 0.00, user_id = request.user)
-                new_member.save()
+        if Personal_Info_table.objects.filter(has_username = get_user_id):
+            self.__check_request(get_user_id, request_user)
             get_member = Members_table.objects.all()
+            print(get_member)
             for i in get_member.values('user_id'):
-                if i.get('user_id') is request.user.id:
+                if i.get('user_id') is get_user_id:
                     member_info = Members_table.objects.filter(user_id = i.get('user_id')).values()
-            if not Squad_table.objects.filter(user_id = request.user.id):
-                team_name = Personal_Info_table.objects.filter(has_username = request.user.id).values_list('team_name')
+            if not Squad_table.objects.filter(user_id = get_user_id):
+                team_name = Personal_Info_table.objects.filter(has_username = get_user_id).values_list('team_name')
                 get_team_name = team_name[0][0]
                 get_players = None
             else:
                 get_players = []
                 get_team_name = None
                 value = 0
-                boolean_credits = Members_table.objects.filter(user_id_id = request.user.id).values_list('boolean_team_points', flat = True)
-                get_squad = Squad_table.objects.filter(user_id = request.user.id).values_list('player_id', flat = True)
-                get_credits_left = Members_table.objects.filter(user_id = request.user.id).values_list('credits_left', flat = True)
+                boolean_credits = Members_table.objects.filter(user_id_id = get_user_id).values_list('boolean_team_points', flat = True)
+                get_squad = Squad_table.objects.filter(user_id = get_user_id).values_list('player_id', flat = True)
+                get_credits_left = Members_table.objects.filter(user_id = get_user_id).values_list('credits_left', flat = True)
                 for i in range(0, len(get_squad)):
                     get_players.append(list(Player_table.objects.filter(id = get_squad[i]).values_list('player_name','player_position_1','player_position_2','player_position_3','current_player_value')))
                 if boolean_credits[0] is True:
                     for j in range(0, len(get_squad)):
                         total_valuation = Player_table.objects.filter(id = get_squad[j]).values_list('current_player_value', flat = True)
                         value = (value + total_valuation[0])
-                    Members_table.objects.filter(user_id_id = request.user.id).update(credits_left = get_credits_left[0] - value)
-                    Members_table.objects.filter(user_id_id = request.user.id).update(boolean_team_points = False)
+                    Members_table.objects.filter(user_id_id = get_user_id).update(credits_left = get_credits_left[0] - value)
+                    Members_table.objects.filter(user_id_id = get_user_id).update(boolean_team_points = False)
             context = {
                 'username': request.user,
                 'members': member_info,
                 'team_name': get_team_name,
                 'players': get_players,
-                'has_squad': True if Squad_table.objects.filter(user_id = request.user.id) else False,
+                'has_squad': True if Squad_table.objects.filter(user_id = get_user_id) else False,
             }
             return render(request, 'members.html', context)
         messages.success(request, 'You need to setup your team name and personal info')
         return redirect('personal_info')
+
+    def __check_request(self, get_user_id, request_user):
+        if not Members_table.objects.filter(user_id = get_user_id):
+            new_member = Members_table.objects.create(calculate_team_points = 0, credits_left = 200, total_cost_players_bought = 0.00, profit_gained_players_sold = 0.00, prize_money_minus_bought_sold = 0.00, user_id = request_user)
+            new_member.save()
 
 class SquadView(View):
     def get(self, request, *args, **kwargs):
