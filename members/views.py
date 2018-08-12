@@ -44,22 +44,25 @@ class MembersView(View):
             get_team_name = team_name[0][0]
             get_players = None
         else:
-            get_players = []
             get_team_name = None
-            value = 0
             boolean_credits = Members_table.objects.filter(user_id_id = get_user_id).values_list('boolean_team_points', flat = True)
             get_squad = Squad_table.objects.filter(user_id = get_user_id).values_list('player_id', flat = True)
             get_credits_left = Members_table.objects.filter(user_id = get_user_id).values_list('credits_left', flat = True)
-            print(get_squad)
-            # for i in range(0, len(get_squad)):
-            #     get_players.append(list(Player_table.objects.filter(id = get_squad[i]).values_list('player_name','player_position_1','player_position_2','player_position_3','current_player_value')))
-            # if boolean_credits[0] is True:
-            #     for j in range(0, len(get_squad)):
-            #         total_valuation = Player_table.objects.filter(id = get_squad[j]).values_list('current_player_value', flat = True)
-            #         value = (value + total_valuation[0])
-            #     Members_table.objects.filter(user_id_id = get_user_id).update(credits_left = get_credits_left[0] - value)
-            #     Members_table.objects.filter(user_id_id = get_user_id).update(boolean_team_points = False)
+            get_players = self.__get_squad(get_squad, boolean_credits, get_user_id, get_credits_left)
         return member_info, get_team_name, get_players
+
+    def __get_squad(self, get_squad, boolean_credits, get_user_id, get_credits_left):
+        get_players = []
+        value = 0
+        for i in range(0, len(get_squad)):
+            get_players.append(list(Player_table.objects.filter(id = get_squad[i]).values_list('player_name','player_position_1','player_position_2','player_position_3','current_player_value')))
+        if boolean_credits[0] is True:
+            for j in range(0, len(get_squad)):
+                total_valuation = Player_table.objects.filter(id = get_squad[j]).values_list('current_player_value', flat = True)
+                value = (value + total_valuation[0])
+            Members_table.objects.filter(user_id_id = get_user_id).update(credits_left = get_credits_left[0] - value)
+            Members_table.objects.filter(user_id_id = get_user_id).update(boolean_team_points = False)
+        return get_players
 
 class SquadView(View):
     def get(self, request, *args, **kwargs):
@@ -84,8 +87,8 @@ class SquadView(View):
                     '''
                     DO NOT delete THIS!!!
                     '''
-                    # save_players = Squad_table.objects.create(player_id = get_id, user_id = request.user.id)
-                    # save_players.save()
+                    save_players = Squad_table.objects.create(player_id = get_id, user_id = request.user.id)
+                    save_players.save()
         return redirect('members')
 
 class PersonalinfoView(View):
