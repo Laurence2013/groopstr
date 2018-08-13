@@ -32,7 +32,7 @@ class MembersView(View):
 
     def __check_request(self, get_user_id, request_user):
         if not Members_table.objects.filter(user_id = get_user_id):
-            new_member = Members_table.objects.create(calculate_team_points = 0, credits_left = 8000, total_cost_players_bought = 0.00, profit_gained_players_sold = 0.00, prize_money_minus_bought_sold = 0.00, user_id = request_user)
+            new_member = Members_table.objects.create(calculate_team_points = 0, credits_left = 10000, total_cost_players_bought = 0.00, profit_gained_players_sold = 0.00, prize_money_minus_bought_sold = 0.00, user_id = request_user)
             new_member.save()
 
     def __get_right_member(self, get_member, get_user_id):
@@ -78,31 +78,28 @@ class SquadView(View):
         return render(request, 'squad.html', context)
 
     def post(self, request, *args, **kwargs):
-        get_user_id = request.user.id
         if (request.method == 'POST'):
             list_of_players = request.POST.getlist('player')
-            self.__setup_squad(list_of_players, get_user_id)
+            self.__setup_squad(list_of_players, request.user.id)
+            messages.success(request, 'You have successfully added your team')
         return redirect('members')
 
     def __setup_squad(self, list_of_players, get_user_id):
-        print(get_user_id)
         for i in range(0, len(list_of_players)):
-            print(list_of_players[i])
             if Player_table.objects.filter(id = list_of_players[i]):
                 get_position = Player_table.objects.filter(id = list_of_players[i]).values_list('player_position_1')[0]
             if str(get_position[0]) == str('Goalkeeper'):
-                print('Goalkeeper')
+                save_players = Goalkeeper_table.objects.create(player_id_id = list_of_players[i], user_id_id = get_user_id)
+                save_players.save()
             if str(get_position[0]) == str('Defender'):
-                print('Defender')
+                save_players = Defender_table.objects.create(player_id_id = list_of_players[i], user_id_id = get_user_id)
+                save_players.save()
             if str(get_position[0]) == str('Midfielder'):
-                print('Midfielder')
+                save_players = Midfielder_table.objects.create(player_id_id = list_of_players[i], user_id_id = get_user_id)
+                save_players.save()
             if str(get_position[0]) == str('Forward'):
-                print('Forward')
-        # for i in range(0, len(list_of_players)):
-        #     if Player_table.objects.filter(id = list_of_players[i]):
-        #         get_id = Player_table.objects.filter(id = list_of_players[i]).values_list('id', flat=True)[0]
-        # save_players = Squad_table.objects.create(player_id = get_id, user_id = request.user.id)
-        # save_players.save()
+                save_players = Striker_table.objects.create(player_id_id = list_of_players[i], user_id_id = get_user_id)
+                save_players.save()
 
 
 class PersonalinfoView(View):
