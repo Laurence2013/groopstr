@@ -30,11 +30,12 @@
 <ul>
   {% if players %}
     {% for player in players %}
-      <li><b>Player name: </b>{{ player.0.0 }}</li>
-      <li><b>Main player position: </b>{{ player.0.1 }}</li>
-      <li><b>Player position 2: </b>{{ player.0.2 }}</li>
-      <li><b>Player position 3: </b>{{ player.0.3 }}</li>
-      <li><b>Player valuation: </b>{{ player.0.4 }}</li>
+      <li><b>Player name: </b>{{ player.0 }}</li>
+      <li><b>Main player position: </b>{{ player.1 }}</li>
+      <li><b>Player position 2: </b>{{ player.2 }}</li>
+      <li><b>Player position 3: </b>{{ player.3 }}</li>
+      <li><b>Player valuation: </b>{{ player.4 }}</li>
+      <br />
     {% endfor %}
   {% endif %}
 </ul>

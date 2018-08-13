@@ -39,16 +39,26 @@ class MembersView(View):
         for i in get_member.values('user_id'):
             if i.get('user_id') is get_user_id:
                 member_info = Members_table.objects.filter(user_id = i.get('user_id')).values()
-        if not Squad_table.objects.filter(user_id = get_user_id):
+        if not Goalkeeper_table.objects.filter(user_id = get_user_id):
             team_name = Personal_Info_table.objects.filter(has_username = get_user_id).values_list('team_name')
             get_team_name = team_name[0][0]
             get_players = None
         else:
             get_team_name = None
-            boolean_credits = Members_table.objects.filter(user_id_id = get_user_id).values_list('boolean_team_points', flat = True)
-            get_squad = Squad_table.objects.filter(user_id = get_user_id).values_list('player_id', flat = True)
+            boolean_credits = Members_table.objects.filter(user_id_id = get_user_id).values('boolean_team_points')
+            # get_squad = Squad_table.objects.filter(user_id = get_user_id).values_list('player_id', flat = True)
             get_credits_left = Members_table.objects.filter(user_id = get_user_id).values_list('credits_left', flat = True)
-            get_players = self.__get_squad(get_squad, boolean_credits, get_user_id, get_credits_left)
+            get_gk = Goalkeeper_table.objects.filter(user_id_id = get_user_id).values_list('player_id_id', flat = True)
+            get_def = Defender_table.objects.filter(user_id_id = get_user_id).values_list('player_id_id', flat = True)
+            get_mid = Midfielder_table.objects.filter(user_id_id = get_user_id).values_list('player_id_id', flat = True)
+            get_for = Striker_table.objects.filter(user_id_id = get_user_id).values_list('player_id_id', flat = True)
+            # get_players = self.__get_squad(get_squad, boolean_credits, get_user_id, get_credits_left)
+            get_gk_players = self.__get_squad(get_gk, boolean_credits, get_user_id, get_credits_left)
+            get_def_players = self.__get_squad(get_def, boolean_credits, get_user_id, get_credits_left)
+            get_mid_players = self.__get_squad(get_mid, boolean_credits, get_user_id, get_credits_left)
+            get_for_players = self.__get_squad(get_for, boolean_credits, get_user_id, get_credits_left)
+            get_players = [get_gk_players[0][0], get_def_players[0][0], get_mid_players[0][0], get_for_players[0][0]]
+            self.__calc_points_left(boolean_credits[0]['boolean_team_points'], get_user_id)
         return member_info, get_team_name, get_players
 
     def __get_squad(self, get_squad, boolean_credits, get_user_id, get_credits_left):
@@ -56,13 +66,22 @@ class MembersView(View):
         value = 0
         for i in range(0, len(get_squad)):
             get_players.append(list(Player_table.objects.filter(id = get_squad[i]).values_list('player_name','player_position_1','player_position_2','player_position_3','current_player_value')))
-        if boolean_credits[0] is True:
-            for j in range(0, len(get_squad)):
-                total_valuation = Player_table.objects.filter(id = get_squad[j]).values_list('current_player_value', flat = True)
-                value = (value + total_valuation[0])
-            Members_table.objects.filter(user_id_id = get_user_id).update(credits_left = get_credits_left[0] - value)
-            Members_table.objects.filter(user_id_id = get_user_id).update(boolean_team_points = False)
         return get_players
+
+    def __calc_points_left(self, boolean_credits, get_user_id):
+        value = 0
+        get_player_ids = []
+        get_player_ids.append(Goalkeeper_table.objects.filter(user_id_id = get_user_id).values_list('player_id_id', flat = True)[0])
+        get_player_ids.append(Defender_table.objects.filter(user_id_id = get_user_id).values_list('player_id_id', flat = True)[0])
+        get_player_ids.append(Midfielder_table.objects.filter(user_id_id = get_user_id).values_list('player_id_id', flat = True)[0])
+        get_player_ids.append(Striker_table.objects.filter(user_id_id = get_user_id).values_list('player_id_id', flat = True)[0])
+        if boolean_credits is False:
+            for j in range(0, len(get_player_ids)):
+                total_valuation = Player_table.objects.filter(id = get_player_ids[j]).values_list('current_player_value', flat = True)
+                value = value + total_valuation[0]
+            credits_left = Members_table.objects.filter(user_id_id = get_user_id).values('credits_left')
+            Members_table.objects.filter(user_id_id = get_user_id).update(credits_left = credits_left[0]['credits_left'] - value)
+            Members_table.objects.filter(user_id_id = get_user_id).update(boolean_team_points = True)
 
 class SquadView(View):
     def get(self, request, *args, **kwargs):
