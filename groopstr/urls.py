@@ -20,14 +20,12 @@ from admin_updates.views import *
 
 urlpatterns = [
     path('admin_update/', AdminUpdateView.as_view(), name='admin_update'),
+    path('admin_update/admin_get_fixtures/', AdminGetFixturesView.as_view(), name='admin_get_fixtures'),
     path('personal_info/', PersonalinfoView.as_view(), name='personal_info'),
     path('members/', MembersView.as_view(), name='members'),
     path('squad/', SquadView.as_view(), name='squad'),
-    # re_path('squad/(?P<player_id>[0-9])/$', SquadView.as_view(), name='squad'),
     path('register/', RegisterView.as_view(), name='register'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('admin/', admin.site.urls),
-    # path('login/', LoginView.as_view(), name='register'),
-    # path('logout/', LogoutView.as_view(), name='register'),
 ]

@@ -48,6 +48,8 @@ class Fixtures_table(models.Model):
 class Week_table(models.Model):
     week_no = models.IntegerField(default = 0)
     current_week = models.BooleanField(default = False)
+    start_date = models.DateField(blank = True, null = True)
+    end_date = models.DateField(blank = True, null = True)
     fixture_no = models.ForeignKey(Fixtures_table, on_delete = models.CASCADE, null=True, blank=True)
     date_updated = models.DateTimeField(auto_now_add = True)
 

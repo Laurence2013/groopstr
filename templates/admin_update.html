@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+
+<h1>Admin update Page</h1>
+{% if admin_get_fixtures == True %}
+  <div id="weekly_fixtures"></div>
+{% endif %}
+
+{% endblock %}
