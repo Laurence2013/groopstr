@@ -8,15 +8,15 @@
         "fixture": "Chelsea vs Huddersfield"
     },
     {
-        "start_date": "2018-08-05",
-        "fixture_no_id": 1,
         "week_no": 1,
-        "end_date": "2018-08-11"
+        "end_date": "2018-08-11",
+        "start_date": "2018-08-05",
+        "fixture_no_id": 1
     },
     {
-        "start_date": "2018-08-05",
-        "fixture_no_id": 2,
         "week_no": 1,
-        "end_date": "2018-08-11"
+        "end_date": "2018-08-11",
+        "start_date": "2018-08-05",
+        "fixture_no_id": 2
     }
 ]
