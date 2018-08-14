@@ -19,16 +19,25 @@ class MembersView(View):
             self.__check_request(get_user_id, request_user)
             get_member = Members_table.objects.all()
             return_get_member = self.__get_right_member(get_member, get_user_id)
+            check_squad_exist = self.__check_if_squad_exist(get_user_id)
             context = {
                 'username': request.user,
                 'members': return_get_member[0],
                 'team_name': return_get_member[1],
                 'players': return_get_member[2],
-                'has_squad': True if Squad_table.objects.filter(user_id = get_user_id) else False,
+                'has_squad': True if len(check_squad_exist) == int(4) else False,
             }
             return render(request, 'members.html', context)
         messages.success(request, 'You need to setup your team name and personal info')
         return redirect('personal_info')
+
+    def __check_if_squad_exist(self, get_user_id):
+        check_squad_exist = []
+        check_squad_exist.append(1) if Goalkeeper_table.objects.filter(user_id_id = get_user_id) else False
+        check_squad_exist.append(1) if Defender_table.objects.filter(user_id_id = get_user_id) else False
+        check_squad_exist.append(1) if Midfielder_table.objects.filter(user_id_id = get_user_id) else False
+        check_squad_exist.append(1) if Striker_table.objects.filter(user_id_id = get_user_id) else False
+        return check_squad_exist
 
     def __check_request(self, get_user_id, request_user):
         if not Members_table.objects.filter(user_id = get_user_id):
@@ -46,13 +55,11 @@ class MembersView(View):
         else:
             get_team_name = None
             boolean_credits = Members_table.objects.filter(user_id_id = get_user_id).values('boolean_team_points')
-            # get_squad = Squad_table.objects.filter(user_id = get_user_id).values_list('player_id', flat = True)
             get_credits_left = Members_table.objects.filter(user_id = get_user_id).values_list('credits_left', flat = True)
             get_gk = Goalkeeper_table.objects.filter(user_id_id = get_user_id).values_list('player_id_id', flat = True)
             get_def = Defender_table.objects.filter(user_id_id = get_user_id).values_list('player_id_id', flat = True)
             get_mid = Midfielder_table.objects.filter(user_id_id = get_user_id).values_list('player_id_id', flat = True)
             get_for = Striker_table.objects.filter(user_id_id = get_user_id).values_list('player_id_id', flat = True)
-            # get_players = self.__get_squad(get_squad, boolean_credits, get_user_id, get_credits_left)
             get_gk_players = self.__get_squad(get_gk, boolean_credits, get_user_id, get_credits_left)
             get_def_players = self.__get_squad(get_def, boolean_credits, get_user_id, get_credits_left)
             get_mid_players = self.__get_squad(get_mid, boolean_credits, get_user_id, get_credits_left)
