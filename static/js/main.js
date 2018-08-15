@@ -3,16 +3,19 @@ function CreateANewRequest(){}
 CreateANewRequest.prototype = {
   Weekly_Fixtures: function() {
     var http = new XMLHttpRequest();
-    console.log(http);
     http.onreadystatechange = function() {
-      if(http.readyState == 4 && http.status == 200){
+      if (http.readyState == 4 && http.status == 200) {
           var weekly_fixs = JSON.parse(http.responseText);
-          console.log(weekly_fixs);
           var mainHtml = '';
           mainHtml = '<h2 class="weekly_fixtures">Weekly Fixtures</h2>';
           mainHtml += '<ul class="nav flex-column list-group">';
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week: </b>'+ weekly_fixs[2].week_no + '</li>';
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week start date: </b>'+ weekly_fixs[2].start_date + '</li>';
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week end date: </b>'+ weekly_fixs[2].end_date + '</li>';
           for (i = 0; i < weekly_fixs.length; i++) {
-            mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><a id="link-colour" class="nav-link active" href="'+ weekly_fixs[i].id +'">'+ weekly_fixs[i].fixture + '</a></li>';
+            if (weekly_fixs[i].id) {
+              mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Fixture id: </b>'+ weekly_fixs[i].id + ', <b>Fixture: </b>' + weekly_fixs[i].fixture + '</li>';
+            }
           }
           mainHtml += '</ul>';
           weekly_fixtures.innerHTML = mainHtml;

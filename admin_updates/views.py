@@ -22,7 +22,8 @@ class AdminGetFixturesView(View):
 
     def get(self, request, *args, **kwargs):
         week_no = Week_table.objects.values('week_no').latest('week_no')
-        self.__save_weekly_fixtures(week_no)
+        fixture_no = Week_table.objects.filter(week_no = week_no.get('week_no')).values('fixture_no_id')
+        self.__save_weekly_fixtures(week_no, fixture_no)
         main_json_file = self.base_dir + '/static/json/get_weekly_fixtures.json'
         try:
             main_json_file_size = os.path.getsize(main_json_file)
@@ -33,8 +34,12 @@ class AdminGetFixturesView(View):
             print(e)
         return JsonResponse(weekly_fixtures, safe = False)
 
-    def __save_weekly_fixtures(self, week_no):
-        fixtures = list(Fixtures_table.objects.all().values('id','fixture')) + list(Week_table.objects.filter(week_no = week_no.get('week_no')).values('week_no','start_date','end_date','fixture_no_id'))
+    def __save_weekly_fixtures(self, week_no, fixture_no):
+        weekly_fixtures = []
+        for i in range(0, len(fixture_no)):
+            weekly_fixtures.append(Fixtures_table.objects.filter(id = fixture_no[i].get('fixture_no_id')).values('fixture','id')[0])
+
+        fixtures = weekly_fixtures + list(Week_table.objects.filter(week_no = week_no.get('week_no',)).values('week_no','start_date','end_date','fixture_no_id'))
         weekly_fixtures = json.dumps(fixtures, ensure_ascii=False, indent=4, cls=DjangoJSONEncoder)
         with open(self.base_dir + '/static/json/get_weekly_fixtures.json', 'w') as f:
             f.write(weekly_fixtures)
