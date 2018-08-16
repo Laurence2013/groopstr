@@ -1,22 +1,22 @@
 [
     {
-        "id": 1,
-        "fixture": "Chelsea vs Fiorentina"
+        "id": 3,
+        "fixture": "Arsenal vs Hull"
     },
     {
-        "id": 2,
-        "fixture": "Chelsea vs Huddersfield"
+        "id": 4,
+        "fixture": "Wolves vs Everton"
     },
     {
-        "start_date": "2018-08-05",
-        "end_date": "2018-08-11",
-        "fixture_no_id": 1,
-        "week_no": 1
+        "end_date": "2018-08-18",
+        "fixture_no_id": 3,
+        "start_date": "2018-08-12",
+        "week_no": 2
     },
     {
-        "start_date": "2018-08-05",
-        "end_date": "2018-08-11",
-        "fixture_no_id": 2,
-        "week_no": 1
+        "end_date": "2018-08-18",
+        "fixture_no_id": 4,
+        "start_date": "2018-08-12",
+        "week_no": 2
     }
 ]

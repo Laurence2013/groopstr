@@ -3,6 +3,8 @@ from members.models import *
 
 class Player_Week_table(models.Model):
     week_no = models.IntegerField(default = 0)
+    is_new_week = models.BooleanField(default = False)
+    date_updated = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
         return str(self.week_no)

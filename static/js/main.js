@@ -9,10 +9,14 @@ CreateANewRequest.prototype = {
           var mainHtml = '';
           mainHtml = '<h2 class="weekly_fixtures">Weekly Fixtures</h2>';
           mainHtml += '<ul class="nav flex-column list-group">';
-          mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week: </b>'+ weekly_fixs[2].week_no + '</li>';
-          mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week start date: </b>'+ weekly_fixs[2].start_date + '</li>';
-          mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week end date: </b>'+ weekly_fixs[2].end_date + '</li>';
+          var is_once_only = false;
           for (i = 0; i < weekly_fixs.length; i++) {
+            if (weekly_fixs[i].week_no && is_once_only == false) {
+              mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week: </b>'+ weekly_fixs[i].week_no + '</li>';
+              mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week start date: </b>'+ weekly_fixs[i].start_date + '</li>';
+              mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week end date: </b>'+ weekly_fixs[i].end_date + '</li>';
+              is_once_only = true;
+            }
             if (weekly_fixs[i].id) {
               mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Fixture id: </b>'+ weekly_fixs[i].id + ', <b>Fixture: </b>' + weekly_fixs[i].fixture + '</li>';
             }

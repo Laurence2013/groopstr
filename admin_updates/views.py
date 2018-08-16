@@ -46,10 +46,16 @@ class AdminGetFixturesView(View):
 
 class AdminGetWeeklyTablesView(View):
     def get(self, request, *args, **kwargs):
-        # print(dir(request))
-        print(kwargs.get('week_id'))
+        check_table_is_zero = Player_Week_table.objects.all()
+        if check_table_is_zero.count() == 0:
+            save_new_week = Player_Week_table.objects.create(week_no = kwargs.get('week_id'), is_new_week = True)
+            save_new_week.save()
+        if kwargs.get('week_id'):
+            is_new_week = Player_Week_table.objects.values('id','week_no','is_new_week').latest('week_no')
+            if is_new_week.get('week_no') < kwargs.get('week_id'):
+                Player_Week_table.objects.filter(id = is_new_week.get('id')).update(is_new_week = False)
+                print(Player_Week_table.objects.all())
         return redirect('admin_update')
 
     def post(self, request, *args, **kwargs):
-        print(request)
         return HttpResponse('Weekly')
