@@ -17,6 +17,7 @@ CreateANewRequest.prototype = {
               mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Fixture id: </b>'+ weekly_fixs[i].id + ', <b>Fixture: </b>' + weekly_fixs[i].fixture + '</li>';
             }
           }
+          mainHtml += '<a href="http://localhost:8000/admin_update/admin_get_weekly_tables/'+ weekly_fixs[2].week_no +'">'+ '<b>New current week is: </b>' + weekly_fixs[2].week_no +'</a>';
           mainHtml += '</ul>';
           weekly_fixtures.innerHTML = mainHtml;
       }

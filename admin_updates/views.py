@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth.models import User
 from django.views.generic import View
-from django.shortcuts import HttpResponse, render
+from django.shortcuts import HttpResponse, render, redirect
 from django.contrib import messages
 from members.models import *
 from players.models import *
@@ -43,3 +43,13 @@ class AdminGetFixturesView(View):
         weekly_fixtures = json.dumps(fixtures, ensure_ascii=False, indent=4, cls=DjangoJSONEncoder)
         with open(self.base_dir + '/static/json/get_weekly_fixtures.json', 'w') as f:
             f.write(weekly_fixtures)
+
+class AdminGetWeeklyTablesView(View):
+    def get(self, request, *args, **kwargs):
+        # print(dir(request))
+        print(kwargs.get('week_id'))
+        return redirect('admin_update')
+
+    def post(self, request, *args, **kwargs):
+        print(request)
+        return HttpResponse('Weekly')

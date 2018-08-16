@@ -1,6 +1,12 @@
 from django.db import models
 from members.models import *
 
+class Player_Week_table(models.Model):
+    week_no = models.IntegerField(default = 0)
+
+    def __str__(self):
+        return str(self.week_no)
+
 class Player_table(models.Model):
     POSITIONS = (
         ('Goalkeeper', 'Goalkeeper'),
@@ -15,9 +21,9 @@ class Player_table(models.Model):
     player_position_3 = models.CharField(max_length = 100, blank = True, null=True)
     current_player_value = models.DecimalField(max_digits = 6, decimal_places = 2, null=True)
     total_points = models.IntegerField(default = 0)
-    is_player_playing = models.BooleanField(default = False)
+    is_player_not_playing = models.BooleanField(default = False)
     real_football_team = models.CharField(max_length = 100)
-    week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
+    week_no_id = models.ForeignKey(Player_Week_table, on_delete = models.CASCADE, null=True, blank=True)
     date_updated = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
