@@ -1,22 +1,22 @@
 [
     {
-        "id": 3,
-        "fixture": "Arsenal vs Hull"
+        "fixture": "Arsenal vs Hull",
+        "id": 3
     },
     {
-        "id": 4,
-        "fixture": "Wolves vs Everton"
+        "fixture": "Wolves vs Everton",
+        "id": 4
     },
     {
-        "end_date": "2018-08-18",
-        "fixture_no_id": 3,
         "start_date": "2018-08-12",
-        "week_no": 2
+        "end_date": "2018-08-18",
+        "week_no": 2,
+        "fixture_no_id": 3
     },
     {
-        "end_date": "2018-08-18",
-        "fixture_no_id": 4,
         "start_date": "2018-08-12",
-        "week_no": 2
+        "end_date": "2018-08-18",
+        "week_no": 2,
+        "fixture_no_id": 4
     }
 ]
