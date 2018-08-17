@@ -33,6 +33,16 @@ class Members_table(models.Model):
     def __str__(self):
         return str(self.pk)
 
+class Week_table(models.Model):
+    week_no = models.IntegerField(default = 0)
+    is_current_week = models.BooleanField(default = False)
+    start_date = models.DateField(blank = True, null = True)
+    end_date = models.DateField(blank = True, null = True)
+    date_updated = models.DateTimeField(auto_now_add = True)
+
+    def __str__(self):
+        return str(self.week_no)
+
 class Fixtures_table(models.Model):
     COMPETITION_TYPES = (
         ('pl', 'Premier League'),
@@ -40,21 +50,12 @@ class Fixtures_table(models.Model):
     )
     fixture = models.CharField(max_length = 200)
     competition = models.CharField(max_length = 50, choices = COMPETITION_TYPES, null=True, blank=True)
+    date_of_game = models.DateField(blank = True, null = True)
+    week_no = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
     date_updated = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
         return self.fixture
-
-class Week_table(models.Model):
-    week_no = models.IntegerField(default = 0)
-    current_week = models.BooleanField(default = False)
-    start_date = models.DateField(blank = True, null = True)
-    end_date = models.DateField(blank = True, null = True)
-    fixture_no = models.ForeignKey(Fixtures_table, on_delete = models.CASCADE, null=True, blank=True)
-    date_updated = models.DateTimeField(auto_now_add = True)
-
-    def __str__(self):
-        return str(self.pk)
 
 class Formations_table(models.Model):
     FORMATION_TYPES = (
