@@ -16,7 +16,20 @@ class Fixtures_and_Weeks:
         return Week_table.objects.all().values('id','week_no','start_date','end_date','is_current_week'), Fixtures_table.objects.all().values('id','fixture','competition','date_of_game','week_no_id')
 
     def set_fixtures_and_week(self, get_week):
+        week_fixture = []
         for i in range(0, len(get_week[0])):
             for j in range(0, len(get_week[1])):
                 if get_week[0][i].get('id') == get_week[1][j].get('week_no_id'):
-                    print(get_week[1][j].get('fixture'))
+                    context = {
+                        'fixture': get_week[1][j].get('fixture'),
+                        'date_of_game': get_week[1][j].get('date_of_game'),
+                        'competition': get_week[1][j].get('competition'),
+                        'week_no': get_week[0][j].get('week_no'),
+                        'start_date': get_week[0][j].get('start_date'),
+                        'end_date': get_week[0][j].get('end_date'),
+                    }
+                    week_fixture.append(context)
+        print()
+        print(week_fixture[0])
+        print(week_fixture[1])
+        print(week_fixture[2])
