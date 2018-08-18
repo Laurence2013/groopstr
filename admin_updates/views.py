@@ -117,7 +117,6 @@ class AdminGetWeeklyFixtures(View):
                         'end_date': get_week_fixtures[0][i].get('end_date'),
                         'is_current_week': get_week_fixtures[0][i].get('is_current_week'),
                         'week_id': get_week_fixtures[0][i].get('id'),
-                        'week_no': get_week_fixtures[0][i].get('week_no'),
                     }
                     week_fixture.append(context)
         return week_fixture

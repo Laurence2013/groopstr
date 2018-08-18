@@ -6,24 +6,22 @@ CreateANewRequest.prototype = {
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
           var weekly_fixs = JSON.parse(http.responseText);
-          console.log(weekly_fixs);
+          // console.log(weekly_fixs);
           var mainHtml = '';
-          // mainHtml = '<h2 class="weekly_fixtures">Weekly Fixtures</h2>';
-          // mainHtml += '<ul class="nav flex-column list-group">';
-          // var is_once_only = false;
-          // for (i = 0; i < weekly_fixs.length; i++) {
-          //   if (weekly_fixs[i].week_no && is_once_only == false) {
-          //     mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week: </b>'+ weekly_fixs[i].week_no + '</li>';
-          //     mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week start date: </b>'+ weekly_fixs[i].start_date + '</li>';
-          //     mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week end date: </b>'+ weekly_fixs[i].end_date + '</li>';
-          //     is_once_only = true;
-          //   }
-          //   if (weekly_fixs[i].id) {
-          //     mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Fixture id: </b>'+ weekly_fixs[i].id + ', <b>Fixture: </b>' + weekly_fixs[i].fixture + '</li>';
-          //   }
-          // }
-          // mainHtml += '<a href="http://localhost:8000/admin_update/admin_get_weekly_tables/'+ weekly_fixs[2].week_no +'">'+ '<b>Update Player_Week_Table: </b>' + weekly_fixs[2].week_no +'</a>';
-          // mainHtml += '</ul>';
+          mainHtml = '<h2 class="weekly_fixtures">Weekly Fixtures</h2>';
+          mainHtml += '<ul class="nav flex-column list-group">';
+          for (i = 0; i < weekly_fixs.length; i++) {
+            if (weekly_fixs[i].is_current_week == false) {
+              mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week: </b>'+ weekly_fixs[i].week_no + ' -- ' +
+              '<b>Start date: </b>'+ weekly_fixs[i].start_date + ' -- ' + '<b>End date:</b>' + weekly_fixs[i].end_date + ' -- ' +'<b>Check this week to True:</b> '+
+              '<input type="radio" id="check_w" name="check_week" value="'+ weekly_fixs[i].id +'"> </li>';
+            } else {
+              mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week: </b>'+ weekly_fixs[i].week_no + ' -- ' +
+              '<b>Start date: </b>'+ weekly_fixs[i].start_date + ' -- ' + '<b>End date:</b>' + weekly_fixs[i].end_date + ' -- ' +'<b>This is already current week:</b> '+
+              '<input type="radio" id="check_w" name="check_week" value="'+ weekly_fixs[i].id +'" disabled> </li>';
+            }
+          }
+          mainHtml += '</ul>';
           get_week.innerHTML = mainHtml;
       }
     }
@@ -37,7 +35,7 @@ CreateANewRequest.prototype = {
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
           var weekly_fixtures = JSON.parse(http.responseText);
-          console.log(weekly_fixtures);
+          // console.log(weekly_fixtures);
           var mainHtml = '';
           // mainHtml += '<ul class="nav flex-column list-group">';
           // mainHtml += '</ul>';
