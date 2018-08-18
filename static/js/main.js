@@ -10,6 +10,7 @@ CreateANewRequest.prototype = {
           var mainHtml = '';
           mainHtml = '<h2 class="weekly_fixtures">All weeks in a season</h2>';
           mainHtml += '<ul class="nav flex-column list-group">';
+          mainHtml += '<form name="choose_week_form" action="{% 'admin_get_curent_week' %}">';
           for (i = 0; i < weekly_fixs.length; i++) {
             week_ids_arr.push(weekly_fixs[i].week_no);
             if (weekly_fixs[i].is_current_week == false) {
@@ -22,6 +23,8 @@ CreateANewRequest.prototype = {
               '<input type="radio" id="check_w" name="check_week" value="'+ weekly_fixs[i].id +'" disabled> </li>';
             }
           }
+          mainHtml += '<input type="submit" value="Submit the new current week">';
+          mainHtml += '</form>';
           mainHtml += '</ul>';
           get_week.innerHTML = mainHtml;
           var pass_week_ids = new CreateANewRequest();

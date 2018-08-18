@@ -12,7 +12,7 @@ Admin will always update players points into the players statistics tables
 1 - Connect fixtures to its correct week before displaying - test_database_tables.Fixtures_and_Weeks class
 2 - Show all Weeks in Week_table and display in Admin page - show is_current_week - so admin can check which one should be current
 3 - Show admin all the weeks for the season and future competitions within the season
-4 - Get Admin to check the most current week
+4 - Get Admin to check (using radio button) the most current week
 '''
 class Behaviours_In_Admin_Page(TestCase):
     def setUp(self):
