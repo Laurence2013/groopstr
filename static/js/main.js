@@ -3,14 +3,16 @@ function CreateANewRequest(){}
 CreateANewRequest.prototype = {
   Get_Week: function() {
     var http = new XMLHttpRequest();
+    var week_ids_arr = []
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
           var weekly_fixs = JSON.parse(http.responseText);
-          // console.log(weekly_fixs);
+          console.log(weekly_fixs);
           var mainHtml = '';
           mainHtml = '<h2 class="weekly_fixtures">Weekly Fixtures</h2>';
           mainHtml += '<ul class="nav flex-column list-group">';
           for (i = 0; i < weekly_fixs.length; i++) {
+            week_ids_arr.push(weekly_fixs[i].id);
             if (weekly_fixs[i].is_current_week == false) {
               mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week: </b>'+ weekly_fixs[i].week_no + ' -- ' +
               '<b>Start date: </b>'+ weekly_fixs[i].start_date + ' -- ' + '<b>End date:</b>' + weekly_fixs[i].end_date + ' -- ' +'<b>Check this week to True:</b> '+
@@ -23,6 +25,9 @@ CreateANewRequest.prototype = {
           }
           mainHtml += '</ul>';
           get_week.innerHTML = mainHtml;
+          console.log(week_ids_arr);
+          var pass_week_ids = new CreateANewRequest();
+          pass_week_ids.Get_Fixtures('hello');
       }
     }
     http.open("GET", "admin_get_weekly_fixtures", true);
@@ -30,12 +35,13 @@ CreateANewRequest.prototype = {
     http.send();
     get_week.innerHTML = 'Season games ...';
   },
-  Get_Fixtures: function() {
+  Get_Fixtures: function(e) {
+    console.log(e);
     var http = new XMLHttpRequest();
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
           var weekly_fixtures = JSON.parse(http.responseText);
-          // console.log(weekly_fixtures);
+          console.log(weekly_fixtures);
           var mainHtml = '';
           // mainHtml += '<ul class="nav flex-column list-group">';
           // mainHtml += '</ul>';
@@ -57,7 +63,7 @@ CreateANewRequest.prototype = {
     http.open("GET", "admin_get_fixtures", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();
-    get_fixtures.innerHTML = 'Weekly Fixtures ...';
+    get_fixtures.innerHTML = 'Weekly fixtures ...';
   },
 }
 window.onload = function() {
@@ -66,6 +72,6 @@ window.onload = function() {
     main.Get_Week();
   }
   if (document.getElementById('get_fixtures')) {
-    main.Get_Fixtures();
+    main.Get_Fixtures(undefined);
   }
 }
