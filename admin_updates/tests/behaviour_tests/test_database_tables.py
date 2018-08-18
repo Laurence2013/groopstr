@@ -11,11 +11,12 @@ class Fixtures_and_Weeks:
 
         Fixtures_table.objects.create(fixture = 'Chelsea vs Fiorentina', date_updated = '2018-08-12 16:47:37', competition = 'cl', date_of_game = '2018-08-08', week_no_id = 11)
         Fixtures_table.objects.create(fixture = 'Chelsea vs Arsenal', date_updated = '2018-08-12 16:47:37', competition = 'pl', date_of_game = '2018-08-10', week_no_id = 11)
+        Fixtures_table.objects.create(fixture = 'Liverpool vs Everton', date_updated = '2018-08-12 16:47:37', competition = 'pl', date_of_game = '2018-08-10', week_no_id = 12)
 
         return Week_table.objects.all().values('id','week_no','start_date','end_date','is_current_week'), Fixtures_table.objects.all().values('id','fixture','competition','date_of_game','week_no_id')
 
-    def set_fixtures_and_week(self, fixture):
-        get_fixture = []
-        for i in range(0, len(fixture)):
-            get_fixture.append(fixture[i])
-        return get_fixture
+    def set_fixtures_and_week(self, get_week):
+        for i in range(0, len(get_week[0])):
+            for j in range(0, len(get_week[1])):
+                if get_week[0][i].get('id') == get_week[1][j].get('week_no_id'):
+                    print(get_week[1][j].get('fixture'))

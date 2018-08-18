@@ -22,18 +22,9 @@ class Behaviours_In_Admin_Page(TestCase):
     '''
     def test_00_show_that_a_fixture_is_connected_to_a_week(self):
         get_week = self.test.week_fixture_table()
-        print()
-        # print(get_week[0][0].get('id'))
+        self.test.set_fixtures_and_week(get_week)
         # print()
-        # print(get_week[1])
-
-        for i in range(0, len(get_week[0])):
-            for j in range(0, len(get_week[1])):
-                if get_week[0][i].get('id') == get_week[1][j].get('week_no_id'):
-                    print(get_week[1][j].get('fixture'))
-
-    # def test_01__show_that_a_fixture_is_connected_to_a_week(self):
-    #     fixture = self.test.week_fixture_table()
-    #     get_fixture = self.test.set_fixtures_and_week(fixture)
-    #     print()
-    #     print(get_fixture)
+        # for i in range(0, len(get_week[0])):
+        #     for j in range(0, len(get_week[1])):
+        #         if get_week[0][i].get('id') == get_week[1][j].get('week_no_id'):
+        #             print(get_week[1][j].get('fixture'))
