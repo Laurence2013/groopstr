@@ -45,8 +45,8 @@ class Week_table(models.Model):
 
 class Fixtures_table(models.Model):
     COMPETITION_TYPES = (
-        ('pl', 'Premier League'),
-        ('cl', 'Champions League'),
+        ('Premier League', 'Premier League'),
+        ('Champions League', 'Champions League'),
     )
     fixture = models.CharField(max_length = 200)
     competition = models.CharField(max_length = 50, choices = COMPETITION_TYPES, null=True, blank=True)
