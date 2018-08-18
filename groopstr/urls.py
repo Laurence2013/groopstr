@@ -20,9 +20,9 @@ from admin_updates.views import *
 
 urlpatterns = [
     path('admin_update/', AdminUpdateView.as_view(), name='admin_update'),
-    path('admin_update/admin_get_fixtures/', AdminGetFixturesView.as_view(), name='admin_get_fixtures'),
-    path('admin_update/admin_get_form/', AdminGetFormView.as_view(), name='admin_get_form'),
-    path('admin_update/admin_get_weekly_tables/<int:week_id>/', AdminGetWeeklyTablesView.as_view(), name='admin_get_weekly_tables'),
+    path('admin_update/admin_get_weekly_fixtures/', AdminGetWeeklyFixtures.as_view(), name='admin_get_weekly_fixtures'),
+    path('admin_update/admin_get_fixtures/', AdminGetFixtures.as_view(), name='admin_get_fixtures'),
+    # path('admin_update/admin_get_weekly_tables/<int:week_id>/', AdminGetWeeklyTablesView.as_view(), name='admin_get_weekly_tables'),
     path('personal_info/', PersonalinfoView.as_view(), name='personal_info'),
     path('members/', MembersView.as_view(), name='members'),
     path('squad/', SquadView.as_view(), name='squad'),

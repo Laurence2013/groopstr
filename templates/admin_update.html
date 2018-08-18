@@ -3,11 +3,11 @@
 {% block content %}
 
 <h1>Admin update Page</h1>
-{% if admin_get_fixtures == True %}
-  <div id="weekly_fixtures"></div>
+{% if get_week == True %}
+  <div id="get_week"></div>
 {% endif %}
-{% if admin_get_form == True %}
-  <div id="weekly_forms_table"></div>
+{% if get_fixtures == True %}
+  <div id="get_fixtures"></div>
 {% endif %}
 
 {% endblock %}

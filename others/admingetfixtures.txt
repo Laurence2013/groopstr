@@ -1,0 +1,29 @@
+class AdminGetFixtures(View):
+    base_dir = settings.BASE_DIR
+
+    def get(self, request, *args, **kwargs):
+        get_players = []
+        get_form = Form_table.objects.values('player_id','points','total_points','week_no_id_id')
+        for i in range(0, len(get_form)):
+            get_player = Player_table.objects.filter(id = get_form[i].get('player_id')).values('id','player_name')
+            get_players.append(get_player[0])
+        self.__save_statistics_table(get_form, get_players)
+        main_json_file = self.base_dir + '/static/json/get_weekly_form.json'
+        try:
+            main_json_file_size = os.path.getsize(main_json_file)
+            if main_json_file_size > 0:
+                 with open(main_json_file) as json_file:
+                     weekly_fixtures = json.load(json_file)
+        except FileNotFoundError as e:
+            print(e)
+        return JsonResponse(weekly_fixtures, safe = False)
+
+    def __save_statistics_table(self, stats_table, get_players):
+        for i in range(0, len(stats_table)):
+            if stats_table[i].get('id') == get_players[i].get('player_id'):
+                stats_table[i].update({'player_name': get_players[i].get('player_name')})
+
+        stats = list(stats_table)
+        weekly_stats = json.dumps(stats, ensure_ascii=False, indent=4, cls=DjangoJSONEncoder)
+        with open(self.base_dir + '/static/json/get_weekly_form.json', 'w') as f:
+            f.write(weekly_stats)
