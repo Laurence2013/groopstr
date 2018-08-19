@@ -10,6 +10,8 @@ from django.contrib import messages
 from members.models import *
 from players.models import *
 from admin_updates.saving_and_getting_json import Saving_And_Getting_Json
+from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
+from django.utils.decorators import method_decorator
 
 class AdminUpdateView(View):
     def get(self, request, *args, **kwargs):
@@ -20,15 +22,14 @@ class AdminUpdateView(View):
         return render(request, 'admin_update.html', context)
 
 class AdminGetCurrentWeek(View):
-    base_dir = settings.BASE_DIR
-
     def get(self, request, *args, **kwargs):
-        print(request.POST)
-        return HttpResponse('Hello')
+        print(request.GET)
+        return render(request,'admin_update.html',{})
 
+    @method_decorator(csrf_protect)
     def post(self, request, *args, **kwargs):
-        print(request.POST)
-        return HttpResponse('Hello')
+        print(request.POST['which_check_week'])
+        return redirect('admin_update')
 
 class AdminGetFixtures(View):
     base_dir = settings.BASE_DIR

@@ -54,6 +54,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'groopstr.urls'
+# CSRF_COOKIE_HTTPONLY = True
 
 TEMPLATES = [
     {

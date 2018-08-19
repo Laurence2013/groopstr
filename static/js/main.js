@@ -6,29 +6,32 @@ CreateANewRequest.prototype = {
     var week_ids_arr = []
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
-          var weekly_fixs = JSON.parse(http.responseText);
-          var mainHtml = '';
-          mainHtml = '<h2 class="weekly_fixtures">All weeks in a season</h2>';
-          mainHtml += '<ul class="nav flex-column list-group">';
-          mainHtml += '<form name="choose_week_form" action="{% 'admin_get_curent_week' %}">';
-          for (i = 0; i < weekly_fixs.length; i++) {
-            week_ids_arr.push(weekly_fixs[i].week_no);
-            if (weekly_fixs[i].is_current_week == false) {
-              mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week: </b>'+ weekly_fixs[i].week_no + ' -- ' +
-              '<b>Start date: </b>'+ weekly_fixs[i].start_date + ' -- ' + '<b>End date:</b>' + weekly_fixs[i].end_date + ' -- ' +'<b>Check this week to True:</b> '+
-              '<input type="radio" id="check_w" name="check_week" value="'+ weekly_fixs[i].id +'"> </li>';
-            } else {
-              mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week: </b>'+ weekly_fixs[i].week_no + ' -- ' +
-              '<b>Start date: </b>'+ weekly_fixs[i].start_date + ' -- ' + '<b>End date:</b>' + weekly_fixs[i].end_date + ' -- ' +'<b>This is already current week:</b> '+
-              '<input type="radio" id="check_w" name="check_week" value="'+ weekly_fixs[i].id +'" disabled> </li>';
-            }
+        var csrftoken = Cookies.get('csrftoken');
+        var weekly_fixs = JSON.parse(http.responseText);
+        var mainHtml = '';
+        mainHtml = '<h2 class="weekly_fixtures">All weeks in a season</h2>';
+        mainHtml += '<ul class="nav flex-column list-group">';
+        mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/admin_get_current_week/" method="POST">';
+        for (i = 0; i < weekly_fixs.length; i++) {
+          week_ids_arr.push(weekly_fixs[i].week_no);
+          if (weekly_fixs[i].is_current_week == false) {
+            mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week: </b>'+ weekly_fixs[i].week_no + ' -- ' +
+            '<b>Start date: </b>'+ weekly_fixs[i].start_date + ' -- ' + '<b>End date:</b>' + weekly_fixs[i].end_date + ' -- ' +'<b>Check this week to True:</b> '+
+            '<input type="radio" id="check_w" name="which_check_week" value="'+ weekly_fixs[i].id +'"> </li>';
+            mainHtml += '<input name="csrfmiddlewaretoken" value='+ csrftoken +' type="hidden">'
+          } else {
+            mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week: </b>'+ weekly_fixs[i].week_no + ' -- ' +
+            '<b>Start date: </b>'+ weekly_fixs[i].start_date + ' -- ' + '<b>End date:</b>' + weekly_fixs[i].end_date + ' -- ' +'<b>This is already current week:</b> '+
+            '<input type="radio" id="check_w" name="which_check_week" value="'+ weekly_fixs[i].id +'" disabled> </li>';
+            mainHtml += '<input name="csrfmiddlewaretoken" value='+ csrftoken +' type="hidden">'
           }
-          mainHtml += '<input type="submit" value="Submit the new current week">';
-          mainHtml += '</form>';
-          mainHtml += '</ul>';
-          get_week.innerHTML = mainHtml;
-          var pass_week_ids = new CreateANewRequest();
-          pass_week_ids.Get_Fixtures(week_ids_arr);
+        }
+        mainHtml += '<input type="submit" value="Submit the new current week">';
+        mainHtml += '</form>';
+        mainHtml += '</ul>';
+        get_week.innerHTML = mainHtml;
+        var pass_week_ids = new CreateANewRequest();
+        pass_week_ids.Get_Fixtures(week_ids_arr);
       }
     }
     http.open("GET", "admin_get_weekly_fixtures", true);
