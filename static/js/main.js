@@ -8,6 +8,7 @@ CreateANewRequest.prototype = {
       if (http.readyState == 4 && http.status == 200) {
         var csrftoken = Cookies.get('csrftoken');
         var weekly_fixs = JSON.parse(http.responseText);
+        console.log(weekly_fixs);
         var mainHtml = '';
         mainHtml = '<h2 class="weekly_fixtures">All weeks in a season</h2>';
         mainHtml += '<ul class="nav flex-column list-group">';

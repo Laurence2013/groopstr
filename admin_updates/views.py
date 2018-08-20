@@ -18,18 +18,58 @@ class AdminUpdateView(View):
         context = {
             'get_week': True if Week_table.objects.all().count() > 0 else False,
             'get_fixtures': True if Fixtures_table.objects.all().count() > 0 else False,
+            # 'get_goals_table': True if Goals_table.objects.all().count() > 0 else False,
         }
         return render(request, 'admin_update.html', context)
 
 class AdminGetCurrentWeek(View):
     def get(self, request, *args, **kwargs):
-        print(request.GET)
-        return render(request,'admin_update.html',{})
+        get_main_json = get_json.get_json_file('stats_tables')
+        return JsonResponse(get_main_json, safe = False)
 
     @method_decorator(csrf_protect)
     def post(self, request, *args, **kwargs):
-        print(request.POST['which_check_week'])
-        return redirect('admin_update')
+        '''
+        4 - Get Admin to check (using radio button) the most current week save it to all statistics tables -> forms, goals, goal_assist, red_cards etc
+        '''
+        get_week = request.POST['which_check_week']
+        '''
+        4(i) - Get all players id add first time or again in all statistics table with new pk and new week number
+        '''
+        get_players = Player_table.objects.all().values('id')
+        # for i in range(0, len(get_players)):
+            # save_players = Goals_table.objects.create(points = None, player_id = get_players[i].get('id'), week_no_id_id = get_week)
+            # save_players.save()
+        return redirect('get_stats_table', get_week)
+
+class AdminGetStatsTables(View):
+    def get(self, request, *args, **kwargs):
+        get_json = Saving_And_Getting_Json()
+        '''
+        4(i) - Get all players id add first time or again in all statistics table with new pk and new week number
+        '''
+        goals = Goals_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+        get_goals = self.__get_stats_goals_table(goals)
+        get_json.save_json(get_goals, 'stats_tables')
+        context = {
+            'get_week': True if Week_table.objects.all().count() > 0 else False,
+            'get_fixtures': True if Fixtures_table.objects.all().count() > 0 else False,
+            'get_goals_table': True if Goals_table.objects.all().count() > 0 else False,
+        }
+        return render(request, 'admin_update.html', context)
+
+
+    def __get_stats_goals_table(self, goals):
+        goals_table = []
+        for i in range(0, len(goals)):
+            context = {
+                'id': goals[i].get('id'),
+                'player_id': goals[i].get('player_id'),
+                'points': goals[i].get('points'),
+                'week_no_id_id': goals[i].get('week_no_id_id'),
+            }
+            goals_table.append(context)
+        return goals_table
 
 class AdminGetFixtures(View):
     base_dir = settings.BASE_DIR
@@ -52,7 +92,7 @@ class AdminGetWeeklyFixtures(View):
         week_fixture = self.__set_fixtures_and_week(get_week_fixtures)
         '''
         2 - Show all Weeks in Week_table and display in Admin page - show is_current_week - so admin can check which one should be current
-        2a - Save into json format
+        2(i) - Save into json format
         '''
         get_json.save_json(week_fixture, get_weekly_fixtures)
         '''

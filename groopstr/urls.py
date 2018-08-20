@@ -20,6 +20,7 @@ from admin_updates.views import *
 
 urlpatterns = [
     path('admin_update/', AdminUpdateView.as_view(), name='admin_update'),
+    path('admin_update/get_stats_table/<int:week_no>/', AdminGetStatsTables.as_view(), name='get_stats_table'),
     path('admin_update/admin_get_weekly_fixtures/', AdminGetWeeklyFixtures.as_view(), name='admin_get_weekly_fixtures'),
     path('admin_update/admin_get_fixtures/', AdminGetFixtures.as_view(), name='admin_get_fixtures'),
     # path('admin_update/admin_get_curent_week/<int:check_week>/', AdminGetCurrentWeek.as_view(), name='admin_get_curent_week'),

@@ -1,9 +1,9 @@
 from members.models import *
-from members.forms import *
-'''
-1 - Connect fixtures to its correct week before displaying - test_database_tables.Fixtures_and_Weeks class
-'''
+from players.models import *
 class Fixtures_and_Weeks:
+    '''
+    1 - Connect fixtures to its correct week before displaying - test_database_tables.Fixtures_and_Weeks class
+    '''
     def week_fixture_table_00(self):
         Week_table.objects.create(id = 11, week_no = 1, date_updated = '2018-08-17 20:44:40', end_date = '2018-08-11', start_date = '2018-08-05', is_current_week = 0)
         Week_table.objects.create(id = 12, week_no = 2, date_updated = '2018-08-17 20:44:46', end_date = '2018-08-18', start_date = '2018-08-12', is_current_week = 0)
@@ -36,6 +36,19 @@ class Fixtures_and_Weeks:
         Fixtures_table.objects.create(fixture = 'Liverpool vs Everton', date_updated = '2018-08-12 16:47:37', competition = 'pl', date_of_game = '2018-08-10', week_no_id = 13)
 
         return Week_table.objects.all().values('id','week_no','start_date','end_date','is_current_week'), Fixtures_table.objects.all().values('id','fixture','competition','date_of_game','week_no_id')
+    '''
+    4 - Get Admin to check (using radio button) the most current week save it to all statistics tables -> forms, goals, goal_assist, red_cards etc
+    '''
+    def stats_goals_table00(self):
+        Week_table.objects.create(id = 11, week_no = 1, date_updated = '2018-08-17 20:44:40', end_date = '2018-08-11', start_date = '2018-08-05', is_current_week = 0)
+        Goals_table.objects.create(points = None, player_id = None, week_no_id_id = 11)
+        return Goals_table.objects.all().values('id','points','player_id','week_no_id_id')
+
+    def stats_goals_table01(self, id, points):
+        Week_table.objects.create(id = 11, week_no = 1, date_updated = '2018-08-17 20:44:40', end_date = '2018-08-11', start_date = '2018-08-05', is_current_week = 0)
+        Goals_table.objects.create(points = 20, player_id = None, week_no_id_id = 11)
+        Goals_table.objects.filter(player_id = id).update(points = points)
+        return Goals_table.objects.all().values('id','points','player_id','week_no_id_id')
 
     def set_fixtures_and_week(self, get_week):
         week_fixture = []
