@@ -1,7 +1,8 @@
 import os
 import json
 from django.conf import settings
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
+from django.urls import reverse
 from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth.models import User
 from django.views.generic import View
@@ -18,7 +19,7 @@ class AdminUpdateView(View):
         context = {
             'get_week': True if Week_table.objects.all().count() > 0 else False,
             'get_fixtures': True if Fixtures_table.objects.all().count() > 0 else False,
-            # 'get_goals_table': True if Goals_table.objects.all().count() > 0 else False,
+            'get_goals_table': True if kwargs.get('get_goals_table') is str(True) else False,
         }
         return render(request, 'admin_update.html', context)
 
@@ -52,12 +53,10 @@ class AdminGetStatsTables(View):
         get_goals = self.__get_stats_goals_table(goals)
         get_json.save_json(get_goals, 'stats_tables')
         context = {
-            'get_week': True if Week_table.objects.all().count() > 0 else False,
-            'get_fixtures': True if Fixtures_table.objects.all().count() > 0 else False,
             'get_goals_table': True if Goals_table.objects.all().count() > 0 else False,
+            'week_number': kwargs.get('week_no'),
         }
-        return render(request, 'admin_update.html', context)
-
+        return HttpResponseRedirect(reverse('admin_update', kwargs = context))
 
     def __get_stats_goals_table(self, goals):
         goals_table = []
