@@ -16,10 +16,11 @@ from django.utils.decorators import method_decorator
 
 class AdminUpdateView(View):
     def get(self, request, *args, **kwargs):
+        print(kwargs.get('week_no'))
         context = {
             'get_week': True if Week_table.objects.all().count() > 0 else False,
             'get_fixtures': True if Fixtures_table.objects.all().count() > 0 else False,
-            'get_goals_table': True if kwargs.get('get_goals_table') is str(True) else False,
+            'get_goals_table': True if kwargs.get('week_no') else False,
         }
         return render(request, 'admin_update.html', context)
 
@@ -52,11 +53,13 @@ class AdminGetStatsTables(View):
         goals = Goals_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
         get_goals = self.__get_stats_goals_table(goals)
         get_json.save_json(get_goals, 'stats_tables')
-        context = {
-            'get_goals_table': True if Goals_table.objects.all().count() > 0 else False,
-            'week_number': kwargs.get('week_no'),
-        }
-        return HttpResponseRedirect(reverse('admin_update', kwargs = context))
+        return redirect('admin_update', week_no = kwargs.get('week_no'))
+        # return redirect('admin_update')
+        # context = {
+        #     'get_goals_table': True if Goals_table.objects.all().count() > 0 else False,
+        #     'week_number': kwargs.get('week_no'),
+        # }
+        # return HttpResponseRedirect(reverse('admin_update', kwargs = context))
 
     def __get_stats_goals_table(self, goals):
         goals_table = []
@@ -83,7 +86,7 @@ class AdminGetFixtures(View):
         return JsonResponse(get_main_json, safe = False)
 
 class AdminGetWeeklyFixtures(View):
-    def get(self, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
         get_json = Saving_And_Getting_Json()
         get_weekly_fixtures = 'get_weekly_fixtures'
         get_all_weeks = 'get_all_weeks'

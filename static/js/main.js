@@ -3,12 +3,12 @@ function CreateANewRequest(){}
 CreateANewRequest.prototype = {
   Get_Week: function() {
     var http = new XMLHttpRequest();
+    console.log(http);
     var week_ids_arr = []
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
         var csrftoken = Cookies.get('csrftoken');
         var weekly_fixs = JSON.parse(http.responseText);
-        console.log(weekly_fixs);
         var mainHtml = '';
         mainHtml = '<h2 class="weekly_fixtures">All weeks in a season</h2>';
         mainHtml += '<ul class="nav flex-column list-group">';
