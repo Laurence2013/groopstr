@@ -3,39 +3,39 @@
         "table_name": "Goals Assist"
     },
     {
+        "points": 0,
         "player_id": 1,
-        "id": 19,
-        "points": 0,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "id": 19
     },
     {
+        "points": 0,
         "player_id": 2,
-        "id": 20,
-        "points": 0,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "id": 20
     },
     {
+        "points": 0,
         "player_id": 3,
-        "id": 21,
-        "points": 0,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "id": 21
     },
     {
+        "points": 0,
         "player_id": 4,
-        "id": 22,
-        "points": 0,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "id": 22
     },
     {
+        "points": 0,
         "player_id": 5,
-        "id": 23,
-        "points": 0,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "id": 23
     },
     {
-        "player_id": 6,
-        "id": 24,
         "points": 0,
-        "week_no_id_id": 9
+        "player_id": 6,
+        "week_no_id_id": 9,
+        "id": 24
     }
 ]

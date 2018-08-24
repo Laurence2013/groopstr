@@ -97,9 +97,9 @@ class Yellow_Card_table(models.Model):
         return str(self.pk)
 
 class Red_Card_table(models.Model):
-    points = models.IntegerField(default = 0)
+    points = models.IntegerField(null=True, default = 0)
     # total_points = models.IntegerField(default = 0)
-    player = models.ForeignKey(Player_table, on_delete = models.CASCADE)
+    player = models.ForeignKey(Player_table, on_delete = models.CASCADE, null=True, blank=True)
     week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
     date_updated = models.DateTimeField(auto_now_add = True)
 

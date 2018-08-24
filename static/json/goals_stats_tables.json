@@ -3,39 +3,39 @@
         "table_name": "Goals"
     },
     {
+        "points": 0,
         "player_id": 1,
-        "id": 30,
-        "points": 0,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "id": 30
     },
     {
+        "points": 0,
         "player_id": 2,
-        "id": 31,
-        "points": 0,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "id": 31
     },
     {
+        "points": 0,
         "player_id": 3,
-        "id": 32,
-        "points": 0,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "id": 32
     },
     {
+        "points": 0,
         "player_id": 4,
-        "id": 33,
-        "points": 0,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "id": 33
     },
     {
+        "points": 0,
         "player_id": 5,
-        "id": 34,
-        "points": 0,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "id": 34
     },
     {
-        "player_id": 6,
-        "id": 35,
         "points": 0,
-        "week_no_id_id": 9
+        "player_id": 6,
+        "week_no_id_id": 9,
+        "id": 35
     }
 ]
