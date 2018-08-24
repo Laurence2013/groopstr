@@ -1,62 +1,62 @@
 [
     {
-        "is_current_week": false,
-        "week_id": 8,
         "fixture": "Chelsea vs Fiorentina",
-        "start_date": "2018-08-05",
-        "end_date": "2018-08-11",
+        "week_no": 1,
+        "is_current_week": false,
+        "competition": "Champions League",
         "date_of_game": "2018-08-08",
-        "week_no": 1,
-        "competition": "Champions League"
+        "week_id": 8,
+        "end_date": "2018-08-11",
+        "start_date": "2018-08-05"
     },
     {
-        "is_current_week": false,
-        "week_id": 8,
         "fixture": "Chelsea vs Huddersfield",
-        "start_date": "2018-08-05",
-        "end_date": "2018-08-11",
-        "date_of_game": "2018-08-11",
         "week_no": 1,
-        "competition": "Premier League"
-    },
-    {
         "is_current_week": false,
+        "competition": "Premier League",
+        "date_of_game": "2018-08-11",
         "week_id": 8,
-        "fixture": "Arsenal vs Hull",
-        "start_date": "2018-08-05",
         "end_date": "2018-08-11",
-        "date_of_game": "2018-08-11",
+        "start_date": "2018-08-05"
+    },
+    {
+        "fixture": "Arsenal vs Hull",
         "week_no": 1,
-        "competition": "Premier League"
+        "is_current_week": false,
+        "competition": "Premier League",
+        "date_of_game": "2018-08-11",
+        "week_id": 8,
+        "end_date": "2018-08-11",
+        "start_date": "2018-08-05"
     },
     {
-        "is_current_week": false,
-        "week_id": 9,
         "fixture": "Wolves vs Everton",
-        "start_date": "2018-08-12",
-        "end_date": "2018-08-18",
-        "date_of_game": "2018-08-15",
         "week_no": 2,
-        "competition": "Premier League"
-    },
-    {
         "is_current_week": false,
+        "competition": "Premier League",
+        "date_of_game": "2018-08-15",
         "week_id": 9,
-        "fixture": "Manchester United vs Arsenal",
-        "start_date": "2018-08-12",
         "end_date": "2018-08-18",
-        "date_of_game": "2018-08-15",
-        "week_no": 2,
-        "competition": "Premier League"
+        "start_date": "2018-08-12"
     },
     {
+        "fixture": "Manchester United vs Arsenal",
+        "week_no": 2,
         "is_current_week": false,
-        "week_id": 10,
+        "competition": "Premier League",
+        "date_of_game": "2018-08-15",
+        "week_id": 9,
+        "end_date": "2018-08-18",
+        "start_date": "2018-08-12"
+    },
+    {
         "fixture": "Tottenham vs Wolverhampton",
-        "start_date": "2018-08-26",
-        "end_date": "2018-09-01",
-        "date_of_game": "2018-08-25",
         "week_no": 3,
-        "competition": "Premier League"
+        "is_current_week": false,
+        "competition": "Premier League",
+        "date_of_game": "2018-08-25",
+        "week_id": 10,
+        "end_date": "2018-09-01",
+        "start_date": "2018-08-26"
     }
 ]

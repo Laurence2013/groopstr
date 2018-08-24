@@ -31,6 +31,8 @@ urlpatterns = [
 
     path('admin_update/<int:week_no>/admin_get_goals/', AdminGetGoalsView.as_view(), name='admin_get_goals'),
     path('admin_update/<int:week_no>/admin_get_goals_assist/', AdminGetGoalsAssistView.as_view(), name='admin_get_goals_assist'),
+    path('admin_update/<int:week_no>/admin_man_of_the_match/', AdminManOfTheMatchView.as_view(), name='admin_man_of_the_match'),
+    path('admin_update/<int:week_no>/admin_own_goals/', AdminOwnGoalsView.as_view(), name='admin_own_goals'),
 
     path('personal_info/', PersonalinfoView.as_view(), name='personal_info'),
     path('members/', MembersView.as_view(), name='members'),

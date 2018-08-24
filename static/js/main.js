@@ -84,6 +84,22 @@ CreateANewRequest.prototype = {
     http.send();
     get_goals_assist_table.innerHTML = 'Goals Assist...';
   },
+  Get_Man_Of_The_Match: function() {
+    var http = new XMLHttpRequest();
+    console.log(http);
+    http.open("GET", "admin_man_of_the_match", true);
+    http.setRequestHeader('Content-type', 'application/json', true);
+    http.send();
+    get_man_of_the_match_table.innerHTML = 'Man of the Match...';
+  },
+  Get_Own_Goals: function() {
+    var http = new XMLHttpRequest();
+    console.log(http);
+    http.open("GET", "admin_own_goals", true);
+    http.setRequestHeader('Content-type', 'application/json', true);
+    http.send();
+    get_own_goals.innerHTML = 'Own Goals...';
+  },
 }
 window.onload = function() {
   main = new CreateANewRequest();
@@ -98,5 +114,11 @@ window.onload = function() {
   }
   if (document.getElementById('get_goals_assist_table')) {
     main.Get_Goals_Assist();
+  }
+  if (document.getElementById('get_man_of_the_match_table')) {
+    main.Get_Man_Of_The_Match();
+  }
+  if (document.getElementById('get_own_goals')) {
+    main.Get_Own_Goals();
   }
 }

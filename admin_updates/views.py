@@ -23,6 +23,8 @@ class AdminUpdateView(View):
             'get_fixtures': True if Fixtures_table.objects.all().count() > 0 else False,
             'get_goals_table': True if kwargs.get('week_no') else False,
             'get_goals_assist_table': True if kwargs.get('week_no') else False,
+            'get_man_of_the_match_table': True if kwargs.get('week_no') else False,
+            'get_own_goals': True if kwargs.get('week_no') else False,
         }
         return render(request, 'admin_update.html', context)
 
@@ -36,6 +38,18 @@ class AdminGetGoalsAssistView(View):
     def get(self, request, *args, **kwargs):
         get_json = Saving_And_Getting_Json()
         get_main_json = get_json.get_json_file('goals_assist_stats_tables')
+        return JsonResponse(get_main_json, safe = False)
+
+class AdminManOfTheMatchView(View):
+    def get(self, request, *args, **kwargs):
+        get_json = Saving_And_Getting_Json()
+        get_main_json = get_json.get_json_file('man_of_the_match_tables')
+        return JsonResponse(get_main_json, safe = False)
+
+class AdminOwnGoalsView(View):
+    def get(self, request, *args, **kwargs):
+        get_json = Saving_And_Getting_Json()
+        get_main_json = get_json.get_json_file('own_goals_tables')
         return JsonResponse(get_main_json, safe = False)
 
 class AdminGetCurrentWeek(View):
@@ -52,6 +66,8 @@ class AdminGetCurrentWeek(View):
             get_players = Player_table.objects.all().values('id')
             # self.__save_into_stats_table(Goals_Assist_table, get_players, get_week)
             # self.__save_into_stats_table(Goals_table, get_players, get_week)
+            # self.__save_into_stats_table(Man_of_Match_table, get_players, get_week)
+            # self.__save_into_stats_table(Own_Goals_table, get_players, get_week)
             return redirect('get_stats_table', get_week)
         except Exception as e:
             print(e)
@@ -71,12 +87,18 @@ class AdminGetStatsTables(View):
         '''
         goals = Goals_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
         goals_assists = Goals_Assist_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+        man_of_the_match = Man_of_Match_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+        own_goals = Own_Goals_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
 
         get_goals = self.__get_stats_goals_table(goals, 'Goals')
         get_goals_assist = self.__get_stats_goals_table(goals_assists, 'Goals Assist')
+        get_man_of_the_match = self.__get_stats_goals_table(man_of_the_match, 'Man of the Match')
+        get_own_goals = self.__get_stats_goals_table(own_goals, 'Own goals')
 
         get_json.save_json(get_goals, 'goals_stats_tables')
         get_json.save_json(get_goals_assist,'goals_assist_stats_tables')
+        get_json.save_json(get_man_of_the_match,'man_of_the_match_tables')
+        get_json.save_json(get_own_goals,'own_goals_tables')
 
         return redirect('admin_update', week_no = kwargs.get('week_no'))
         # return HttpResponseRedirect(reverse('admin_update', kwargs = context))
