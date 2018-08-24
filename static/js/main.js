@@ -124,6 +124,14 @@ CreateANewRequest.prototype = {
     http.send();
     get_clean_sheets.innerHTML = 'Clean Sheets...';
   },
+  Get_Form: function() {
+    var http = new XMLHttpRequest();
+    console.log(http);
+    http.open("GET", "admin_form", true);
+    http.setRequestHeader('Content-type', 'application/json', true);
+    http.send();
+    get_form.innerHTML = 'Form...';
+  },
 }
 window.onload = function() {
   main = new CreateANewRequest();
@@ -153,5 +161,8 @@ window.onload = function() {
   }
   if (document.getElementById('get_clean_sheets')) {
     main.Get_Clean_Sheets();
+  }
+  if (document.getElementById('get_form')) {
+    main.Get_Form();
   }
 }

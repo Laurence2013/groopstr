@@ -28,6 +28,7 @@ class AdminUpdateView(View):
             'get_yellow_cards': True if kwargs.get('week_no') else False,
             'get_red_cards': True if kwargs.get('week_no') else False,
             'get_clean_sheets': True if kwargs.get('week_no') else False,
+            'get_form': True if kwargs.get('week_no') else False,
         }
         return render(request, 'admin_update.html', context)
 
@@ -73,6 +74,12 @@ class AdminCleanSheetsView(View):
         get_main_json = get_json.get_json_file('clean_sheets')
         return JsonResponse(get_main_json, safe = False)
 
+class AdminFormView(View):
+    def get(self, request, *args, **kwargs):
+        get_json = Saving_And_Getting_Json()
+        get_main_json = get_json.get_json_file('form')
+        return JsonResponse(get_main_json, safe = False)
+
 class AdminGetCurrentWeek(View):
     @method_decorator(csrf_protect)
     def post(self, request, *args, **kwargs):
@@ -92,6 +99,7 @@ class AdminGetCurrentWeek(View):
             # self.__save_into_stats_table(Yellow_Card_table, get_players, get_week)
             # self.__save_into_stats_table(Red_Card_table, get_players, get_week)
             # self.__save_into_stats_table(Clean_Sheets_table, get_players, get_week)
+            # self.__save_into_stats_table(Form_table, get_players, get_week)
             return redirect('get_stats_table', get_week)
         except Exception as e:
             print(e)
@@ -116,6 +124,7 @@ class AdminGetStatsTables(View):
         yellow_cards = Yellow_Card_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
         red_cards = Red_Card_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
         clean_sheets = Clean_Sheets_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+        form = Form_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
 
         get_goals = self.__get_stats_goals_table(goals, 'Goals')
         get_goals_assist = self.__get_stats_goals_table(goals_assists, 'Goals Assist')
@@ -124,6 +133,7 @@ class AdminGetStatsTables(View):
         get_yellow_cards = self.__get_stats_goals_table(yellow_cards, 'Yellow Cards')
         get_red_cards = self.__get_stats_goals_table(red_cards, 'Red Cards')
         get_clean_sheets = self.__get_stats_goals_table(clean_sheets, 'Clean Sheets')
+        get_form = self.__get_stats_goals_table(form, 'Form')
 
         get_json.save_json(get_goals, 'goals_stats_tables')
         get_json.save_json(get_goals_assist,'goals_assist_stats_tables')
@@ -132,6 +142,7 @@ class AdminGetStatsTables(View):
         get_json.save_json(get_yellow_cards,'yellow_cards')
         get_json.save_json(get_red_cards,'red_cards')
         get_json.save_json(get_clean_sheets,'clean_sheets')
+        get_json.save_json(get_form,'form')
 
         return redirect('admin_update', week_no = kwargs.get('week_no'))
         # return HttpResponseRedirect(reverse('admin_update', kwargs = context))
