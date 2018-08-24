@@ -28,6 +28,10 @@ urlpatterns = [
     path('admin_update/<int:week_no>/admin_get_fixtures/', AdminGetFixtures.as_view(), name='admin_get_fixtures'),
     path('admin_update/admin_get_current_week/', AdminGetCurrentWeek.as_view(), name='admin_get_current_week'),
     path('admin_update/<int:week_no>/admin_get_current_week/', AdminGetCurrentWeek.as_view(), name='admin_get_current_week'),
+
+    path('admin_update/<int:week_no>/admin_get_goals/', AdminGetGoalsView.as_view(), name='admin_get_goals'),
+    path('admin_update/<int:week_no>/admin_get_goals_assist/', AdminGetGoalsAssistView.as_view(), name='admin_get_goals_assist'),
+
     path('personal_info/', PersonalinfoView.as_view(), name='personal_info'),
     path('members/', MembersView.as_view(), name='members'),
     path('squad/', SquadView.as_view(), name='squad'),

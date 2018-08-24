@@ -22,15 +22,23 @@ class AdminUpdateView(View):
             'get_week': True if Week_table.objects.all().count() > 0 else False,
             'get_fixtures': True if Fixtures_table.objects.all().count() > 0 else False,
             'get_goals_table': True if kwargs.get('week_no') else False,
+            'get_goals_assist_table': True if kwargs.get('week_no') else False,
         }
         return render(request, 'admin_update.html', context)
 
-class AdminGetCurrentWeek(View):
+class AdminGetGoalsView(View):
     def get(self, request, *args, **kwargs):
         get_json = Saving_And_Getting_Json()
         get_main_json = get_json.get_json_file('goals_stats_tables')
         return JsonResponse(get_main_json, safe = False)
 
+class AdminGetGoalsAssistView(View):
+    def get(self, request, *args, **kwargs):
+        get_json = Saving_And_Getting_Json()
+        get_main_json = get_json.get_json_file('goals_assist_stats_tables')
+        return JsonResponse(get_main_json, safe = False)
+
+class AdminGetCurrentWeek(View):
     @method_decorator(csrf_protect)
     def post(self, request, *args, **kwargs):
         '''

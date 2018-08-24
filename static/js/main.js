@@ -71,10 +71,18 @@ CreateANewRequest.prototype = {
   Get_Goals: function() {
     var http = new XMLHttpRequest();
     console.log(http);
-    http.open("GET", "admin_get_current_week", true);
+    http.open("GET", "admin_get_goals", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();
     get_goals_table.innerHTML = 'Goals ...';
+  },
+  Get_Goals_Assist: function() {
+    var http = new XMLHttpRequest();
+    console.log(http);
+    http.open("GET", "admin_get_goals_assist", true);
+    http.setRequestHeader('Content-type', 'application/json', true);
+    http.send();
+    get_goals_assist_table.innerHTML = 'Goals Assist...';
   },
 }
 window.onload = function() {
@@ -87,5 +95,8 @@ window.onload = function() {
   }
   if (document.getElementById('get_goals_table')) {
     main.Get_Goals();
+  }
+  if (document.getElementById('get_goals_assist_table')) {
+    main.Get_Goals_Assist();
   }
 }
