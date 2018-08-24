@@ -16,28 +16,48 @@
 {% if get_fixtures == True %}
   <div id="get_fixtures"></div>
 {% endif %}
-{% if get_goals_table == True %}
-  <div id="get_goals_table"></div>
-{% endif %}
-{% if get_goals_assist_table == True %}
-  <div id="get_goals_assist_table"></div>
-{% endif %}
-{% if get_man_of_the_match_table == True %}
-  <div id="get_man_of_the_match_table"></div>
-{% endif %}
-{% if get_own_goals == True %}
-  <div id="get_own_goals"></div>
-{% endif %}
-{% if get_yellow_cards == True %}
-  <div id="get_yellow_cards"></div>
-{% endif %}
-{% if get_red_cards == True %}
-  <div id="get_red_cards"></div>
-{% endif %}
-{% if get_clean_sheets == True %}
-  <div id="get_clean_sheets"></div>
-{% endif %}
-{% if get_form == True %}
-  <div id="get_form"></div>
-{% endif %}
+<div class="row">
+  <div class="col">
+    {% if get_goals_table == True %}
+      <div id="get_goals_table"></div>
+    {% endif %}
+  </div>
+  <div class="col">
+    {% if get_goals_assist_table == True %}
+      <div id="get_goals_assist_table"></div>
+    {% endif %}
+  </div>
+  <div class="col">
+    {% if get_man_of_the_match_table == True %}
+      <div id="get_man_of_the_match_table"></div>
+    {% endif %}
+  </div>
+  <div class="col">
+    {% if get_own_goals == True %}
+      <div id="get_own_goals"></div>
+    {% endif %}
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    {% if get_yellow_cards == True %}
+      <div id="get_yellow_cards"></div>
+    {% endif %}
+  </div>
+  <div class="col">
+    {% if get_red_cards == True %}
+      <div id="get_red_cards"></div>
+    {% endif %}
+  </div>
+  <div class="col">
+    {% if get_clean_sheets == True %}
+      <div id="get_clean_sheets"></div>
+    {% endif %}
+  </div>
+  <div class="col">
+    {% if get_form == True %}
+      <div id="get_form"></div>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}
