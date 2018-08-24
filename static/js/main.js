@@ -100,6 +100,14 @@ CreateANewRequest.prototype = {
     http.send();
     get_own_goals.innerHTML = 'Own Goals...';
   },
+  Get_Yellow_Cards: function() {
+    var http = new XMLHttpRequest();
+    console.log(http);
+    http.open("GET", "admin_yellow_cards", true);
+    http.setRequestHeader('Content-type', 'application/json', true);
+    http.send();
+    get_yellow_cards.innerHTML = 'Yellow Cards...';
+  },
 }
 window.onload = function() {
   main = new CreateANewRequest();
@@ -120,5 +128,8 @@ window.onload = function() {
   }
   if (document.getElementById('get_own_goals')) {
     main.Get_Own_Goals();
+  }
+  if (document.getElementById('get_yellow_cards')) {
+    main.Get_Yellow_Cards();
   }
 }
