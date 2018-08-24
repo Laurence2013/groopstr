@@ -3,6 +3,13 @@
 {% block content %}
 </script>
 <h1>Admin update Page</h1>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
 {% if get_week == True %}
   <div id="get_week"></div>
 {% endif %}
@@ -10,7 +17,6 @@
   <div id="get_fixtures"></div>
 {% endif %}
 {% if get_goals_table == True %}
-Hello
   <div id="get_goals_table"></div>
 {% endif %}
 

@@ -20,23 +20,14 @@ from admin_updates.views import *
 
 urlpatterns = [
     path('admin_update/', AdminUpdateView.as_view(), name='admin_update'),
-    # path('admin_update/<slug:get_goals_table>/<slug:week_number>', AdminUpdateView.as_view(), name='admin_update'),
-    # path('admin_update/get_stats_table/<int:week_no>/admin_get_weekly_fixtures/', AdminUpdateView.as_view(), name='admin_update'),
     path('admin_update/<int:week_no>/', AdminUpdateView.as_view(), name='admin_update'),
-
     path('admin_update/get_stats_table/<int:week_no>/', AdminGetStatsTables.as_view(), name='get_stats_table'),
-
     path('admin_update/admin_get_weekly_fixtures/', AdminGetWeeklyFixtures.as_view(), name='admin_get_weekly_fixtures'),
     path('admin_update/<int:week_no>/admin_get_weekly_fixtures/', AdminGetWeeklyFixtures.as_view(), name='admin_get_weekly_fixtures'),
-    # path('admin_update/get_stats_table/', AdminGetWeeklyFixtures.as_view(), name='admin_get_weekly_fixtures'),
-    # path('admin_update/get_stats_table/<int:week_no>/admin_get_weekly_fixtures', AdminGetWeeklyFixtures.as_view(), name='admin_get_weekly_fixtures'),
-    # path('admin_update/<slug:get_goals_table>/admin_get_weekly_fixtures', AdminGetWeeklyFixtures.as_view(), name='admin_get_weekly_fixtures'),
-
     path('admin_update/admin_get_fixtures/', AdminGetFixtures.as_view(), name='admin_get_fixtures'),
     path('admin_update/<int:week_no>/admin_get_fixtures/', AdminGetFixtures.as_view(), name='admin_get_fixtures'),
-
     path('admin_update/admin_get_current_week/', AdminGetCurrentWeek.as_view(), name='admin_get_current_week'),
-    # path('admin_update/admin_get_current_week/', current_datetime, name='admin_get_current_week'),
+    path('admin_update/<int:week_no>/admin_get_current_week/', AdminGetCurrentWeek.as_view(), name='admin_get_current_week'),
     path('personal_info/', PersonalinfoView.as_view(), name='personal_info'),
     path('members/', MembersView.as_view(), name='members'),
     path('squad/', SquadView.as_view(), name='squad'),

@@ -3,7 +3,6 @@ function CreateANewRequest(){}
 CreateANewRequest.prototype = {
   Get_Week: function() {
     var http = new XMLHttpRequest();
-    console.log(http);
     var week_ids_arr = []
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
@@ -69,6 +68,14 @@ CreateANewRequest.prototype = {
       get_fixtures.innerHTML = 'Weekly fixtures ...';
     }
   },
+  Get_Goals: function() {
+    var http = new XMLHttpRequest();
+    console.log(http);
+    http.open("GET", "admin_get_current_week", true);
+    http.setRequestHeader('Content-type', 'application/json', true);
+    http.send();
+    get_goals_table.innerHTML = 'Goals ...';
+  },
 }
 window.onload = function() {
   main = new CreateANewRequest();
@@ -77,5 +84,8 @@ window.onload = function() {
   }
   if (document.getElementById('get_fixtures')) {
     main.Get_Fixtures(undefined);
+  }
+  if (document.getElementById('get_goals_table')) {
+    main.Get_Goals();
   }
 }

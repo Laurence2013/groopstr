@@ -13,6 +13,7 @@ from players.models import *
 from admin_updates.saving_and_getting_json import Saving_And_Getting_Json
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
+from django.contrib import messages
 
 class AdminUpdateView(View):
     def get(self, request, *args, **kwargs):
@@ -26,7 +27,8 @@ class AdminUpdateView(View):
 
 class AdminGetCurrentWeek(View):
     def get(self, request, *args, **kwargs):
-        get_main_json = get_json.get_json_file('stats_tables')
+        get_json = Saving_And_Getting_Json()
+        get_main_json = get_json.get_json_file('goals_stats_tables')
         return JsonResponse(get_main_json, safe = False)
 
     @method_decorator(csrf_protect)
@@ -34,15 +36,24 @@ class AdminGetCurrentWeek(View):
         '''
         4 - Get Admin to check (using radio button) the most current week save it to all statistics tables -> forms, goals, goal_assist, red_cards etc
         '''
-        get_week = request.POST['which_check_week']
-        '''
-        4(i) - Get all players id add first time or again in all statistics table with new pk and new week number
-        '''
-        get_players = Player_table.objects.all().values('id')
-        # for i in range(0, len(get_players)):
-            # save_players = Goals_table.objects.create(points = None, player_id = get_players[i].get('id'), week_no_id_id = get_week)
-            # save_players.save()
-        return redirect('get_stats_table', get_week)
+        try:
+            get_week = request.POST['which_check_week']
+            '''
+            4(i) - Get all players id add first time or again in all statistics table with new pk and new week number
+            '''
+            get_players = Player_table.objects.all().values('id')
+            # self.__save_into_stats_table(Goals_Assist_table, get_players, get_week)
+            # self.__save_into_stats_table(Goals_table, get_players, get_week)
+            return redirect('get_stats_table', get_week)
+        except Exception as e:
+            print(e)
+        messages.error(request, 'You need to choose which week should be current')
+        return redirect('admin_update')
+
+    def __save_into_stats_table(self, stats_table_name, get_players, get_week):
+        for i in range(0, len(get_players)):
+            save_players = stats_table_name.objects.create(points = None, player_id = get_players[i].get('id'), week_no_id_id = get_week)
+            save_players.save()
 
 class AdminGetStatsTables(View):
     def get(self, request, *args, **kwargs):
@@ -51,18 +62,20 @@ class AdminGetStatsTables(View):
         4(i) - Get all players id add first time or again in all statistics table with new pk and new week number
         '''
         goals = Goals_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-        get_goals = self.__get_stats_goals_table(goals)
-        get_json.save_json(get_goals, 'stats_tables')
+        goals_assists = Goals_Assist_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+
+        get_goals = self.__get_stats_goals_table(goals, 'Goals')
+        get_goals_assist = self.__get_stats_goals_table(goals_assists, 'Goals Assist')
+
+        get_json.save_json(get_goals, 'goals_stats_tables')
+        get_json.save_json(get_goals_assist,'goals_assist_stats_tables')
+
         return redirect('admin_update', week_no = kwargs.get('week_no'))
-        # return redirect('admin_update')
-        # context = {
-        #     'get_goals_table': True if Goals_table.objects.all().count() > 0 else False,
-        #     'week_number': kwargs.get('week_no'),
-        # }
         # return HttpResponseRedirect(reverse('admin_update', kwargs = context))
 
-    def __get_stats_goals_table(self, goals):
+    def __get_stats_goals_table(self, goals, table_name):
         goals_table = []
+        goals_table.append({'table_name': table_name})
         for i in range(0, len(goals)):
             context = {
                 'id': goals[i].get('id'),
