@@ -116,6 +116,14 @@ CreateANewRequest.prototype = {
     http.send();
     get_red_cards.innerHTML = 'Red Cards...';
   },
+  Get_Clean_Sheets: function() {
+    var http = new XMLHttpRequest();
+    console.log(http);
+    http.open("GET", "admin_clean_sheets", true);
+    http.setRequestHeader('Content-type', 'application/json', true);
+    http.send();
+    get_clean_sheets.innerHTML = 'Clean Sheets...';
+  },
 }
 window.onload = function() {
   main = new CreateANewRequest();
@@ -142,5 +150,8 @@ window.onload = function() {
   }
   if (document.getElementById('get_red_cards')) {
     main.Get_Red_Cards();
+  }
+  if (document.getElementById('get_clean_sheets')) {
+    main.Get_Clean_Sheets();
   }
 }
