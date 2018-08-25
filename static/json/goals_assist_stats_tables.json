@@ -3,45 +3,45 @@
         "table_name": "Goals Assist"
     },
     {
-        "player_name": "Leonel Messi",
         "id": 19,
         "points": 0,
-        "player_id": 1,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "player_name": "Leonel Messi",
+        "player_id": 1
     },
     {
-        "player_name": "Sergio Aguero",
         "id": 20,
         "points": 0,
-        "player_id": 2,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "player_name": "Sergio Aguero",
+        "player_id": 2
     },
     {
-        "player_name": "Javier Hernandez",
         "id": 21,
         "points": 0,
-        "player_id": 3,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "player_name": "Javier Hernandez",
+        "player_id": 3
     },
     {
-        "player_name": "Gary Cahill",
         "id": 22,
         "points": 0,
-        "player_id": 4,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "player_name": "Gary Cahill",
+        "player_id": 4
     },
     {
-        "player_name": "Jordan Pickford",
         "id": 23,
         "points": 0,
-        "player_id": 5,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "player_name": "Jordan Pickford",
+        "player_id": 5
     },
     {
-        "player_name": "Paul Pogba",
         "id": 24,
         "points": 0,
-        "player_id": 6,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "player_name": "Paul Pogba",
+        "player_id": 6
     }
 ]
