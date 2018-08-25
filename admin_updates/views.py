@@ -14,6 +14,7 @@ from admin_updates.saving_and_getting_json import Saving_And_Getting_Json
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from django.contrib import messages
+from admin_updates.saving_points import Saving_Points
 
 class AdminUpdateView(View):
     def get(self, request, *args, **kwargs):
@@ -42,26 +43,16 @@ class AdminGetGoalsView(View):
         '''
         5 - Enter new points to the right player in the right week for example if week 8, then make sure it is week 8, right player id, then ad points
         '''
-        goals_player_dict = {}
+        saving_points = Saving_Points()
         goals_player = []
         goals_player.append({'week_no': request.POST.get('week_no')})
         goals = request.POST.getlist('goals')
         player_id = request.POST.getlist('player_id')
-
-        for i in range(0,len(goals)):
-            goals_player_dict = {
-                'player_id': player_id[i],
-                'points': goals[i],
-            }
-            goals_player.append(goals_player_dict)
-
-        week_no = Goals_table.objects.filter(week_no_id_id = goals_player[0].get('week_no')).values('week_no_id_id', 'player_id')
-        week_index = 0
-        for j in range(1, len(goals_player)):
-            if int(goals_player[0].get('week_no')) == week_no[week_index].get('week_no_id_id') and int(goals_player[j].get('player_id')) == week_no[week_index].get('player_id'):
-                Goals_table.objects.filter(week_no_id_id = goals_player[0].get('week_no'), player_id = int(goals_player[j].get('player_id'))).update(points = goals_player[j].get('points'))
-            week_index += 1
-        messages.success(request, 'Goals table for week '+ request.POST.get('week_no') +' has been updated')
+        points_is_saved = saving_points.save_points(goals_player, goals, player_id)
+        if points_is_saved is True:
+            messages.success(request, 'Goals table for week '+ request.POST.get('week_no') +' has been updated')
+        else:
+            messages.error(request, 'Somethign went wrong when updating '+ request.POST.get('week_no') +', please revisit the error')
         return redirect('admin_update')
 
 class AdminGetGoalsAssistView(View):
