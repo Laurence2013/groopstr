@@ -73,12 +73,14 @@ CreateANewRequest.prototype = {
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
         var goals = JSON.parse(http.responseText);
-        console.log(goals);
         var mainHtml = '';
         mainHtml = '<h5 class="weekly_fixtures">Goals scored</h5>';
         mainHtml += '<ul class="nav flex-column list-group">';
-        for (i = 0; i < goals.length; i++) {
-          // mainHtml = '<li id="backg-colour" class="nav-item list-group-item">'
+        for (i = 1; i < goals.length; i++) {
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + goals[i].player_name
+          + '<br /><b>Week number: </b>' + goals[i].week_no_id_id
+          + '<br /><b>Points: </b>' + '<input type="text" id="'+ goals[i].id +'" value="'+ goals[i].points +'">'
+          + '<br /><b>Total points: </b>' + 0 +'</li>';
         }
         mainHtml += '</ul>';
         get_goals_table.innerHTML = mainHtml;
@@ -91,7 +93,22 @@ CreateANewRequest.prototype = {
   },
   Get_Goals_Assist: function() {
     var http = new XMLHttpRequest();
-    console.log(http);
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var goals_assists = JSON.parse(http.responseText);
+        var mainHtml = '';
+        mainHtml = '<h5 class="weekly_fixtures">Goals Assists</h5>';
+        mainHtml += '<ul class="nav flex-column list-group">';
+        for (i = 1; i < goals_assists.length; i++) {
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + goals_assists[i].player_name
+          + '<br /><b>Week number: </b>' + goals_assists[i].week_no_id_id
+          + '<br /><b>Points: </b>' + '<input type="text" id="'+ goals_assists[i].id +'" value="'+ goals_assists[i].points +'">'
+          + '<br /><b>Total points: </b>' + 0 +'</li>';
+        }
+        mainHtml += '</ul>';
+        get_goals_assist_table.innerHTML = mainHtml;
+      }
+    }
     http.open("GET", "admin_get_goals_assist", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();
@@ -99,7 +116,22 @@ CreateANewRequest.prototype = {
   },
   Get_Man_Of_The_Match: function() {
     var http = new XMLHttpRequest();
-    console.log(http);
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var man_of_the_match = JSON.parse(http.responseText);
+        var mainHtml = '';
+        mainHtml = '<h5 class="weekly_fixtures">Man of the Match</h5>';
+        mainHtml += '<ul class="nav flex-column list-group">';
+        for (i = 1; i < man_of_the_match.length; i++) {
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + man_of_the_match[i].player_name
+          + '<br /><b>Week number: </b>' + man_of_the_match[i].week_no_id_id
+          + '<br /><b>Points: </b>' + '<input type="text" id="'+ man_of_the_match[i].id +'" value="'+ man_of_the_match[i].points +'">'
+          + '<br /><b>Total points: </b>' + 0 +'</li>';
+        }
+        mainHtml += '</ul>';
+        get_man_of_the_match_table.innerHTML = mainHtml;
+      }
+    }
     http.open("GET", "admin_man_of_the_match", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();
@@ -107,7 +139,22 @@ CreateANewRequest.prototype = {
   },
   Get_Own_Goals: function() {
     var http = new XMLHttpRequest();
-    console.log(http);
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var own_goals = JSON.parse(http.responseText);
+        var mainHtml = '';
+        mainHtml = '<h5 class="weekly_fixtures">Own Goals</h5>';
+        mainHtml += '<ul class="nav flex-column list-group">';
+        for (i = 1; i < own_goals.length; i++) {
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + own_goals[i].player_name
+          + '<br /><b>Week number: </b>' + own_goals[i].week_no_id_id
+          + '<br /><b>Points: </b>' + '<input type="text" id="'+ own_goals[i].id +'" value="'+ own_goals[i].points +'">'
+          + '<br /><b>Total points: </b>' + 0 +'</li>';
+        }
+        mainHtml += '</ul>';
+        get_own_goals.innerHTML = mainHtml;
+      }
+    }
     http.open("GET", "admin_own_goals", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();
@@ -115,7 +162,22 @@ CreateANewRequest.prototype = {
   },
   Get_Yellow_Cards: function() {
     var http = new XMLHttpRequest();
-    console.log(http);
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var yellow_cards = JSON.parse(http.responseText);
+        var mainHtml = '';
+        mainHtml = '<h5 class="weekly_fixtures">Yellow Cards</h5>';
+        mainHtml += '<ul class="nav flex-column list-group">';
+        for (i = 1; i < yellow_cards.length; i++) {
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + yellow_cards[i].player_name
+          + '<br /><b>Week number: </b>' + yellow_cards[i].week_no_id_id
+          + '<br /><b>Points: </b>' + '<input type="text" id="'+ yellow_cards[i].id +'" value="'+ yellow_cards[i].points +'">'
+          + '<br /><b>Total points: </b>' + 0 +'</li>';
+        }
+        mainHtml += '</ul>';
+        get_yellow_cards.innerHTML = mainHtml;
+      }
+    }
     http.open("GET", "admin_yellow_cards", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();
@@ -123,7 +185,22 @@ CreateANewRequest.prototype = {
   },
   Get_Red_Cards: function() {
     var http = new XMLHttpRequest();
-    console.log(http);
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var red_cards = JSON.parse(http.responseText);
+        var mainHtml = '';
+        mainHtml = '<h5 class="weekly_fixtures">Red Cards</h5>';
+        mainHtml += '<ul class="nav flex-column list-group">';
+        for (i = 1; i < red_cards.length; i++) {
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + red_cards[i].player_name
+          + '<br /><b>Week number: </b>' + red_cards[i].week_no_id_id
+          + '<br /><b>Points: </b>' + '<input type="text" id="'+ red_cards[i].id +'" value="'+ red_cards[i].points +'">'
+          + '<br /><b>Total points: </b>' + 0 +'</li>';
+        }
+        mainHtml += '</ul>';
+        get_red_cards.innerHTML = mainHtml;
+      }
+    }
     http.open("GET", "admin_red_cards", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();
@@ -131,7 +208,22 @@ CreateANewRequest.prototype = {
   },
   Get_Clean_Sheets: function() {
     var http = new XMLHttpRequest();
-    console.log(http);
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var clean_sheets = JSON.parse(http.responseText);
+        var mainHtml = '';
+        mainHtml = '<h5 class="weekly_fixtures">Clean Sheets</h5>';
+        mainHtml += '<ul class="nav flex-column list-group">';
+        for (i = 1; i < clean_sheets.length; i++) {
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + clean_sheets[i].player_name
+          + '<br /><b>Week number: </b>' + clean_sheets[i].week_no_id_id
+          + '<br /><b>Points: </b>' + '<input type="text" id="'+ clean_sheets[i].id +'" value="'+ clean_sheets[i].points +'">'
+          + '<br /><b>Total points: </b>' + 0 +'</li>';
+        }
+        mainHtml += '</ul>';
+        get_clean_sheets.innerHTML = mainHtml;
+      }
+    }
     http.open("GET", "admin_clean_sheets", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();
@@ -139,7 +231,22 @@ CreateANewRequest.prototype = {
   },
   Get_Form: function() {
     var http = new XMLHttpRequest();
-    console.log(http);
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var form = JSON.parse(http.responseText);
+        var mainHtml = '';
+        mainHtml = '<h5 class="weekly_fixtures">Form</h5>';
+        mainHtml += '<ul class="nav flex-column list-group">';
+        for (i = 1; i < form.length; i++) {
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + form[i].player_name
+          + '<br /><b>Week number: </b>' + form[i].week_no_id_id
+          + '<br /><b>Points: </b>' + '<input type="text" id="'+ form[i].id +'" value="'+ form[i].points +'">'
+          + '<br /><b>Total points: </b>' + 0 +'</li>';
+        }
+        mainHtml += '</ul>';
+        get_form.innerHTML = mainHtml;
+      }
+    }
     http.open("GET", "admin_form", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();
