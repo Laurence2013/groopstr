@@ -70,7 +70,20 @@ CreateANewRequest.prototype = {
   },
   Get_Goals: function() {
     var http = new XMLHttpRequest();
-    console.log(http);
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var goals = JSON.parse(http.responseText);
+        console.log(goals);
+        var mainHtml = '';
+        mainHtml = '<h5 class="weekly_fixtures">Goals scored</h5>';
+        mainHtml += '<ul class="nav flex-column list-group">';
+        for (i = 0; i < goals.length; i++) {
+          // mainHtml = '<li id="backg-colour" class="nav-item list-group-item">'
+        }
+        mainHtml += '</ul>';
+        get_goals_table.innerHTML = mainHtml;
+      }
+    }
     http.open("GET", "admin_get_goals", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();

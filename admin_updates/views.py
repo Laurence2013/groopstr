@@ -150,13 +150,17 @@ class AdminGetStatsTables(View):
     def __get_stats_goals_table(self, goals, table_name):
         goals_table = []
         goals_table.append({'table_name': table_name})
+        players = Player_table.objects.all().values('id','player_name')
         for i in range(0, len(goals)):
-            context = {
-                'id': goals[i].get('id'),
-                'player_id': goals[i].get('player_id'),
-                'points': goals[i].get('points'),
-                'week_no_id_id': goals[i].get('week_no_id_id'),
-            }
+            for j in range(0, len(players)):
+                if goals[i].get('player_id') == players[j].get('id'):
+                    context = {
+                        'id': goals[i].get('id'),
+                        'player_id': goals[i].get('player_id'),
+                        'player_name': players[j].get('player_name'),
+                        'points': goals[i].get('points'),
+                        'week_no_id_id': goals[i].get('week_no_id_id'),
+                    }
             goals_table.append(context)
         return goals_table
 
