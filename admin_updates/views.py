@@ -61,8 +61,8 @@ class AdminGetGoalsView(View):
             if int(goals_player[0].get('week_no')) == week_no[week_index].get('week_no_id_id') and int(goals_player[j].get('player_id')) == week_no[week_index].get('player_id'):
                 Goals_table.objects.filter(week_no_id_id = goals_player[0].get('week_no'), player_id = int(goals_player[j].get('player_id'))).update(points = goals_player[j].get('points'))
             week_index += 1
-
-        return HttpResponse('Hello')
+        messages.success(request, 'Goals table for week '+ request.POST.get('week_no') +' has been updated')
+        return redirect('admin_update')
 
 class AdminGetGoalsAssistView(View):
     def get(self, request, *args, **kwargs):
