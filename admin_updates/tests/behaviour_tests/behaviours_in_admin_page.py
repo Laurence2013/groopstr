@@ -14,6 +14,7 @@ Admin will always update players points into the players statistics tables
 3 - Show admin all the weeks for the season and future competitions within the season
 4 - Get Admin to check (using radio button) the most current week save it to all statistics tables -> forms, goals, goal_assist, red_cards etc
 4(i) - Get all players id add first time or again in all statistics table with new pk and new week number
+5 - Enter new points to the right player in the right week for example if week 8, then make sure it is week 8, right player id, then ad points
 '''
 class Behaviours_In_Admin_Page(TestCase):
     def setUp(self):

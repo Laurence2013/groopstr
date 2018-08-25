@@ -1,7 +1,7 @@
 import os
 import json
 from django.conf import settings
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse
 from django.urls import reverse
 from django.core.serializers.json import DjangoJSONEncoder
 from django.contrib.auth.models import User
@@ -37,6 +37,32 @@ class AdminGetGoalsView(View):
         get_json = Saving_And_Getting_Json()
         get_main_json = get_json.get_json_file('goals_stats_tables')
         return JsonResponse(get_main_json, safe = False)
+
+    def post(self, request, *args, **kwargs):
+        '''
+        5 - Enter new points to the right player in the right week for example if week 8, then make sure it is week 8, right player id, then ad points
+        '''
+        goals_player_dict = {}
+        goals_player = []
+        goals_player.append({'week_no': request.POST.get('week_no')})
+        goals = request.POST.getlist('goals')
+        player_id = request.POST.getlist('player_id')
+
+        for i in range(0,len(goals)):
+            goals_player_dict = {
+                'player_id': player_id[i],
+                'points': goals[i],
+            }
+            goals_player.append(goals_player_dict)
+
+        week_no = Goals_table.objects.filter(week_no_id_id = goals_player[0].get('week_no')).values('week_no_id_id', 'player_id')
+        week_index = 0
+        for j in range(1, len(goals_player)):
+            if int(goals_player[0].get('week_no')) == week_no[week_index].get('week_no_id_id') and int(goals_player[j].get('player_id')) == week_no[week_index].get('player_id'):
+                Goals_table.objects.filter(week_no_id_id = goals_player[0].get('week_no'), player_id = int(goals_player[j].get('player_id'))).update(points = goals_player[j].get('points'))
+            week_index += 1
+
+        return HttpResponse('Hello')
 
 class AdminGetGoalsAssistView(View):
     def get(self, request, *args, **kwargs):
@@ -145,7 +171,6 @@ class AdminGetStatsTables(View):
         get_json.save_json(get_form,'form')
 
         return redirect('admin_update', week_no = kwargs.get('week_no'))
-        # return HttpResponseRedirect(reverse('admin_update', kwargs = context))
 
     def __get_stats_goals_table(self, goals, table_name):
         goals_table = []

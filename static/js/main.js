@@ -70,18 +70,25 @@ CreateANewRequest.prototype = {
   },
   Get_Goals: function() {
     var http = new XMLHttpRequest();
+    var csrftoken = Cookies.get('csrftoken');
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
         var goals = JSON.parse(http.responseText);
         var mainHtml = '';
         mainHtml = '<h5 class="weekly_fixtures">Goals scored</h5>';
         mainHtml += '<ul class="nav flex-column list-group">';
+        mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/admin_get_goals/" method="POST">';
+        mainHtml += '<input type="hidden" name="week_no" value="'+ goals[1].week_no_id_id +'">'
         for (i = 1; i < goals.length; i++) {
           mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + goals[i].player_name
           + '<br /><b>Week number: </b>' + goals[i].week_no_id_id
-          + '<br /><b>Points: </b>' + '<input type="text" id="'+ goals[i].id +'" value="'+ goals[i].points +'">'
-          + '<br /><b>Total points: </b>' + 0 +'</li>';
+          + '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">'
+          + '<input type="hidden" name="player_id" value="'+ goals[i].player_id +'">'
+          + '<input type="text" name="goals" value="'+ 0 +'">'
+          + '<br /><b>Total points: </b>' + goals[i].points +'</li>';
         }
+        mainHtml += '<input type="submit" value="Submit">';
+        mainHtml += '</form>';
         mainHtml += '</ul>';
         get_goals_table.innerHTML = mainHtml;
       }
