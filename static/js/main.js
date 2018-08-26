@@ -280,18 +280,25 @@ CreateANewRequest.prototype = {
   },
   Get_Form: function() {
     var http = new XMLHttpRequest();
+    var csrftoken = Cookies.get('csrftoken');
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
         var form = JSON.parse(http.responseText);
         var mainHtml = '';
         mainHtml = '<h5 class="weekly_fixtures">Form</h5>';
         mainHtml += '<ul class="nav flex-column list-group">';
+        mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/admin_form/" method="POST">';
+        mainHtml += '<input type="hidden" name="week_no" value="'+ form[1].week_no_id_id +'">'
         for (i = 1; i < form.length; i++) {
           mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + form[i].player_name
           + '<br /><b>Week number: </b>' + form[i].week_no_id_id
-          + '<br /><b>Points: </b>' + '<input type="text" id="'+ form[i].id +'" value="'+ form[i].points +'">'
-          + '<br /><b>Total points: </b>' + 0 +'</li>';
+          + '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">'
+          + '<input type="hidden" name="player_id" value="'+ form[i].player_id +'">'
+          + '<input type="text" name="form" value="'+ 0 +'">'
+          + '<br /><b>Total points: </b>' + form[i].points +'</li>';
         }
+        mainHtml += '<input type="submit" value="Submit">';
+        mainHtml += '</form>';
         mainHtml += '</ul>';
         get_form.innerHTML = mainHtml;
       }

@@ -50,6 +50,7 @@ urlpatterns = [
     path('admin_update/admin_clean_sheets/', AdminCleanSheetsView.as_view(), name='admin_clean_sheets'),
     path('admin_update/<int:week_no>/admin_clean_sheets/', AdminCleanSheetsView.as_view(), name='admin_clean_sheets'),
 
+    path('admin_update/admin_form/', AdminFormView.as_view(), name='admin_form'),
     path('admin_update/<int:week_no>/admin_form/', AdminFormView.as_view(), name='admin_form'),
 
     path('personal_info/', PersonalinfoView.as_view(), name='personal_info'),
