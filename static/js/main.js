@@ -130,18 +130,25 @@ CreateANewRequest.prototype = {
   },
   Get_Man_Of_The_Match: function() {
     var http = new XMLHttpRequest();
+    var csrftoken = Cookies.get('csrftoken');
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
         var man_of_the_match = JSON.parse(http.responseText);
         var mainHtml = '';
         mainHtml = '<h5 class="weekly_fixtures">Man of the Match</h5>';
         mainHtml += '<ul class="nav flex-column list-group">';
+        mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/admin_man_of_the_match/" method="POST">';
+        mainHtml += '<input type="hidden" name="week_no" value="'+ man_of_the_match[1].week_no_id_id +'">'
         for (i = 1; i < man_of_the_match.length; i++) {
           mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + man_of_the_match[i].player_name
           + '<br /><b>Week number: </b>' + man_of_the_match[i].week_no_id_id
-          + '<br /><b>Points: </b>' + '<input type="text" id="'+ man_of_the_match[i].id +'" value="'+ man_of_the_match[i].points +'">'
-          + '<br /><b>Total points: </b>' + 0 +'</li>';
+          + '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">'
+          + '<input type="hidden" name="player_id" value="'+ man_of_the_match[i].player_id +'">'
+          + '<input type="text" name="man_of_the_match" value="'+ 0 +'">'
+          + '<br /><b>Total points: </b>' + man_of_the_match[i].points +'</li>';
         }
+        mainHtml += '<input type="submit" value="Submit">';
+        mainHtml += '</form>';
         mainHtml += '</ul>';
         get_man_of_the_match_table.innerHTML = mainHtml;
       }

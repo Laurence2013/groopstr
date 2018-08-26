@@ -9,6 +9,7 @@ class Saving_Points:
                 'points': goals[i],
             }
             goals_player.append(goals_player_dict)
+
         week_no = table_name.objects.filter(week_no_id_id = goals_player[0].get('week_no')).values('week_no_id_id', 'player_id')
         week_index = 0
         for j in range(1, len(goals_player)):

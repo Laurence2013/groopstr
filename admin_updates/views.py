@@ -52,7 +52,7 @@ class AdminGetGoalsView(View):
         if points_is_saved is True:
             messages.success(request, 'Goals table for week '+ request.POST.get('week_no') +' has been updated')
         else:
-            messages.error(request, 'Somethign went wrong when updating '+ request.POST.get('week_no') +', please revisit the error')
+            messages.error(request, 'Something went wrong when updating '+ request.POST.get('week_no') +', please revisit the error')
         return redirect('admin_update')
 
 class AdminGetGoalsAssistView(View):
@@ -74,7 +74,7 @@ class AdminGetGoalsAssistView(View):
         if points_is_saved is True:
             messages.success(request, 'Goals Assists table for week '+ request.POST.get('week_no') +' has been updated')
         else:
-            messages.error(request, 'Somethign went wrong when updating '+ request.POST.get('week_no') +', please revisit the error')
+            messages.error(request, 'Something went wrong when updating '+ request.POST.get('week_no') +', please revisit the error')
         return redirect('admin_update')
 
 class AdminManOfTheMatchView(View):
@@ -82,6 +82,22 @@ class AdminManOfTheMatchView(View):
         get_json = Saving_And_Getting_Json()
         get_main_json = get_json.get_json_file('man_of_the_match_tables')
         return JsonResponse(get_main_json, safe = False)
+
+    def post(self, request, *args, **kwargs):
+        '''
+        5 - Enter new points to the right player in the right week for example if week 8, then make sure it is week 8, right player id, then ad points
+        '''
+        saving_points = Saving_Points()
+        goals_player = []
+        goals_player.append({'week_no': request.POST.get('week_no')})
+        man_of_the_match = request.POST.getlist('man_of_the_match')
+        player_id = request.POST.getlist('player_id')
+        points_is_saved = saving_points.save_points(goals_player, man_of_the_match, player_id, Man_of_Match_table)
+        if points_is_saved is True:
+            messages.success(request, 'Man of the Match table for week '+ request.POST.get('week_no') +' has been updated')
+        else:
+            messages.error(request, 'Something went wrong when updating '+ request.POST.get('week_no') +', please revisit the error')
+        return redirect('admin_update')
 
 class AdminOwnGoalsView(View):
     def get(self, request, *args, **kwargs):
