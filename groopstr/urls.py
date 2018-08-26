@@ -38,7 +38,9 @@ urlpatterns = [
     path('admin_update/admin_man_of_the_match/', AdminManOfTheMatchView.as_view(), name='admin_man_of_the_match'),
     path('admin_update/<int:week_no>/admin_man_of_the_match/', AdminManOfTheMatchView.as_view(), name='admin_man_of_the_match'),
 
+    path('admin_update/admin_own_goals/', AdminOwnGoalsView.as_view(), name='admin_own_goals'),
     path('admin_update/<int:week_no>/admin_own_goals/', AdminOwnGoalsView.as_view(), name='admin_own_goals'),
+
     path('admin_update/<int:week_no>/admin_yellow_cards/', AdminYellowCardsView.as_view(), name='admin_yellow_cards'),
     path('admin_update/<int:week_no>/admin_red_cards/', AdminRedCardsView.as_view(), name='admin_red_cards'),
     path('admin_update/<int:week_no>/admin_clean_sheets/', AdminCleanSheetsView.as_view(), name='admin_clean_sheets'),

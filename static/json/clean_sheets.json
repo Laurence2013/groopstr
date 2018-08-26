@@ -3,45 +3,45 @@
         "table_name": "Clean Sheets"
     },
     {
+        "player_id": 1,
         "id": 12,
         "points": 0,
-        "player_name": "Leonel Messi",
         "week_no_id_id": 9,
-        "player_id": 1
+        "player_name": "Leonel Messi"
     },
     {
+        "player_id": 2,
         "id": 13,
         "points": 0,
-        "player_name": "Sergio Aguero",
         "week_no_id_id": 9,
-        "player_id": 2
+        "player_name": "Sergio Aguero"
     },
     {
+        "player_id": 3,
         "id": 14,
         "points": 0,
-        "player_name": "Javier Hernandez",
         "week_no_id_id": 9,
-        "player_id": 3
+        "player_name": "Javier Hernandez"
     },
     {
+        "player_id": 4,
         "id": 15,
         "points": 0,
-        "player_name": "Gary Cahill",
         "week_no_id_id": 9,
-        "player_id": 4
+        "player_name": "Gary Cahill"
     },
     {
+        "player_id": 5,
         "id": 16,
         "points": 0,
-        "player_name": "Jordan Pickford",
         "week_no_id_id": 9,
-        "player_id": 5
+        "player_name": "Jordan Pickford"
     },
     {
+        "player_id": 6,
         "id": 17,
         "points": 0,
-        "player_name": "Paul Pogba",
         "week_no_id_id": 9,
-        "player_id": 6
+        "player_name": "Paul Pogba"
     }
 ]
