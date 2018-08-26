@@ -3,45 +3,45 @@
         "table_name": "Goals"
     },
     {
-        "player_id": 1,
+        "points": 0,
+        "week_no_id_id": 9,
         "id": 30,
-        "points": 0,
-        "week_no_id_id": 9,
-        "player_name": "Leonel Messi"
+        "player_name": "Leonel Messi",
+        "player_id": 1
     },
     {
-        "player_id": 2,
+        "points": 0,
+        "week_no_id_id": 9,
         "id": 31,
-        "points": 0,
-        "week_no_id_id": 9,
-        "player_name": "Sergio Aguero"
+        "player_name": "Sergio Aguero",
+        "player_id": 2
     },
     {
-        "player_id": 3,
+        "points": 0,
+        "week_no_id_id": 9,
         "id": 32,
-        "points": 0,
-        "week_no_id_id": 9,
-        "player_name": "Javier Hernandez"
+        "player_name": "Javier Hernandez",
+        "player_id": 3
     },
     {
-        "player_id": 4,
+        "points": 0,
+        "week_no_id_id": 9,
         "id": 33,
-        "points": 0,
-        "week_no_id_id": 9,
-        "player_name": "Gary Cahill"
+        "player_name": "Gary Cahill",
+        "player_id": 4
     },
     {
-        "player_id": 5,
+        "points": 0,
+        "week_no_id_id": 9,
         "id": 34,
-        "points": 0,
-        "week_no_id_id": 9,
-        "player_name": "Jordan Pickford"
+        "player_name": "Jordan Pickford",
+        "player_id": 5
     },
     {
-        "player_id": 6,
-        "id": 35,
         "points": 0,
         "week_no_id_id": 9,
-        "player_name": "Paul Pogba"
+        "id": 35,
+        "player_name": "Paul Pogba",
+        "player_id": 6
     }
 ]

@@ -190,18 +190,25 @@ CreateANewRequest.prototype = {
   },
   Get_Yellow_Cards: function() {
     var http = new XMLHttpRequest();
+    var csrftoken = Cookies.get('csrftoken');
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
         var yellow_cards = JSON.parse(http.responseText);
         var mainHtml = '';
         mainHtml = '<h5 class="weekly_fixtures">Yellow Cards</h5>';
         mainHtml += '<ul class="nav flex-column list-group">';
+        mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/admin_yellow_cards/" method="POST">';
+        mainHtml += '<input type="hidden" name="week_no" value="'+ yellow_cards[1].week_no_id_id +'">'
         for (i = 1; i < yellow_cards.length; i++) {
           mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + yellow_cards[i].player_name
           + '<br /><b>Week number: </b>' + yellow_cards[i].week_no_id_id
-          + '<br /><b>Points: </b>' + '<input type="text" id="'+ yellow_cards[i].id +'" value="'+ yellow_cards[i].points +'">'
-          + '<br /><b>Total points: </b>' + 0 +'</li>';
+          + '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">'
+          + '<input type="hidden" name="player_id" value="'+ yellow_cards[i].player_id +'">'
+          + '<input type="text" name="yellow_cards" value="'+ 0 +'">'
+          + '<br /><b>Total points: </b>' + yellow_cards[i].points +'</li>';
         }
+        mainHtml += '<input type="submit" value="Submit">';
+        mainHtml += '</form>';
         mainHtml += '</ul>';
         get_yellow_cards.innerHTML = mainHtml;
       }
