@@ -220,18 +220,25 @@ CreateANewRequest.prototype = {
   },
   Get_Red_Cards: function() {
     var http = new XMLHttpRequest();
+    var csrftoken = Cookies.get('csrftoken');
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
         var red_cards = JSON.parse(http.responseText);
         var mainHtml = '';
         mainHtml = '<h5 class="weekly_fixtures">Red Cards</h5>';
         mainHtml += '<ul class="nav flex-column list-group">';
+        mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/admin_red_cards/" method="POST">';
+        mainHtml += '<input type="hidden" name="week_no" value="'+ red_cards[1].week_no_id_id +'">'
         for (i = 1; i < red_cards.length; i++) {
           mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + red_cards[i].player_name
           + '<br /><b>Week number: </b>' + red_cards[i].week_no_id_id
-          + '<br /><b>Points: </b>' + '<input type="text" id="'+ red_cards[i].id +'" value="'+ red_cards[i].points +'">'
-          + '<br /><b>Total points: </b>' + 0 +'</li>';
+          + '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">'
+          + '<input type="hidden" name="player_id" value="'+ red_cards[i].player_id +'">'
+          + '<input type="text" name="red_cards" value="'+ 0 +'">'
+          + '<br /><b>Total points: </b>' + red_cards[i].points +'</li>';
         }
+        mainHtml += '<input type="submit" value="Submit">';
+        mainHtml += '</form>';
         mainHtml += '</ul>';
         get_red_cards.innerHTML = mainHtml;
       }
@@ -243,18 +250,25 @@ CreateANewRequest.prototype = {
   },
   Get_Clean_Sheets: function() {
     var http = new XMLHttpRequest();
+    var csrftoken = Cookies.get('csrftoken');
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
         var clean_sheets = JSON.parse(http.responseText);
         var mainHtml = '';
         mainHtml = '<h5 class="weekly_fixtures">Clean Sheets</h5>';
         mainHtml += '<ul class="nav flex-column list-group">';
+        mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/admin_clean_sheets/" method="POST">';
+        mainHtml += '<input type="hidden" name="week_no" value="'+ clean_sheets[1].week_no_id_id +'">'
         for (i = 1; i < clean_sheets.length; i++) {
           mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + clean_sheets[i].player_name
           + '<br /><b>Week number: </b>' + clean_sheets[i].week_no_id_id
-          + '<br /><b>Points: </b>' + '<input type="text" id="'+ clean_sheets[i].id +'" value="'+ clean_sheets[i].points +'">'
-          + '<br /><b>Total points: </b>' + 0 +'</li>';
+          + '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">'
+          + '<input type="hidden" name="player_id" value="'+ clean_sheets[i].player_id +'">'
+          + '<input type="text" name="clean_sheets" value="'+ 0 +'">'
+          + '<br /><b>Total points: </b>' + clean_sheets[i].points +'</li>';
         }
+        mainHtml += '<input type="submit" value="Submit">';
+        mainHtml += '</form>';
         mainHtml += '</ul>';
         get_clean_sheets.innerHTML = mainHtml;
       }

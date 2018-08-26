@@ -149,11 +149,43 @@ class AdminRedCardsView(View):
         get_main_json = get_json.get_json_file('red_cards')
         return JsonResponse(get_main_json, safe = False)
 
+    def post(self, request, *args, **kwargs):
+        '''
+        5 - Enter new points to the right player in the right week for example if week 8, then make sure it is week 8, right player id, then ad points
+        '''
+        saving_points = Saving_Points()
+        goals_player = []
+        goals_player.append({'week_no': request.POST.get('week_no')})
+        red_cards = request.POST.getlist('red_cards')
+        player_id = request.POST.getlist('player_id')
+        points_is_saved = saving_points.save_points(goals_player, red_cards, player_id, Red_Card_table)
+        if points_is_saved is True:
+            messages.success(request, 'Red Card table for week '+ request.POST.get('week_no') +' has been updated')
+        else:
+            messages.error(request, 'Something went wrong when updating '+ request.POST.get('week_no') +', please revisit the error')
+        return redirect('admin_update')
+
 class AdminCleanSheetsView(View):
     def get(self, request, *args, **kwargs):
         get_json = Saving_And_Getting_Json()
         get_main_json = get_json.get_json_file('clean_sheets')
         return JsonResponse(get_main_json, safe = False)
+
+    def post(self, request, *args, **kwargs):
+        '''
+        5 - Enter new points to the right player in the right week for example if week 8, then make sure it is week 8, right player id, then ad points
+        '''
+        saving_points = Saving_Points()
+        goals_player = []
+        goals_player.append({'week_no': request.POST.get('week_no')})
+        clean_sheets = request.POST.getlist('clean_sheets')
+        player_id = request.POST.getlist('player_id')
+        points_is_saved = saving_points.save_points(goals_player, clean_sheets, player_id, Clean_Sheets_table)
+        if points_is_saved is True:
+            messages.success(request, 'Clean Sheets table for week '+ request.POST.get('week_no') +' has been updated')
+        else:
+            messages.error(request, 'Something went wrong when updating '+ request.POST.get('week_no') +', please revisit the error')
+        return redirect('admin_update')
 
 class AdminFormView(View):
     def get(self, request, *args, **kwargs):
