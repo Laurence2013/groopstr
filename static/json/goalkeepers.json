@@ -1,0 +1,20 @@
+[
+    {
+        "player_name": "Jordan Pickford",
+        "id": 5,
+        "current_player_value": "1800.00",
+        "player_position_1": "Goalkeeper",
+        "real_football_team": "Everton",
+        "total_points": 0,
+        "is_player_not_playing": false
+    },
+    {
+        "player_name": "Hugo Lloris",
+        "id": 7,
+        "current_player_value": "1900.00",
+        "player_position_1": "Goalkeeper",
+        "real_football_team": "Paris St German",
+        "total_points": 0,
+        "is_player_not_playing": false
+    }
+]

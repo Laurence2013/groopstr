@@ -17,7 +17,7 @@ class Player_table(models.Model):
     total_points = models.IntegerField(default = 0)
     is_player_not_playing = models.BooleanField(default = False)
     real_football_team = models.CharField(max_length = 100)
-    week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
+    # week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
     date_updated = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):

@@ -13,12 +13,10 @@ from players.models import *
 from admin_updates.saving_and_getting_json import Saving_And_Getting_Json
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
-from django.contrib import messages
 from admin_updates.saving_points import Saving_Points
 
 class AdminUpdateView(View):
     def get(self, request, *args, **kwargs):
-        print(kwargs.get('week_no'))
         context = {
             'get_week': True if Week_table.objects.all().count() > 0 else False,
             'get_fixtures': True if Fixtures_table.objects.all().count() > 0 else False,
@@ -30,8 +28,76 @@ class AdminUpdateView(View):
             'get_red_cards': True if kwargs.get('week_no') else False,
             'get_clean_sheets': True if kwargs.get('week_no') else False,
             'get_form': True if kwargs.get('week_no') else False,
+            'get_goalkeepers': True,
         }
         return render(request, 'admin_update.html', context)
+
+class AdminGetGoalkeepers(View):
+    def get(self, request, *args, **kwargs):
+        '''
+        6 - Sort players in their position, goalkeeper, defender, midfielder and striker, then save into json files
+        '''
+        get_json = Saving_And_Getting_Json()
+        get_goalkeeper = Player_table.objects.filter(player_position_1 = 'Goalkeeper').values('id','player_name','current_player_value',
+        'real_football_team','player_position_1','is_player_not_playing','total_points')
+
+        sum_points = []
+        for i in range(0,len(get_goalkeeper)):
+            get_gk_form_points = Form_table.objects.filter(player_id = get_goalkeeper[i].get('id')).values('points','id')
+            sum_points.append(get_gk_form_points[i].get('points'))
+        print(sum(sum_points))
+        get_gk_goals_points = Goals_table.objects.all()
+        get_gk_goals_assist_points = Goals_Assist_table.objects.all()
+        get_gk_man_of_match_points = Man_of_Match_table.objects.all()
+        get_gk_own_goals_points = Own_Goals_table.objects.all()
+        get_gk_yello_card_points = Yellow_Card_table.objects.all()
+        get_gk_red_card_points = Red_Card_table.objects.all()
+        get_gk_clean_sheets_points = Clean_Sheets_table.objects.all()
+
+        get_gk = get_json.get_players_positions(get_goalkeeper)
+        get_json.save_json(get_gk, 'goalkeepers')
+
+        get_main_json = get_json.get_json_file('goalkeepers')
+        return JsonResponse(get_main_json, safe = False)
+
+class AdminGetDefenders(View):
+    def get(self, request, *args, **kwargs):
+        '''
+        6 - Sort players in their position, goalkeeper, defender, midfielder and striker, then save into json files
+        '''
+        get_json = Saving_And_Getting_Json()
+        get_defender = Player_table.objects.filter(player_position_1 = 'Defender').values('id','player_name','current_player_value',
+        'real_football_team','player_position_1','is_player_not_playing','total_points')
+
+        get_df = get_json.get_players_positions(get_defender)
+        get_json.save_json(get_df, 'defenders')
+        return HttpResponse('Defenders')
+
+class AdminGetMidfielders(View):
+    def get(self, request, *args, **kwargs):
+        '''
+        6 - Sort players in their position, goalkeeper, defender, midfielder and striker, then save into json files
+        '''
+        get_json = Saving_And_Getting_Json()
+        get_midfielder = Player_table.objects.filter(player_position_1 = 'Midfielder').values('id','player_name','current_player_value',
+        'real_football_team','player_position_1','is_player_not_playing','total_points')
+
+        get_mid = get_json.get_players_positions(get_midfielder)
+        get_json.save_json(get_mid, 'midfielders')
+        return HttpResponse('Midfielders')
+
+class AdminGetForwards(View):
+    def get(self, request, *args, **kwargs):
+        '''
+        6 - Sort players in their position, goalkeeper, defender, midfielder and striker, then save into json files
+        '''
+        get_json = Saving_And_Getting_Json()
+        get_forward = Player_table.objects.filter(player_position_1 = 'Forward').values('id','player_name','current_player_value',
+        'real_football_team','player_position_1','is_player_not_playing','total_points')
+
+        get_for = get_json.get_players_positions(get_forward)
+        get_json.save_json(get_for, 'forwards')
+        return HttpResponse('Forwards')
 
 class AdminGetGoalsView(View):
     def get(self, request, *args, **kwargs):
