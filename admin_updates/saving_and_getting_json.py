@@ -39,16 +39,27 @@ class Saving_And_Getting_Json:
         return positions_list
 
     def get_sum_of_points(self, a_stat_table, table_name):
+        final_points = []
         sum_points = []
         for i in range(0, len(a_stat_table)):
-            get_gk_points = table_name.objects.filter(player_id = a_stat_table[i].get('id')).values('points','player_id','id')
-            print(len(get_gk_points))
+            get_player_points = table_name.objects.filter(player_id = a_stat_table[i].get('id')).values('points','player_id','id')
+            for j in range(0, len(get_player_points)):
+                sum_points.append(get_player_points[j].get('points'))
+            context = {
+                'id':get_player_points[i].get('player_id'),
+                'points': sum(sum_points)
+            }
+            final_points.append(context)
+            sum_points = []
+        return final_points
 
-            # for j in range(0, len(get_gk_points)):
-            #     context = {
-            #         'player_id': get_gk_points[j].get('player_id'),
-            #         'points': get_gk_points[j].get('points'),
-            #     }
-            #     sum_points.append(context)
-
-        # return sum(sum_points)
+    def get_final_total_points(self, get_player, get_form_points, get_goals_points, get_goals_assist_points, get_man_of_match_points, get_own_goal_points, get_yellow_card_points, get_red_card_points, get_clean_sheets_points):
+        get_context = []
+        for i in range(0, len(get_player)):
+            if get_player[i].get('id') == get_form_points[i].get('id') == get_goals_points[i].get('id') == get_goals_assist_points[i].get('id') == get_man_of_match_points[i].get('id') == get_own_goal_points[i].get('id') == get_yellow_card_points[i].get('id') == get_red_card_points[i].get('id') == get_clean_sheets_points[i].get('id'):
+                context = {
+                    'id': get_player[i].get('id'),
+                    'total_points': get_form_points[i].get('points') + get_goals_points[i].get('points') + get_goals_assist_points[i].get('points') + get_man_of_match_points[i].get('points') + get_own_goal_points[i].get('points') + get_yellow_card_points[i].get('points') + get_red_card_points[i].get('points') + get_clean_sheets_points[i].get('points')
+                }
+                get_context.append(context)
+        return get_context

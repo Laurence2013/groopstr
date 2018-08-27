@@ -14,7 +14,7 @@ class Player_table(models.Model):
     player_position_2 = models.CharField(max_length = 100, blank = True, null=True)
     player_position_3 = models.CharField(max_length = 100, blank = True, null=True)
     current_player_value = models.DecimalField(max_digits = 6, decimal_places = 2, null=True)
-    total_points = models.IntegerField(default = 0)
+    total_points = models.IntegerField(default = 0, null=True)
     is_player_not_playing = models.BooleanField(default = False)
     real_football_team = models.CharField(max_length = 100)
     # week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)

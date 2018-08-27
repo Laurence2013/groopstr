@@ -3,45 +3,52 @@
         "table_name": "Man of the Match"
     },
     {
+        "id": 7,
         "player_id": 1,
         "player_name": "Leonel Messi",
-        "points": 0,
-        "id": 7,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "points": 0
     },
     {
+        "id": 8,
         "player_id": 2,
         "player_name": "Sergio Aguero",
-        "points": 0,
-        "id": 8,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "points": 0
     },
     {
+        "id": 9,
         "player_id": 3,
         "player_name": "Javier Hernandez",
-        "points": 0,
-        "id": 9,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "points": 0
     },
     {
+        "id": 10,
         "player_id": 4,
         "player_name": "Gary Cahill",
-        "points": 0,
-        "id": 10,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "points": 0
     },
     {
+        "id": 11,
         "player_id": 5,
         "player_name": "Jordan Pickford",
-        "points": 0,
-        "id": 11,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "points": 3
     },
     {
+        "id": 12,
         "player_id": 6,
         "player_name": "Paul Pogba",
-        "points": 0,
-        "id": 12,
-        "week_no_id_id": 9
+        "week_no_id_id": 9,
+        "points": 0
+    },
+    {
+        "id": 14,
+        "player_id": 7,
+        "player_name": "Hugo Lloris",
+        "week_no_id_id": 9,
+        "points": 6
     }
 ]
