@@ -60,6 +60,8 @@ urlpatterns = [
     path('admin_update/<int:week_no>/admin_get_defenders/', AdminGetDefenders.as_view(), name='admin_get_defenders'),
 
     path('admin_update/admin_get_midfielders/', AdminGetMidfielders.as_view(), name='admin_get_midfielders'),
+    path('admin_update/<int:week_no>/admin_get_midfielders/', AdminGetMidfielders.as_view(), name='admin_get_midfielders'),
+
     path('admin_update/admin_get_forwards/', AdminGetForwards.as_view(), name='admin_get_forwards'),
 
     path('personal_info/', PersonalinfoView.as_view(), name='personal_info'),

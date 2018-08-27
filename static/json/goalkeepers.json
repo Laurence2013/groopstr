@@ -1,20 +1,20 @@
 [
     {
-        "total_points": 30,
-        "id": 5,
-        "player_position_1": "Goalkeeper",
-        "real_football_team": "Everton",
-        "is_player_not_playing": false,
         "current_player_value": "1800.00",
-        "player_name": "Jordan Pickford"
+        "real_football_team": "Everton",
+        "player_position_1": "Goalkeeper",
+        "id": 5,
+        "player_name": "Jordan Pickford",
+        "is_player_not_playing": false,
+        "total_points": 30
     },
     {
-        "total_points": 39,
-        "id": 7,
-        "player_position_1": "Goalkeeper",
-        "real_football_team": "Paris St German",
-        "is_player_not_playing": false,
         "current_player_value": "1900.00",
-        "player_name": "Hugo Lloris"
+        "real_football_team": "Paris St German",
+        "player_position_1": "Goalkeeper",
+        "id": 7,
+        "player_name": "Hugo Lloris",
+        "is_player_not_playing": false,
+        "total_points": 39
     }
 ]
