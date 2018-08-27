@@ -37,3 +37,18 @@ class Saving_And_Getting_Json:
             }
             positions_list.append(context)
         return positions_list
+
+    def get_sum_of_points(self, a_stat_table, table_name):
+        sum_points = []
+        for i in range(0, len(a_stat_table)):
+            get_gk_points = table_name.objects.filter(player_id = a_stat_table[i].get('id')).values('points','player_id','id')
+            print(len(get_gk_points))
+
+            # for j in range(0, len(get_gk_points)):
+            #     context = {
+            #         'player_id': get_gk_points[j].get('player_id'),
+            #         'points': get_gk_points[j].get('points'),
+            #     }
+            #     sum_points.append(context)
+
+        # return sum(sum_points)

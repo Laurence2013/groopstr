@@ -41,18 +41,14 @@ class AdminGetGoalkeepers(View):
         get_goalkeeper = Player_table.objects.filter(player_position_1 = 'Goalkeeper').values('id','player_name','current_player_value',
         'real_football_team','player_position_1','is_player_not_playing','total_points')
 
-        sum_points = []
-        for i in range(0,len(get_goalkeeper)):
-            get_gk_form_points = Form_table.objects.filter(player_id = get_goalkeeper[i].get('id')).values('points','id')
-            sum_points.append(get_gk_form_points[i].get('points'))
-        print(sum(sum_points))
-        get_gk_goals_points = Goals_table.objects.all()
-        get_gk_goals_assist_points = Goals_Assist_table.objects.all()
-        get_gk_man_of_match_points = Man_of_Match_table.objects.all()
-        get_gk_own_goals_points = Own_Goals_table.objects.all()
-        get_gk_yello_card_points = Yellow_Card_table.objects.all()
-        get_gk_red_card_points = Red_Card_table.objects.all()
-        get_gk_clean_sheets_points = Clean_Sheets_table.objects.all()
+        get_form_points = get_json.get_sum_of_points(get_goalkeeper, Form_table)
+        # get_goals_points = get_json.get_sum_of_points(get_goalkeeper, Goals_table)
+        # get_goals_assist_points = get_json.get_sum_of_points(get_goalkeeper, Goals_Assist_table)
+        # get_man_of_match_points = get_json.get_sum_of_points(get_goalkeeper, Man_of_Match_table)
+        # get_own_goal_points = get_json.get_sum_of_points(get_goalkeeper, Own_Goals_table)
+        # get_yellow_card_points = get_json.get_sum_of_points(get_goalkeeper, Yellow_Card_table)
+        # get_red_card_points = get_json.get_sum_of_points(get_goalkeeper, Red_Card_table)
+        # get_clena_sheets_points = get_json.get_sum_of_points(get_goalkeeper, Clean_Sheets_table)
 
         get_gk = get_json.get_players_positions(get_goalkeeper)
         get_json.save_json(get_gk, 'goalkeepers')
