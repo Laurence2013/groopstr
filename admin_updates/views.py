@@ -29,6 +29,7 @@ class AdminUpdateView(View):
             'get_clean_sheets': True if kwargs.get('week_no') else False,
             'get_form': True if kwargs.get('week_no') else False,
             'get_goalkeepers': True,
+            'get_defenders': True,
         }
         return render(request, 'admin_update.html', context)
 
@@ -50,7 +51,6 @@ class AdminGetGoalkeepers(View):
         get_clean_sheets_points = get_json.get_sum_of_points(goalkeeper, Clean_Sheets_table)
 
         get_context = get_json.get_final_total_points(goalkeeper, get_form_points, get_goals_points, get_goals_assist_points, get_man_of_match_points, get_own_goal_points, get_yellow_card_points, get_red_card_points, get_clean_sheets_points)
-        print(get_context)
 
         for i in range(0, len(get_context)):
             Player_table.objects.filter(id = get_context[i].get('id')).update(total_points = get_context[i].get('total_points'))
@@ -70,12 +70,30 @@ class AdminGetDefenders(View):
         6 - Sort players in their position, goalkeeper, defender, midfielder and striker, then save into json files
         '''
         get_json = Saving_And_Getting_Json()
-        get_defender = Player_table.objects.filter(player_position_1 = 'Defender').values('id','player_name','current_player_value',
+        defenders = Player_table.objects.filter(player_position_1 = 'Defender').values('id')
+
+        get_form_points = get_json.get_sum_of_points(defenders, Form_table)
+        get_goals_points = get_json.get_sum_of_points(defenders, Goals_table)
+        get_goals_assist_points = get_json.get_sum_of_points(defenders, Goals_Assist_table)
+        get_man_of_match_points = get_json.get_sum_of_points(defenders, Man_of_Match_table)
+        get_own_goal_points = get_json.get_sum_of_points(defenders, Own_Goals_table)
+        get_yellow_card_points = get_json.get_sum_of_points(defenders, Yellow_Card_table)
+        get_red_card_points = get_json.get_sum_of_points(defenders, Red_Card_table)
+        get_clean_sheets_points = get_json.get_sum_of_points(defenders, Clean_Sheets_table)
+
+        get_context = get_json.get_final_total_points(defenders, get_form_points, get_goals_points, get_goals_assist_points, get_man_of_match_points, get_own_goal_points, get_yellow_card_points, get_red_card_points, get_clean_sheets_points)
+        print(get_context)
+        for i in range(0, len(get_context)):
+            Player_table.objects.filter(id = get_context[i].get('id')).update(total_points = get_context[i].get('total_points'))
+
+        get_defenders = Player_table.objects.filter(player_position_1 = 'Defender').values('id','player_name','current_player_value',
         'real_football_team','player_position_1','is_player_not_playing','total_points')
 
-        get_df = get_json.get_players_positions(get_defender)
+        get_df = get_json.get_players_positions(get_defenders)
         get_json.save_json(get_df, 'defenders')
-        return HttpResponse('Defenders')
+
+        get_main_json = get_json.get_json_file('defenders')
+        return JsonResponse(get_main_json, safe = False)
 
 class AdminGetMidfielders(View):
     def get(self, request, *args, **kwargs):
