@@ -310,30 +310,23 @@ CreateANewRequest.prototype = {
   },
   Get_Goalkeepers: function() {
     var http = new XMLHttpRequest();
-    console.log(http);
-    // var csrftoken = Cookies.get('csrftoken');
-    // http.onreadystatechange = function() {
-    //   if (http.readyState == 4 && http.status == 200) {
-    //     var form = JSON.parse(http.responseText);
-    //     var mainHtml = '';
-    //     mainHtml = '<h5 class="weekly_fixtures">Form</h5>';
-    //     mainHtml += '<ul class="nav flex-column list-group">';
-    //     mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/admin_form/" method="POST">';
-    //     mainHtml += '<input type="hidden" name="week_no" value="'+ form[1].week_no_id_id +'">'
-    //     for (i = 1; i < form.length; i++) {
-    //       mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + form[i].player_name
-    //       + '<br /><b>Week number: </b>' + form[i].week_no_id_id
-    //       + '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">'
-    //       + '<input type="hidden" name="player_id" value="'+ form[i].player_id +'">'
-    //       + '<input type="text" name="form" value="'+ 0 +'">'
-    //       + '<br /><b>Total points: </b>' + form[i].points +'</li>';
-    //     }
-    //     mainHtml += '<input type="submit" value="Submit">';
-    //     mainHtml += '</form>';
-    //     mainHtml += '</ul>';
-    //     get_goalkeepers.innerHTML = mainHtml;
-    //   }
-    // }
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var goalkeepers = JSON.parse(http.responseText);
+        var mainHtml = '';
+        mainHtml = '<h5 class="weekly_fixtures">Goalkeepers</h5>';
+        mainHtml += '<ul class="nav flex-column list-group">';
+        for (i = 0; i < goalkeepers.length; i++) {
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + goalkeepers[i].player_name
+          + '<br /><b>Player position: </b>' + goalkeepers[i].player_position_1
+          + '<br /><b>Team: </b>' + goalkeepers[i].real_football_team
+          + '<br /><b>Current valuation: </b>' + goalkeepers[i].current_player_value
+          + '<br /><b>Total points: </b>' + goalkeepers[i].total_points
+        }
+        mainHtml += '</ul>';
+        get_goalkeepers.innerHTML = mainHtml;
+      }
+    }
     http.open("GET", "admin_get_goalkeepers", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();
@@ -341,30 +334,23 @@ CreateANewRequest.prototype = {
   },
   Get_Defenders: function() {
     var http = new XMLHttpRequest();
-    console.log(http);
-    // var csrftoken = Cookies.get('csrftoken');
-    // http.onreadystatechange = function() {
-    //   if (http.readyState == 4 && http.status == 200) {
-    //     var form = JSON.parse(http.responseText);
-    //     var mainHtml = '';
-    //     mainHtml = '<h5 class="weekly_fixtures">Form</h5>';
-    //     mainHtml += '<ul class="nav flex-column list-group">';
-    //     mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/admin_form/" method="POST">';
-    //     mainHtml += '<input type="hidden" name="week_no" value="'+ form[1].week_no_id_id +'">'
-    //     for (i = 1; i < form.length; i++) {
-    //       mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + form[i].player_name
-    //       + '<br /><b>Week number: </b>' + form[i].week_no_id_id
-    //       + '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">'
-    //       + '<input type="hidden" name="player_id" value="'+ form[i].player_id +'">'
-    //       + '<input type="text" name="form" value="'+ 0 +'">'
-    //       + '<br /><b>Total points: </b>' + form[i].points +'</li>';
-    //     }
-    //     mainHtml += '<input type="submit" value="Submit">';
-    //     mainHtml += '</form>';
-    //     mainHtml += '</ul>';
-    //     get_goalkeepers.innerHTML = mainHtml;
-    //   }
-    // }
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var defenders = JSON.parse(http.responseText);
+        var mainHtml = '';
+        mainHtml = '<h5 class="weekly_fixtures">Defenders</h5>';
+        mainHtml += '<ul class="nav flex-column list-group">';
+        for (i = 0; i < defenders.length; i++) {
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + defenders[i].player_name
+          + '<br /><b>Player position: </b>' + defenders[i].player_position_1
+          + '<br /><b>Team: </b>' + defenders[i].real_football_team
+          + '<br /><b>Current valuation: </b>' + defenders[i].current_player_value
+          + '<br /><b>Total points: </b>' + defenders[i].total_points
+        }
+        mainHtml += '</ul>';
+        get_defenders.innerHTML = mainHtml;
+      }
+    }
     http.open("GET", "admin_get_defenders", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();
@@ -372,30 +358,23 @@ CreateANewRequest.prototype = {
   },
   Get_Midfielders: function() {
     var http = new XMLHttpRequest();
-    console.log(http);
-    // var csrftoken = Cookies.get('csrftoken');
-    // http.onreadystatechange = function() {
-    //   if (http.readyState == 4 && http.status == 200) {
-    //     var form = JSON.parse(http.responseText);
-    //     var mainHtml = '';
-    //     mainHtml = '<h5 class="weekly_fixtures">Form</h5>';
-    //     mainHtml += '<ul class="nav flex-column list-group">';
-    //     mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/admin_form/" method="POST">';
-    //     mainHtml += '<input type="hidden" name="week_no" value="'+ form[1].week_no_id_id +'">'
-    //     for (i = 1; i < form.length; i++) {
-    //       mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + form[i].player_name
-    //       + '<br /><b>Week number: </b>' + form[i].week_no_id_id
-    //       + '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">'
-    //       + '<input type="hidden" name="player_id" value="'+ form[i].player_id +'">'
-    //       + '<input type="text" name="form" value="'+ 0 +'">'
-    //       + '<br /><b>Total points: </b>' + form[i].points +'</li>';
-    //     }
-    //     mainHtml += '<input type="submit" value="Submit">';
-    //     mainHtml += '</form>';
-    //     mainHtml += '</ul>';
-    //     get_goalkeepers.innerHTML = mainHtml;
-    //   }
-    // }
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var midfielders = JSON.parse(http.responseText);
+        var mainHtml = '';
+        mainHtml = '<h5 class="weekly_fixtures">Midfielders</h5>';
+        mainHtml += '<ul class="nav flex-column list-group">';
+        for (i = 0; i < midfielders.length; i++) {
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + midfielders[i].player_name
+          + '<br /><b>Player position: </b>' + midfielders[i].player_position_1
+          + '<br /><b>Team: </b>' + midfielders[i].real_football_team
+          + '<br /><b>Current valuation: </b>' + midfielders[i].current_player_value
+          + '<br /><b>Total points: </b>' + midfielders[i].total_points
+        }
+        mainHtml += '</ul>';
+        get_midfielders.innerHTML = mainHtml;
+      }
+    }
     http.open("GET", "admin_get_midfielders", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();
@@ -403,30 +382,23 @@ CreateANewRequest.prototype = {
   },
   Get_Forwards: function() {
     var http = new XMLHttpRequest();
-    console.log(http);
-    // var csrftoken = Cookies.get('csrftoken');
-    // http.onreadystatechange = function() {
-    //   if (http.readyState == 4 && http.status == 200) {
-    //     var form = JSON.parse(http.responseText);
-    //     var mainHtml = '';
-    //     mainHtml = '<h5 class="weekly_fixtures">Form</h5>';
-    //     mainHtml += '<ul class="nav flex-column list-group">';
-    //     mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/admin_form/" method="POST">';
-    //     mainHtml += '<input type="hidden" name="week_no" value="'+ form[1].week_no_id_id +'">'
-    //     for (i = 1; i < form.length; i++) {
-    //       mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + form[i].player_name
-    //       + '<br /><b>Week number: </b>' + form[i].week_no_id_id
-    //       + '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">'
-    //       + '<input type="hidden" name="player_id" value="'+ form[i].player_id +'">'
-    //       + '<input type="text" name="form" value="'+ 0 +'">'
-    //       + '<br /><b>Total points: </b>' + form[i].points +'</li>';
-    //     }
-    //     mainHtml += '<input type="submit" value="Submit">';
-    //     mainHtml += '</form>';
-    //     mainHtml += '</ul>';
-    //     get_goalkeepers.innerHTML = mainHtml;
-    //   }
-    // }
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var forwards = JSON.parse(http.responseText);
+        var mainHtml = '';
+        mainHtml = '<h5 class="weekly_fixtures">Forwards</h5>';
+        mainHtml += '<ul class="nav flex-column list-group">';
+        for (i = 0; i < forwards.length; i++) {
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + forwards[i].player_name
+          + '<br /><b>Player position: </b>' + forwards[i].player_position_1
+          + '<br /><b>Team: </b>' + forwards[i].real_football_team
+          + '<br /><b>Current valuation: </b>' + forwards[i].current_player_value
+          + '<br /><b>Total points: </b>' + forwards[i].total_points
+        }
+        mainHtml += '</ul>';
+        get_forwards.innerHTML = mainHtml;
+      }
+    }
     http.open("GET", "admin_get_forwards", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();
