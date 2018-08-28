@@ -1,0 +1,29 @@
+[
+    {
+        "player_position_1": "Forward",
+        "player_name": "Leonel Messi",
+        "total_points": 4,
+        "current_player_value": "2500.00",
+        "is_player_not_playing": false,
+        "id": 1,
+        "real_football_team": "Barcelona"
+    },
+    {
+        "player_position_1": "Forward",
+        "player_name": "Sergio Aguero",
+        "total_points": 5,
+        "current_player_value": "2450.00",
+        "is_player_not_playing": false,
+        "id": 2,
+        "real_football_team": "Manchester City"
+    },
+    {
+        "player_position_1": "Forward",
+        "player_name": "Javier Hernandez",
+        "total_points": 6,
+        "current_player_value": "2100.00",
+        "is_player_not_playing": false,
+        "id": 3,
+        "real_football_team": "West Ham"
+    }
+]

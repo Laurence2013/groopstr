@@ -42,11 +42,11 @@ class Saving_And_Getting_Json:
         final_points = []
         sum_points = []
         for i in range(0, len(a_stat_table)):
-            get_player_points = table_name.objects.filter(player_id = a_stat_table[i].get('id')).values('points','player_id','id')
-            for j in range(0, len(get_player_points)):
-                sum_points.append(get_player_points[j].get('points'))
+            for j in table_name.objects.all().values('player_id', 'points'):
+                if a_stat_table[i].get('id') == j.get('player_id'):
+                    sum_points.append(j.get('points'))
             context = {
-                'id':get_player_points[i].get('player_id'),
+                'id': a_stat_table[i].get('id'),
                 'points': sum(sum_points)
             }
             final_points.append(context)

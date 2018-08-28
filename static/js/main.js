@@ -368,7 +368,7 @@ CreateANewRequest.prototype = {
     http.open("GET", "admin_get_defenders", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();
-    get_goalkeepers.innerHTML = 'Defenders...';
+    get_defenders.innerHTML = 'Defenders...';
   },
   Get_Midfielders: function() {
     var http = new XMLHttpRequest();
@@ -399,7 +399,38 @@ CreateANewRequest.prototype = {
     http.open("GET", "admin_get_midfielders", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();
-    get_goalkeepers.innerHTML = 'Midfielders...';
+    get_midfielders.innerHTML = 'Midfielders...';
+  },
+  Get_Forwards: function() {
+    var http = new XMLHttpRequest();
+    console.log(http);
+    // var csrftoken = Cookies.get('csrftoken');
+    // http.onreadystatechange = function() {
+    //   if (http.readyState == 4 && http.status == 200) {
+    //     var form = JSON.parse(http.responseText);
+    //     var mainHtml = '';
+    //     mainHtml = '<h5 class="weekly_fixtures">Form</h5>';
+    //     mainHtml += '<ul class="nav flex-column list-group">';
+    //     mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/admin_form/" method="POST">';
+    //     mainHtml += '<input type="hidden" name="week_no" value="'+ form[1].week_no_id_id +'">'
+    //     for (i = 1; i < form.length; i++) {
+    //       mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + form[i].player_name
+    //       + '<br /><b>Week number: </b>' + form[i].week_no_id_id
+    //       + '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">'
+    //       + '<input type="hidden" name="player_id" value="'+ form[i].player_id +'">'
+    //       + '<input type="text" name="form" value="'+ 0 +'">'
+    //       + '<br /><b>Total points: </b>' + form[i].points +'</li>';
+    //     }
+    //     mainHtml += '<input type="submit" value="Submit">';
+    //     mainHtml += '</form>';
+    //     mainHtml += '</ul>';
+    //     get_goalkeepers.innerHTML = mainHtml;
+    //   }
+    // }
+    http.open("GET", "admin_get_forwards", true);
+    http.setRequestHeader('Content-type', 'application/json', true);
+    http.send();
+    get_forwards.innerHTML = 'Forwards...';
   },
 }
 window.onload = function() {
@@ -442,5 +473,8 @@ window.onload = function() {
   }
   if (document.getElementById('get_midfielders')) {
     main.Get_Midfielders();
+  }
+  if (document.getElementById('get_forwards')) {
+    main.Get_Forwards();
   }
 }
