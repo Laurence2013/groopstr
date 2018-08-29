@@ -146,7 +146,7 @@ class AdminGetForwards(View):
         get_clean_sheets_points = get_json.get_sum_of_points(forwards, Clean_Sheets_table)
 
         get_context = get_json.get_final_total_points(forwards, get_form_points, get_goals_points, get_goals_assist_points, get_man_of_match_points, get_own_goal_points, get_yellow_card_points, get_red_card_points, get_clean_sheets_points)
-        
+
         for i in range(0, len(get_context)):
             Player_table.objects.filter(id = get_context[i].get('id')).update(total_points = get_context[i].get('total_points'))
 
@@ -158,8 +158,7 @@ class AdminGetForwards(View):
 
         get_main_json = get_json.get_json_file('forwards')
         return JsonResponse(get_main_json, safe = False)
-        # return HttpResponse('Hello')
-
+        
 class AdminGetGoalsView(View):
     def get(self, request, *args, **kwargs):
         get_json = Saving_And_Getting_Json()

@@ -14,7 +14,13 @@
 {{ username }}
 <br />
 <br />
-<ul>
+{% if members_info == True %}
+  <div id="members_info"></div>
+{% endif %}
+{% if has_squad == False %}
+  <h6><a href="{% url 'squad' %}">Click to pick your squad</a></h6>
+{% endif %}
+<!-- <ul>
   {% for member in members %}
     <li><b>Calculare Team Points: </b>{{ member.calculate_team_points }}</li>
     <li><b>Credits left: </b>{{ member.credits_left }}</li>
@@ -38,6 +44,6 @@
       <br />
     {% endfor %}
   {% endif %}
-</ul>
+</ul> -->
 <h5><a href="{% url 'members' %}">Click here to view personal info</a></h5>
 {% endblock %}
