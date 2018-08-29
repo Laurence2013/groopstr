@@ -1,11 +1,11 @@
 {
-    "credits_left": 1300,
+    "calculate_team_points": 0,
+    "prize_money_minus_bought_sold": "0.00",
+    "username": "laurence1212",
     "user_id": 5,
-    "total_cost_players_bought": "0.00",
+    "credits_left": 1300,
     "boolean_team_points": true,
     "date_updated": "2018-08-12T08:47:36Z",
-    "username": "laurence1212",
     "profit_gained_players_sold": "0.00",
-    "prize_money_minus_bought_sold": "0.00",
-    "calculate_team_points": 0
+    "total_cost_players_bought": "0.00"
 }
