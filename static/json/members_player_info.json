@@ -1,0 +1,34 @@
+{
+    "player_4": [
+        3,
+        "Javier Hernandez",
+        "Forward",
+        null,
+        null,
+        "2100.00"
+    ],
+    "player_1": [
+        5,
+        "Jordan Pickford",
+        "Goalkeeper",
+        null,
+        null,
+        "1800.00"
+    ],
+    "player_2": [
+        4,
+        "Gary Cahill",
+        "Defender",
+        null,
+        null,
+        "1800.00"
+    ],
+    "player_3": [
+        6,
+        "Paul Pogba",
+        "Midfielder",
+        null,
+        null,
+        "3000.00"
+    ]
+}

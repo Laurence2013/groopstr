@@ -3,12 +3,12 @@ function CreateANewRequest(){}
 CreateANewRequest.prototype = {
   Get_Member_Team_Info: function() {
     var http = new XMLHttpRequest();
-    console.log(http);
-    // http.onreadystatechange = function() {
-    //   if (http.readyState == 4 && http.status == 200) {
-    //
-    //   }
-    // }
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var get_players = JSON.parse(http.responseText);
+        console.log(get_players);
+      }
+    }
     http.open("GET", "get_right_member", true);
     http.setRequestHeader('Content-type', 'application/json', true);
     http.send();

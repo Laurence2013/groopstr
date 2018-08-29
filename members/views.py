@@ -39,6 +39,7 @@ class MembersView(View):
 
 class GetRightMemberView(View):
     def get(self, request, *args, **kwargs):
+        get_main_json = []
         get_members_team = GetMembersTeam()
         save_to_json = Saving_And_Getting_Json()
         get_members_team.check_request(request.user.id, request.user)
@@ -56,14 +57,16 @@ class GetRightMemberView(View):
             'prize_money_minus_bought_sold': return_get_member[0][0].get('prize_money_minus_bought_sold'),
             'calculate_team_points': return_get_member[0][0].get('calculate_team_points'),
         }
-        # context = {
-        #     'username': request.user,
-        #     'members': return_get_member[0],
-        #     'team_name': return_get_member[1],
-        #     'players': return_get_member[2],
-        # }
+        context_player = {
+            'player_1': return_get_member[2][0],
+            'player_2': return_get_member[2][1],
+            'player_3': return_get_member[2][2],
+            'player_4': return_get_member[2][3],
+        }
         save_to_json.save_json(context, 'members_team_info')
-        get_main_json = save_to_json.get_json_file('members_team_info')
+        save_to_json.save_json(context_player, 'members_player_info')
+        get_main_json.append(save_to_json.get_json_file('members_team_info'))
+        get_main_json.append(save_to_json.get_json_file('members_player_info'))
         return JsonResponse(get_main_json, safe = False)
 
 class SquadView(View):

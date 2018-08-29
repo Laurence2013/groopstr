@@ -21,3 +21,11 @@ def __get_right_member(self, get_member, get_user_id):
           get_players = [get_gk_players[0][0], get_def_players[0][0], get_mid_players[0][0], get_for_players[0][0]]
           self.__calc_points_left(boolean_credits[0]['boolean_team_points'], get_user_id)
       return member_info, get_team_name, get_players
+
+
+      # context = {
+          #     'username': request.user,
+          #     'members': return_get_member[0],
+          #     'team_name': return_get_member[1],
+          #     'players': return_get_member[2],
+          # }

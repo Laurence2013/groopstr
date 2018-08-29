@@ -35,7 +35,7 @@ class GetMembersTeam:
         get_players = []
         value = 0
         for i in range(0, len(get_squad)):
-            get_players.append(list(Player_table.objects.filter(id = get_squad[i]).values_list('player_name','player_position_1','player_position_2','player_position_3','current_player_value')))
+            get_players.append(list(Player_table.objects.filter(id = get_squad[i]).values_list('id','player_name','player_position_1','player_position_2','player_position_3','current_player_value')))
         return get_players
 
     def __calc_points_left(self, boolean_credits, get_user_id):
