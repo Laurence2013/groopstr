@@ -19,29 +19,29 @@ CreateANewRequest.prototype = {
         mainHtml += '</ul>';
         mainHtml += '<h3 class="weekly_fixtures">Players</h3>';
         mainHtml += '<ul class="nav flex-column list-group">';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player name: </b>'+ get_players[1].player_1[1] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player position: </b>'+ get_players[1].player_1[2] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player position 2: </b>'+ get_players[1].player_1[3] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player position 3: </b>'+ get_players[1].player_1[4] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player valuation: </b>'+ get_players[1].player_1[5] +'</li>';
+        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player name: </b>'+ get_players[1].player_1[1]
+        +'<br />'+'<b>Player position: </b>'+ get_players[1].player_1[2]
+        +'<br />'+'<b>Player position 2: </b>'+ get_players[1].player_1[3]
+        +'<br />'+'<b>Player position 3: </b>'+ get_players[1].player_1[4]
+        +'<br />'+'<b>Player valuation: </b>'+ get_players[1].player_1[5] +'</li>';
         mainHtml += '<br />';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player name: </b>'+ get_players[1].player_2[1] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player position: </b>'+ get_players[1].player_2[2] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player position 2: </b>'+ get_players[1].player_2[3] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player position 3: </b>'+ get_players[1].player_2[4] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player valuation: </b>'+ get_players[1].player_2[5] +'</li>';
+        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player name: </b>'+ get_players[1].player_2[1]
+        +'<br />'+'<b>Player position: </b>'+ get_players[1].player_2[2]
+        +'<br />'+'<b>Player position 2: </b>'+ get_players[1].player_2[3]
+        +'<br />'+'<b>Player position 3: </b>'+ get_players[1].player_2[4]
+        +'<br />'+'<b>Player valuation: </b>'+ get_players[1].player_2[5] +'</li>';
         mainHtml += '<br />';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player name: </b>'+ get_players[1].player_3[1] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player position: </b>'+ get_players[1].player_3[2] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player position 2: </b>'+ get_players[1].player_3[3] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player position 3: </b>'+ get_players[1].player_3[4] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player valuation: </b>'+ get_players[1].player_3[5] +'</li>';
+        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player name: </b>'+ get_players[1].player_3[1]
+        +'<br />'+'<b>Player position: </b>'+ get_players[1].player_3[2]
+        +'<br />'+'<b>Player position 2: </b>'+ get_players[1].player_3[3]
+        +'<br />'+'<b>Player position 3: </b>'+ get_players[1].player_3[4]
+        +'<br />'+'<b>Player valuation: </b>'+ get_players[1].player_3[5] +'</li>';
         mainHtml += '<br />';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player name: </b>'+ get_players[1].player_4[1] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player position: </b>'+ get_players[1].player_4[2] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player position 2: </b>'+ get_players[1].player_4[3] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player position 3: </b>'+ get_players[1].player_4[4] +'</li>';
-        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player valuation: </b>'+ get_players[1].player_4[5] +'</li>';
+        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player name: </b>'+ get_players[1].player_4[1]
+        +'<br />'+'<b>Player position: </b>'+ get_players[1].player_4[2] 
+        +'<br />'+'<b>Player position 2: </b>'+ get_players[1].player_4[3] 
+        +'<br />'+'<b>Player position 3: </b>'+ get_players[1].player_4[4] 
+        +'<br />'+'<b>Player valuation: </b>'+ get_players[1].player_4[5] +'</li>';
         mainHtml += '</ul>';
         members_info.innerHTML = mainHtml;
       }
