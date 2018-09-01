@@ -20,30 +20,5 @@
 {% if has_squad == False %}
   <h6><a href="{% url 'squad' %}">Click to pick your squad</a></h6>
 {% endif %}
-<!-- <ul>
-  {% for member in members %}
-    <li><b>Calculare Team Points: </b>{{ member.calculate_team_points }}</li>
-    <li><b>Credits left: </b>{{ member.credits_left }}</li>
-    <li><b>Cost of Players bought: </b>{{ member.total_cost_players_bought }}</li>
-    <li><b>Profit gained from players sold: </b>{{ member.profit_gained_players_sold }}</li>
-    <li><b>Prize money - players bought: </b>{{ member.prize_money_minus_bought_sold }}</li>
-    {% if has_squad == False %}
-      <h6><a href="{% url 'squad' %}">Click to pick your squad</a></h6>
-    {% endif %}
-  {% endfor %}
-</ul>
-<br />
-<ul>
-  {% if players %}
-    {% for player in players %}
-      <li><b>Player name: </b>{{ player.0 }}</li>
-      <li><b>Main player position: </b>{{ player.1 }}</li>
-      <li><b>Player position 2: </b>{{ player.2 }}</li>
-      <li><b>Player position 3: </b>{{ player.3 }}</li>
-      <li><b>Player valuation: </b>{{ player.4 }}</li>
-      <br />
-    {% endfor %}
-  {% endif %}
-</ul> -->
 <h5><a href="{% url 'members' %}">Click here to view personal info</a></h5>
 {% endblock %}

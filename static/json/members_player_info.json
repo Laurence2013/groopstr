@@ -5,23 +5,8 @@
         "Forward",
         null,
         null,
-        "2100.00"
-    ],
-    "player_1": [
-        5,
-        "Jordan Pickford",
-        "Goalkeeper",
-        null,
-        null,
-        "1800.00"
-    ],
-    "player_3": [
-        6,
-        "Paul Pogba",
-        "Midfielder",
-        null,
-        null,
-        "3000.00"
+        "2100.00",
+        false
     ],
     "player_2": [
         4,
@@ -29,6 +14,25 @@
         "Defender",
         null,
         null,
-        "1800.00"
+        "1800.00",
+        false
+    ],
+    "player_3": [
+        6,
+        "Paul Pogba",
+        "Midfielder",
+        null,
+        null,
+        "3000.00",
+        true
+    ],
+    "player_1": [
+        5,
+        "Jordan Pickford",
+        "Goalkeeper",
+        null,
+        null,
+        "1800.00",
+        false
     ]
 }

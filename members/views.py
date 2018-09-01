@@ -78,7 +78,7 @@ class SquadView(View):
     def get(self, request, *args, **kwargs):
         team_name = Personal_Info_table.objects.filter(has_username = request.user.id).values_list('team_name')
         credits = Members_table.objects.filter(user_id = request.user.id).values_list('credits_left')
-        players = Player_table.objects.all().values('id','player_name','player_position_1','player_position_2','player_position_3','current_player_value')
+        players = Player_table.objects.all().values('id','player_name','player_position_1','player_position_2','player_position_3','current_player_value','is_player_not_playing')
         context = {
             'username': request.user.username,
             'team_name': team_name[0][0],
