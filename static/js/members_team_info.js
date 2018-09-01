@@ -5,8 +5,8 @@ CreateANewRequest.prototype = {
     var http = new XMLHttpRequest();
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
+        var csrftoken = Cookies.get('csrftoken');
         var get_players = JSON.parse(http.responseText);
-        console.log(get_players);
         var mainHtml = '';
         mainHtml = '<h2 class="weekly_fixtures">All weeks in a season</h2>';
         mainHtml += '<ul class="nav flex-column list-group">';
@@ -19,29 +19,40 @@ CreateANewRequest.prototype = {
         mainHtml += '</ul>';
         mainHtml += '<h3 class="weekly_fixtures">Players</h3>';
         mainHtml += '<ul class="nav flex-column list-group">';
+        mainHtml += '<form name="_csrf" action="http://localhost:8000/members/get_right_member/" method="POST">';
+        mainHtml += '<input name="csrfmiddlewaretoken" value='+ csrftoken +' type="hidden">'
         mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player name: </b>'+ get_players[1].player_1[1]
         +'<br />'+'<b>Player position: </b>'+ get_players[1].player_1[2]
         +'<br />'+'<b>Player position 2: </b>'+ get_players[1].player_1[3]
         +'<br />'+'<b>Player position 3: </b>'+ get_players[1].player_1[4]
-        +'<br />'+'<b>Player valuation: </b>'+ get_players[1].player_1[5] +'</li>';
+        +'<br />'+'<b>Player valuation: </b>'+ get_players[1].player_1[5]
+        +'<br />'+'<input type="checkbox" name="player_id" value="'+get_players[1].player_1[0]+'" /> Check if you want this player to play'+'</li>';
         mainHtml += '<br />';
         mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player name: </b>'+ get_players[1].player_2[1]
         +'<br />'+'<b>Player position: </b>'+ get_players[1].player_2[2]
         +'<br />'+'<b>Player position 2: </b>'+ get_players[1].player_2[3]
         +'<br />'+'<b>Player position 3: </b>'+ get_players[1].player_2[4]
-        +'<br />'+'<b>Player valuation: </b>'+ get_players[1].player_2[5] +'</li>';
+        +'<br />'+'<b>Player valuation: </b>'+ get_players[1].player_2[5]
+
+        +'<br />'+'<input type="checkbox" name="player_id" value="'+get_players[1].player_2[0]+'" /> Check if you want this player to play'+'</li>';
         mainHtml += '<br />';
         mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player name: </b>'+ get_players[1].player_3[1]
         +'<br />'+'<b>Player position: </b>'+ get_players[1].player_3[2]
         +'<br />'+'<b>Player position 2: </b>'+ get_players[1].player_3[3]
         +'<br />'+'<b>Player position 3: </b>'+ get_players[1].player_3[4]
-        +'<br />'+'<b>Player valuation: </b>'+ get_players[1].player_3[5] +'</li>';
+        +'<br />'+'<b>Player valuation: </b>'+ get_players[1].player_3[5]
+
+        +'<br />'+'<input type="checkbox" name="player_id" value="'+get_players[1].player_3[0]+'" /> Check if you want this player to play'+'</li>';
         mainHtml += '<br />';
         mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Player name: </b>'+ get_players[1].player_4[1]
-        +'<br />'+'<b>Player position: </b>'+ get_players[1].player_4[2] 
-        +'<br />'+'<b>Player position 2: </b>'+ get_players[1].player_4[3] 
-        +'<br />'+'<b>Player position 3: </b>'+ get_players[1].player_4[4] 
-        +'<br />'+'<b>Player valuation: </b>'+ get_players[1].player_4[5] +'</li>';
+        +'<br />'+'<b>Player position: </b>'+ get_players[1].player_4[2]
+        +'<br />'+'<b>Player position 2: </b>'+ get_players[1].player_4[3]
+        +'<br />'+'<b>Player position 3: </b>'+ get_players[1].player_4[4]
+        +'<br />'+'<b>Player valuation: </b>'+ get_players[1].player_4[5]
+
+        +'<br />'+'<input type="checkbox" name="player_id" value="'+get_players[1].player_4[0]+'" /> Check if you want this player to play'+'</li>';
+        mainHtml += '<input type="submit" value="Submit players to play">';
+        mainHtml += '</form>';
         mainHtml += '</ul>';
         members_info.innerHTML = mainHtml;
       }

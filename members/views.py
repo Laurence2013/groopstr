@@ -69,6 +69,11 @@ class GetRightMemberView(View):
         get_main_json.append(save_to_json.get_json_file('members_player_info'))
         return JsonResponse(get_main_json, safe = False)
 
+    def post(self, request, *args, **kwargs):
+        player_ids = request.POST.getlist('player_id')
+        print(player_ids)
+        return HttpResponse('Hello')
+
 class SquadView(View):
     def get(self, request, *args, **kwargs):
         team_name = Personal_Info_table.objects.filter(has_username = request.user.id).values_list('team_name')

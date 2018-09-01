@@ -1,4 +1,12 @@
 {
+    "player_4": [
+        3,
+        "Javier Hernandez",
+        "Forward",
+        null,
+        null,
+        "2100.00"
+    ],
     "player_1": [
         5,
         "Jordan Pickford",
@@ -22,13 +30,5 @@
         null,
         null,
         "1800.00"
-    ],
-    "player_4": [
-        3,
-        "Javier Hernandez",
-        "Forward",
-        null,
-        null,
-        "2100.00"
     ]
 }
