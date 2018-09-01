@@ -45,7 +45,7 @@ class GetRightMemberView(View):
         get_members_team.check_request(request.user.id, request.user)
         get_member = Members_table.objects.all()
         return_get_member = get_members_team.get_right_member(get_member, request.user.id)
-
+        get_latest_week = Week_table.objects.latest('week_no')
         context = {
             'username': str(request.user),
             'user_id': return_get_member[0][0].get('user_id_id'),
@@ -63,10 +63,15 @@ class GetRightMemberView(View):
             'player_3': return_get_member[2][2],
             'player_4': return_get_member[2][3],
         }
+        context_latest_week = {
+            'week': str(get_latest_week),
+        }
         save_to_json.save_json(context, 'members_team_info')
         save_to_json.save_json(context_player, 'members_player_info')
+        save_to_json.save_json(context_latest_week, 'get_latest_week')
         get_main_json.append(save_to_json.get_json_file('members_team_info'))
         get_main_json.append(save_to_json.get_json_file('members_player_info'))
+        get_main_json.append(save_to_json.get_json_file('get_latest_week'))
         return JsonResponse(get_main_json, safe = False)
 
     def post(self, request, *args, **kwargs):

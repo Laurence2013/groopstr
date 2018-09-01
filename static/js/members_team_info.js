@@ -11,6 +11,7 @@ CreateANewRequest.prototype = {
         var mainHtml = '';
         mainHtml = '<h2 class="weekly_fixtures">All weeks in a season</h2>';
         mainHtml += '<ul class="nav flex-column list-group">';
+        mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Latest week: </b>'+ get_players[2].week +'</li>';
         mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Username: </b>'+ get_players[0].username +'</li>';
         mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Credits left: </b>'+ get_players[0].credits_left +'</li>';
         mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Calculate team points: </b>'+ get_players[0].calculate_team_points +'</li>';
