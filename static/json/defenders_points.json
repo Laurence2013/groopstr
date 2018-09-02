@@ -2,19 +2,19 @@
     {
         "player_id_id": 4,
         "user_id_id": 8,
-        "players_points": 19,
+        "players_points": 16,
         "id": 1
     },
     {
         "player_id_id": 4,
         "user_id_id": 4,
-        "players_points": 19,
+        "players_points": 16,
         "id": 2
     },
     {
         "player_id_id": 4,
         "user_id_id": 5,
-        "players_points": 19,
+        "players_points": 16,
         "id": 3
     }
 ]
