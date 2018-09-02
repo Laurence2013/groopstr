@@ -33,8 +33,63 @@ class AdminUpdateView(View):
             'get_defenders': True,
             'get_midfielders': True,
             'get_forwards': True,
+            'get_players_points': True,
         }
         return render(request, 'admin_update.html', context)
+
+class SortPointsForPlayers(View):
+    get_json = Saving_And_Getting_Json()
+
+    def get(self, request, *args, **kwargs):
+        get_main_json = []
+        self.__save_players_points(Goalkeeper_table)
+        self.__save_players_points(Defender_table)
+        self.__save_players_points(Midfielder_table)
+        self.__save_players_points(Striker_table)
+        '''
+        Save Squad tables into json
+        '''
+        self.__save_squad_points_to_json(Goalkeeper_table.objects.values('id','user_id_id', 'player_id_id','players_points'), 'goalkeepers_points')
+        self.__save_squad_points_to_json(Defender_table.objects.values('id','user_id_id', 'player_id_id','players_points'), 'defenders_points')
+        self.__save_squad_points_to_json(Midfielder_table.objects.values('id','user_id_id', 'player_id_id','players_points'), 'midfielders_points')
+        self.__save_squad_points_to_json(Striker_table.objects.values('id','user_id_id', 'player_id_id','players_points'), 'forwards_points')
+        '''
+        Show message here that it has been a success
+        '''
+        messages.success(request, 'All Goalkeepers, Defenders, Midfielders, Forwards table have been updated and saved into Json')
+        get_main_json.append(self.get_json.get_json_file('goalkeepers_points'))
+        get_main_json.append(self.get_json.get_json_file('defenders_points'))
+        get_main_json.append(self.get_json.get_json_file('midfielders_points'))
+        get_main_json.append(self.get_json.get_json_file('forwards_points'))
+        return JsonResponse(get_main_json, safe = False)
+        # return HttpResponse('Hello')
+
+    def __save_squad_points_to_json(self, squad_table, json_file_name):
+        context_list = []
+        for i in range(0, len(squad_table)):
+            context = {
+                'id': squad_table[i].get('id'),
+                'player_id_id': squad_table[i].get('player_id_id'),
+                'user_id_id': squad_table[i].get('user_id_id'),
+                'players_points': squad_table[i].get('players_points'),
+            }
+            context_list.append(context)
+        self.get_json.save_json(context_list, json_file_name)
+
+    def __save_players_points(self, stats_table_name):
+        '''
+        7 - From squad tables get members IDs and Player IDs
+        '''
+        get_points = stats_table_name.objects.all().values('player_id_id','user_id_id')
+        '''
+        7(i) - Go to player table, get players points according to ID of players
+        '''
+        for i in range(0, len(get_points)):
+            get_player_points = Player_table.objects.filter(id = get_points[i].get('player_id_id')).values('total_points')
+            '''
+            7(ii) - Get point and save into Squad tables player_points according to user ID
+            '''
+            stats_table_name.objects.filter(user_id_id = get_points[i].get('user_id_id')).update(players_points = get_player_points[0].get('total_points'))
 
 class AdminGetGoalkeepers(View):
     def get(self, request, *args, **kwargs):

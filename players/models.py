@@ -116,11 +116,11 @@ class Red_Card_table(models.Model):
 
 class Goalkeeper_table(models.Model):
     is_subbed = models.BooleanField(default = False)
-    is_playing = models.BooleanField(default = False)
+    # is_playing = models.BooleanField(default = False)
     players_points = models.IntegerField(default = 0)
     user_id = models.ForeignKey(User, on_delete = models.CASCADE, null=True, blank=True)
     player_id = models.ForeignKey(Player_table, on_delete = models.CASCADE, null=True, blank=True)
-    week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
+    # week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
     date_updated = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
@@ -128,11 +128,11 @@ class Goalkeeper_table(models.Model):
 
 class Defender_table(models.Model):
     is_subbed = models.BooleanField(default = False)
-    is_playing = models.BooleanField(default = False)
+    # is_playing = models.BooleanField(default = False)
     players_points = models.IntegerField(default = 0)
     user_id = models.ForeignKey(User, on_delete = models.CASCADE, null=True, blank=True)
     player_id = models.ForeignKey(Player_table, on_delete = models.CASCADE, null=True, blank=True)
-    week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
+    # week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
     date_updated = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
@@ -140,11 +140,11 @@ class Defender_table(models.Model):
 
 class Midfielder_table(models.Model):
     is_subbed = models.BooleanField(default = False)
-    is_playing = models.BooleanField(default = False)
+    # is_playing = models.BooleanField(default = False)
     players_points = models.IntegerField(default = 0)
     user_id = models.ForeignKey(User, on_delete = models.CASCADE, null=True, blank=True)
     player_id = models.ForeignKey(Player_table, on_delete = models.CASCADE, null=True, blank=True)
-    week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
+    # week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
     date_updated = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):
@@ -152,11 +152,11 @@ class Midfielder_table(models.Model):
 
 class Striker_table(models.Model):
     is_subbed = models.BooleanField(default = False)
-    is_playing = models.BooleanField(default = False)
+    # is_playing = models.BooleanField(default = False)
     players_points = models.IntegerField(default = 0)
     user_id = models.ForeignKey(User, on_delete = models.CASCADE, null=True, blank=True)
     player_id = models.ForeignKey(Player_table, on_delete = models.CASCADE, null=True, blank=True)
-    week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
+    # week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
     date_updated = models.DateTimeField(auto_now_add = True)
 
     def __str__(self):

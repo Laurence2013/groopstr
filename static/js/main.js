@@ -404,6 +404,31 @@ CreateANewRequest.prototype = {
     http.send();
     get_forwards.innerHTML = 'Forwards...';
   },
+  Get_Players_Points: function() {
+    var http = new XMLHttpRequest();
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var forwards = JSON.parse(http.responseText);
+        console.log(forwards);
+        var mainHtml = '';
+        // mainHtml = '<h5 class="weekly_fixtures">Forwards</h5>';
+        // mainHtml += '<ul class="nav flex-column list-group">';
+        // for (i = 0; i < forwards.length; i++) {
+        //   mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + forwards[i].player_name
+        //   + '<br /><b>Player position: </b>' + forwards[i].player_position_1
+        //   + '<br /><b>Team: </b>' + forwards[i].real_football_team
+        //   + '<br /><b>Current valuation: </b>' + forwards[i].current_player_value
+        //   + '<br /><b>Total points: </b>' + forwards[i].total_points
+        // }
+        // mainHtml += '</ul>';
+        get_players_points.innerHTML = mainHtml;
+      }
+    }
+    http.open("GET", "admin_sort_points_players", true);
+    http.setRequestHeader('Content-type', 'application/json', true);
+    http.send();
+    get_players_points.innerHTML = 'Players points...';
+  },
 }
 window.onload = function() {
   main = new CreateANewRequest();
@@ -448,5 +473,8 @@ window.onload = function() {
   }
   if (document.getElementById('get_forwards')) {
     main.Get_Forwards();
+  }
+  if (document.getElementById('get_players_points')) {
+    main.Get_Players_Points();
   }
 }

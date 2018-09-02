@@ -1,0 +1,20 @@
+[
+    {
+        "player_id_id": 7,
+        "user_id_id": 8,
+        "players_points": 30,
+        "id": 1
+    },
+    {
+        "player_id_id": 5,
+        "user_id_id": 4,
+        "players_points": 22,
+        "id": 2
+    },
+    {
+        "player_id_id": 7,
+        "user_id_id": 5,
+        "players_points": 30,
+        "id": 3
+    }
+]

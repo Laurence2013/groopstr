@@ -82,5 +82,12 @@
     {% endif %}
   </div>
 </div>
+<div class="row">
+  <div class="col">
+    {% if get_players_points == True %}
+      <div id="get_players_points"></div>
+    {% endif %}
+  </div>
+</div>
 <script src="{% static '/js/main.js' %}"></script>
 {% endblock %}
