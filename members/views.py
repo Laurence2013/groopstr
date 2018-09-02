@@ -63,9 +63,7 @@ class GetRightMemberView(View):
             'player_3': return_get_member[2][2],
             'player_4': return_get_member[2][3],
         }
-        context_latest_week = {
-            'week': str(get_latest_week),
-        }
+        context_latest_week = {'week': str(get_latest_week),}
         save_to_json.save_json(context, 'members_team_info')
         save_to_json.save_json(context_player, 'members_player_info')
         save_to_json.save_json(context_latest_week, 'get_latest_week')
@@ -75,6 +73,9 @@ class GetRightMemberView(View):
         return JsonResponse(get_main_json, safe = False)
 
     def post(self, request, *args, **kwargs):
+        '''
+        This has to do with team formation
+        '''
         player_ids = request.POST.getlist('player_id')
         print(player_ids)
         return HttpResponse('Hello')

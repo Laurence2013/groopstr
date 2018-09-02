@@ -87,7 +87,6 @@ CreateANewRequest.prototype = {
           +'<br />'+'<b>Player valuation: </b>'+ get_players[1].player_4[5]
           +'<br />'+'<b>This place cannot play</b>';
         }
-
         mainHtml += '<br />';
         mainHtml += '<input type="submit" value="Submit players to play">';
         mainHtml += '</form>';

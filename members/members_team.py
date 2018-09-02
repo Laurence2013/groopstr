@@ -2,6 +2,9 @@ from members.models import *
 from players.models import *
 
 class GetMembersTeam:
+    def get_all_players_points(self):
+        pass
+        
     def check_request(self, get_user_id, request_user):
         if not Members_table.objects.filter(user_id = get_user_id):
             new_member = Members_table.objects.create(calculate_team_points = 0, credits_left = 10000, total_cost_players_bought = 0.00, profit_gained_players_sold = 0.00, prize_money_minus_bought_sold = 0.00, user_id = request_user)

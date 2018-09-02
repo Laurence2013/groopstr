@@ -17,17 +17,18 @@ from admin_updates.saving_points import Saving_Points
 
 class AdminUpdateView(View):
     def get(self, request, *args, **kwargs):
+        get_latest_week =   Week_table.objects.all().latest('week_no')
         context = {
             'get_week': True if Week_table.objects.all().count() > 0 else False,
             'get_fixtures': True if Fixtures_table.objects.all().count() > 0 else False,
-            'get_goals_table': True if kwargs.get('week_no') else False,
-            'get_goals_assist_table': True if kwargs.get('week_no') else False,
-            'get_man_of_the_match_table': True if kwargs.get('week_no') else False,
-            'get_own_goals': True if kwargs.get('week_no') else False,
-            'get_yellow_cards': True if kwargs.get('week_no') else False,
-            'get_red_cards': True if kwargs.get('week_no') else False,
-            'get_clean_sheets': True if kwargs.get('week_no') else False,
-            'get_form': True if kwargs.get('week_no') else False,
+            'get_goals_table': True if get_latest_week else False,
+            'get_goals_assist_table': True if get_latest_week else False,
+            'get_man_of_the_match_table': True if get_latest_week else False,
+            'get_own_goals': True if get_latest_week else False,
+            'get_yellow_cards': True if get_latest_week else False,
+            'get_red_cards': True if get_latest_week else False,
+            'get_clean_sheets': True if get_latest_week else False,
+            'get_form': True if get_latest_week else False,
             'get_goalkeepers': True,
             'get_defenders': True,
             'get_midfielders': True,
@@ -158,7 +159,7 @@ class AdminGetForwards(View):
 
         get_main_json = get_json.get_json_file('forwards')
         return JsonResponse(get_main_json, safe = False)
-        
+
 class AdminGetGoalsView(View):
     def get(self, request, *args, **kwargs):
         get_json = Saving_And_Getting_Json()

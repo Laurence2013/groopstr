@@ -1,13 +1,4 @@
 {
-    "player_1": [
-        5,
-        "Jordan Pickford",
-        "Goalkeeper",
-        null,
-        null,
-        "1800.00",
-        false
-    ],
     "player_2": [
         4,
         "Gary Cahill",
@@ -17,13 +8,13 @@
         "1800.00",
         false
     ],
-    "player_4": [
-        3,
-        "Javier Hernandez",
-        "Forward",
+    "player_1": [
+        5,
+        "Jordan Pickford",
+        "Goalkeeper",
         null,
         null,
-        "2100.00",
+        "1800.00",
         false
     ],
     "player_3": [
@@ -34,5 +25,14 @@
         null,
         "3000.00",
         true
+    ],
+    "player_4": [
+        2,
+        "Sergio Aguero",
+        "Forward",
+        null,
+        null,
+        "2450.00",
+        false
     ]
 }
