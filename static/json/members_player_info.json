@@ -8,15 +8,6 @@
         "1800.00",
         false
     ],
-    "player_1": [
-        5,
-        "Jordan Pickford",
-        "Goalkeeper",
-        null,
-        null,
-        "1800.00",
-        false
-    ],
     "player_3": [
         6,
         "Paul Pogba",
@@ -27,12 +18,21 @@
         true
     ],
     "player_4": [
-        2,
-        "Sergio Aguero",
+        3,
+        "Javier Hernandez",
         "Forward",
         null,
         null,
-        "2450.00",
+        "2100.00",
+        false
+    ],
+    "player_1": [
+        7,
+        "Hugo Lloris",
+        "Goalkeeper",
+        null,
+        null,
+        "1900.00",
         false
     ]
 }

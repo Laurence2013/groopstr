@@ -408,19 +408,20 @@ CreateANewRequest.prototype = {
     var http = new XMLHttpRequest();
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
-        var forwards = JSON.parse(http.responseText);
-        console.log(forwards);
+        var players_points = JSON.parse(http.responseText);
         var mainHtml = '';
-        // mainHtml = '<h5 class="weekly_fixtures">Forwards</h5>';
-        // mainHtml += '<ul class="nav flex-column list-group">';
-        // for (i = 0; i < forwards.length; i++) {
-        //   mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + forwards[i].player_name
-        //   + '<br /><b>Player position: </b>' + forwards[i].player_position_1
-        //   + '<br /><b>Team: </b>' + forwards[i].real_football_team
-        //   + '<br /><b>Current valuation: </b>' + forwards[i].current_player_value
-        //   + '<br /><b>Total points: </b>' + forwards[i].total_points
-        // }
-        // mainHtml += '</ul>';
+        mainHtml = '<h5 class="weekly_fixtures">Get Players points from each position</h5>';
+        mainHtml += '<ul class="nav flex-column list-group">';
+        for (i = 0; i < players_points.length; i++) {
+          for (j = 0; j < players_points[i].length; j++) {
+            mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'
+              + '<b>Players points: </b>' + players_points[i][j].players_points
+              + '<b> Player ID: </b>' + players_points[i][j].player_id_id
+              + '<b> Player position: </b>' + players_points[i][j].position
+              + '<b> User ID: </b>' + players_points[i][j].user_id_id + '</li>';
+          }
+        }
+        mainHtml += '</ul>';
         get_players_points.innerHTML = mainHtml;
       }
     }

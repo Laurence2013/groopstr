@@ -37,6 +37,13 @@ class AdminUpdateView(View):
         }
         return render(request, 'admin_update.html', context)
 
+class CalculateUserTotalPoints(View):
+    def get(self, request, *args, **kwargs):
+        get_all_user_ids = User.objects.filter(is_superuser = 0).values('id','username')
+        for i in range(0 ,len(get_all_user_ids)):
+            print(get_all_user_ids[i].get('id'))
+        return HttpResponse('Hello')
+
 class SortPointsForPlayers(View):
     get_json = Saving_And_Getting_Json()
 
@@ -49,10 +56,10 @@ class SortPointsForPlayers(View):
         '''
         Save Squad tables into json
         '''
-        self.__save_squad_points_to_json(Goalkeeper_table.objects.values('id','user_id_id', 'player_id_id','players_points'), 'goalkeepers_points')
-        self.__save_squad_points_to_json(Defender_table.objects.values('id','user_id_id', 'player_id_id','players_points'), 'defenders_points')
-        self.__save_squad_points_to_json(Midfielder_table.objects.values('id','user_id_id', 'player_id_id','players_points'), 'midfielders_points')
-        self.__save_squad_points_to_json(Striker_table.objects.values('id','user_id_id', 'player_id_id','players_points'), 'forwards_points')
+        self.__save_squad_points_to_json(Goalkeeper_table.objects.values('id','user_id_id', 'player_id_id','players_points'), 'goalkeepers_points','Goalkeepers')
+        self.__save_squad_points_to_json(Defender_table.objects.values('id','user_id_id', 'player_id_id','players_points'), 'defenders_points', 'Defenders')
+        self.__save_squad_points_to_json(Midfielder_table.objects.values('id','user_id_id', 'player_id_id','players_points'), 'midfielders_points', 'Midfielders')
+        self.__save_squad_points_to_json(Striker_table.objects.values('id','user_id_id', 'player_id_id','players_points'), 'forwards_points', 'Forwards')
         '''
         Show message here that it has been a success
         '''
@@ -62,12 +69,12 @@ class SortPointsForPlayers(View):
         get_main_json.append(self.get_json.get_json_file('midfielders_points'))
         get_main_json.append(self.get_json.get_json_file('forwards_points'))
         return JsonResponse(get_main_json, safe = False)
-        # return HttpResponse('Hello')
 
-    def __save_squad_points_to_json(self, squad_table, json_file_name):
+    def __save_squad_points_to_json(self, squad_table, json_file_name, position):
         context_list = []
         for i in range(0, len(squad_table)):
             context = {
+                'position': position,
                 'id': squad_table[i].get('id'),
                 'player_id_id': squad_table[i].get('player_id_id'),
                 'user_id_id': squad_table[i].get('user_id_id'),
