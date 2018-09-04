@@ -39,9 +39,21 @@ class AdminUpdateView(View):
 
 class CalculateUserTotalPoints(View):
     def get(self, request, *args, **kwargs):
+        user_players_points = []
         get_all_user_ids = User.objects.filter(is_superuser = 0).values('id','username')
         for i in range(0 ,len(get_all_user_ids)):
-            print(get_all_user_ids[i].get('id'))
+            if Goalkeeper_table.objects.filter(user_id_id = get_all_user_ids[i].get('id')) and Defender_table.objects.filter(user_id_id = get_all_user_ids[i].get('id')) and Midfielder_table.objects.filter(user_id_id = get_all_user_ids[i].get('id')) and Striker_table.objects.filter(user_id_id = get_all_user_ids[i].get('id')):
+                get_gk_points = Goalkeeper_table.objects.filter(user_id_id = get_all_user_ids[i].get('id')).values('players_points')[0]
+                get_df_points = Defender_table.objects.filter(user_id_id = get_all_user_ids[i].get('id')).values('players_points')[0]
+                get_mf_points = Midfielder_table.objects.filter(user_id_id = get_all_user_ids[i].get('id')).values('players_points')[0]
+                get_fw_points = Striker_table.objects.filter(user_id_id = get_all_user_ids[i].get('id')).values('players_points')[0]
+                total_player_points = get_gk_points.get('players_points') + get_df_points.get('players_points') + get_mf_points.get('players_points') + get_fw_points.get('players_points')
+                context = {
+                    'user_id': get_all_user_ids[i].get('id'),
+                    'total_players_points': total_player_points,
+                }
+                user_players_points.append(context)
+        print(user_players_points)
         return HttpResponse('Hello')
 
 class SortPointsForPlayers(View):
