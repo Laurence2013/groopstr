@@ -70,6 +70,7 @@ urlpatterns = [
     path('admin_update/<int:week_no>/admin_sort_points_players/', SortPointsForPlayers.as_view(), name='admin_sort_points_players'),
 
     path('admin_update/admin_calc_user_points/', CalculateUserTotalPoints.as_view(), name='admin_calc_user_points'),
+    path('admin_update/<int:week_no>/admin_calc_user_points/', CalculateUserTotalPoints.as_view(), name='admin_calc_user_points'),
 
     path('personal_info/', PersonalinfoView.as_view(), name='personal_info'),
     path('members/', MembersView.as_view(), name='members'),

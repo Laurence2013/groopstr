@@ -24,7 +24,7 @@ class Player_table(models.Model):
         return self.player_name
 
 class Form_table(models.Model):
-    points = models.IntegerField(null=True, default = 0)
+    points = models.IntegerField(default = 0)
     # total_points = models.IntegerField(default = 0)
     player = models.ForeignKey(Player_table, on_delete = models.CASCADE, null=True, blank=True)
     week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
@@ -37,7 +37,7 @@ class Form_table(models.Model):
     #     readonly = ['total_points']
 
 class Clean_Sheets_table(models.Model):
-    points = models.IntegerField(null=True, default = 0)
+    points = models.IntegerField(default = 0)
     # total_points = models.IntegerField(default = 0)
     player = models.ForeignKey(Player_table, on_delete = models.CASCADE, null=True, blank=True)
     week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
@@ -47,7 +47,7 @@ class Clean_Sheets_table(models.Model):
         return str(self.pk)
 
 class Goals_Assist_table(models.Model):
-    points = models.IntegerField(null=True, default = 0)
+    points = models.IntegerField(default = 0)
     # total_points = models.IntegerField(default = 0)
     player = models.ForeignKey(Player_table, on_delete = models.CASCADE, null=True, blank=True)
     week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
@@ -57,7 +57,7 @@ class Goals_Assist_table(models.Model):
         return str(self.pk)
 
 class Goals_table(models.Model):
-    points = models.IntegerField(null=True, default = 0)
+    points = models.IntegerField(default = 0)
     # total_points = models.IntegerField(null=True, default = 0)
     player = models.ForeignKey(Player_table, on_delete = models.CASCADE, null=True, blank=True)
     week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
@@ -67,7 +67,7 @@ class Goals_table(models.Model):
         return str(self.pk)
 
 class Man_of_Match_table(models.Model):
-    points = models.IntegerField(null=True, default = 0)
+    points = models.IntegerField(default = 0)
     # total_points = models.IntegerField(default = 0)
     player = models.ForeignKey(Player_table, on_delete = models.CASCADE, null=True, blank=True)
     week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
@@ -77,7 +77,7 @@ class Man_of_Match_table(models.Model):
         return str(self.pk)
 
 class Own_Goals_table(models.Model):
-    points = models.IntegerField(null=True, default = 0)
+    points = models.IntegerField(default = 0)
     # total_points = models.IntegerField(default = 0)
     player = models.ForeignKey(Player_table, on_delete = models.CASCADE, null=True, blank=True)
     week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
@@ -87,7 +87,7 @@ class Own_Goals_table(models.Model):
         return str(self.pk)
 
 class Yellow_Card_table(models.Model):
-    points = models.IntegerField(null=True, default = 0)
+    points = models.IntegerField(default = 0)
     # total_points = models.IntegerField(default = 0)
     player = models.ForeignKey(Player_table, on_delete = models.CASCADE, null=True, blank=True)
     week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)
@@ -97,7 +97,7 @@ class Yellow_Card_table(models.Model):
         return str(self.pk)
 
 class Red_Card_table(models.Model):
-    points = models.IntegerField(null=True, default = 0)
+    points = models.IntegerField(default = 0)
     # total_points = models.IntegerField(default = 0)
     player = models.ForeignKey(Player_table, on_delete = models.CASCADE, null=True, blank=True)
     week_no_id = models.ForeignKey(Week_table, on_delete = models.CASCADE, null=True, blank=True)

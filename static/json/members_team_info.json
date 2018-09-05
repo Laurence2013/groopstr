@@ -1,11 +1,11 @@
 {
-    "username": "laurence1212",
-    "total_cost_players_bought": "0.00",
-    "prize_money_minus_bought_sold": "0.00",
-    "calculate_team_points": 0,
-    "user_id": 5,
-    "profit_gained_players_sold": "0.00",
     "boolean_team_points": true,
-    "credits_left": 1300,
-    "date_updated": "2018-08-12T08:47:36Z"
+    "calculate_team_points": 59,
+    "total_cost_players_bought": "0.00",
+    "user_id": 4,
+    "prize_money_minus_bought_sold": "0.00",
+    "profit_gained_players_sold": "0.00",
+    "username": "laurence121",
+    "date_updated": "2018-07-30T18:29:45Z",
+    "credits_left": 950
 }

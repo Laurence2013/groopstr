@@ -34,10 +34,13 @@ class AdminUpdateView(View):
             'get_midfielders': True,
             'get_forwards': True,
             'get_players_points': True,
+            'get_user_total_points': True,
         }
         return render(request, 'admin_update.html', context)
 
 class CalculateUserTotalPoints(View):
+    get_json = Saving_And_Getting_Json()
+
     def get(self, request, *args, **kwargs):
         user_players_points = []
         get_all_user_ids = User.objects.filter(is_superuser = 0).values('id','username')
@@ -53,8 +56,34 @@ class CalculateUserTotalPoints(View):
                     'total_players_points': total_player_points,
                 }
                 user_players_points.append(context)
-        print(user_players_points)
-        return HttpResponse('Hello')
+        is_saved = self.__save_players_total_points(user_players_points)
+        if is_saved is False:
+            messages.error(request, 'Something went wrong when calculating all players points')
+            return redirect('admin_update')
+        self.__save_to_json_file('user_total_players_points')
+        get_main_json = self.get_json.get_json_file('user_total_players_points')
+        return JsonResponse(get_main_json, safe = False)
+
+    def __save_to_json_file(self, json_file_name):
+        user_total_points = []
+        get_user_points = Members_table.objects.values('id','user_id_id','calculate_team_points')
+        for i in range(0, len(get_user_points)):
+            context = {
+                'id': get_user_points[i].get('id'),
+                'user_id': get_user_points[i].get('user_id_id'),
+                'user_team_points': get_user_points[i].get('calculate_team_points'),
+            }
+            user_total_points.append(context)
+        self.get_json.save_json(user_total_points, json_file_name)
+
+    def __save_players_total_points(self, total_points):
+        for i in range(0, len(total_points)):
+            if Members_table.objects.filter(user_id_id = total_points[i].get('user_id')):
+                Members_table.objects.filter(user_id_id = total_points[i].get('user_id')).update(calculate_team_points = total_points[i].get('total_players_points'))
+        '''
+        Add some time update validation here when returning
+        '''
+        return True
 
 class SortPointsForPlayers(View):
     get_json = Saving_And_Getting_Json()

@@ -430,6 +430,28 @@ CreateANewRequest.prototype = {
     http.send();
     get_players_points.innerHTML = 'Players points...';
   },
+  Get_User_Players_Total_Points: function() {
+    var http = new XMLHttpRequest();
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var players_points = JSON.parse(http.responseText);
+        var mainHtml = '';
+        mainHtml = '<h5 class="weekly_fixtures">Get User total points for all his or her players</h5>';
+        mainHtml += '<ul class="nav flex-column list-group">';
+        for (i = 0; i < players_points.length; i++) {
+          mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'
+            + '<b>User ID: </b>' + players_points[i].user_id
+            + '<b> Team Points: </b>' + players_points[i].user_team_points + '</li>';
+        }
+        mainHtml += '</ul>';
+        get_user_total_points.innerHTML = mainHtml;
+      }
+    }
+    http.open("GET", "admin_calc_user_points", true);
+    http.setRequestHeader('Content-type', 'application/json', true);
+    http.send();
+    get_user_total_points.innerHTML = 'User Players Total Points...';
+  },
 }
 window.onload = function() {
   main = new CreateANewRequest();
@@ -477,5 +499,8 @@ window.onload = function() {
   }
   if (document.getElementById('get_players_points')) {
     main.Get_Players_Points();
+  }
+  if (document.getElementById('get_user_total_points')) {
+    main.Get_User_Players_Total_Points();
   }
 }

@@ -1,23 +1,23 @@
 [
     {
-        "player_id_id": 6,
-        "position": "Midfielders",
-        "user_id_id": 8,
         "id": 1,
-        "players_points": 6
-    },
-    {
         "player_id_id": 6,
         "position": "Midfielders",
-        "user_id_id": 4,
+        "players_points": 6,
+        "user_id_id": 8
+    },
+    {
         "id": 2,
-        "players_points": 6
-    },
-    {
         "player_id_id": 6,
         "position": "Midfielders",
-        "user_id_id": 5,
+        "players_points": 6,
+        "user_id_id": 4
+    },
+    {
         "id": 3,
-        "players_points": 6
+        "player_id_id": 6,
+        "position": "Midfielders",
+        "players_points": 6,
+        "user_id_id": 5
     }
 ]
