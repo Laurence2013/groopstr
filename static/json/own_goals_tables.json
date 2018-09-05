@@ -3,52 +3,52 @@
         "table_name": "Own goals"
     },
     {
-        "id": 1,
+        "id": 7,
+        "week_no_id_id": 9,
         "player_name": "Leonel Messi",
         "player_id": 1,
-        "week_no_id_id": 8,
         "points": 0
     },
     {
-        "id": 2,
+        "id": 8,
+        "week_no_id_id": 9,
         "player_name": "Sergio Aguero",
         "player_id": 2,
-        "week_no_id_id": 8,
         "points": 0
     },
     {
-        "id": 3,
+        "id": 9,
+        "week_no_id_id": 9,
         "player_name": "Javier Hernandez",
         "player_id": 3,
-        "week_no_id_id": 8,
         "points": 0
     },
     {
-        "id": 4,
+        "id": 10,
+        "week_no_id_id": 9,
         "player_name": "Gary Cahill",
         "player_id": 4,
-        "week_no_id_id": 8,
         "points": 0
     },
     {
-        "id": 5,
+        "id": 11,
+        "week_no_id_id": 9,
         "player_name": "Jordan Pickford",
         "player_id": 5,
-        "week_no_id_id": 8,
         "points": 0
     },
     {
-        "id": 6,
+        "id": 12,
+        "week_no_id_id": 9,
         "player_name": "Paul Pogba",
         "player_id": 6,
-        "week_no_id_id": 8,
         "points": 0
     },
     {
-        "id": 13,
+        "id": 14,
+        "week_no_id_id": 9,
         "player_name": "Hugo Lloris",
         "player_id": 7,
-        "week_no_id_id": 8,
         "points": 0
     }
 ]

@@ -1,11 +1,11 @@
 [
     {
-        "player_position_1": "Midfielder",
-        "current_player_value": "3000.00",
-        "total_points": 6,
-        "real_football_team": "Manchester United",
+        "is_player_not_playing": true,
         "id": 6,
+        "current_player_value": "3000.00",
         "player_name": "Paul Pogba",
-        "is_player_not_playing": true
+        "player_position_1": "Midfielder",
+        "total_points": 6,
+        "real_football_team": "Manchester United"
     }
 ]

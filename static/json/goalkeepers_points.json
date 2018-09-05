@@ -1,23 +1,23 @@
 [
     {
+        "position": "Goalkeepers",
         "id": 1,
         "player_id_id": 7,
-        "position": "Goalkeepers",
-        "players_points": 30,
+        "players_points": 27,
         "user_id_id": 8
     },
     {
+        "position": "Goalkeepers",
         "id": 2,
         "player_id_id": 5,
-        "position": "Goalkeepers",
-        "players_points": 22,
+        "players_points": 19,
         "user_id_id": 4
     },
     {
+        "position": "Goalkeepers",
         "id": 3,
         "player_id_id": 7,
-        "position": "Goalkeepers",
-        "players_points": 30,
+        "players_points": 27,
         "user_id_id": 5
     }
 ]
