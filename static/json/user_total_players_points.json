@@ -1,42 +1,42 @@
 [
     {
-        "id": 2,
         "user_id": 19,
+        "id": 2,
         "user_team_points": 0
     },
     {
-        "id": 3,
         "user_id": 4,
+        "id": 3,
         "user_team_points": 46
     },
     {
-        "id": 4,
         "user_id": 5,
+        "id": 4,
         "user_team_points": 55
     },
     {
-        "id": 5,
         "user_id": 20,
+        "id": 5,
         "user_team_points": 0
     },
     {
-        "id": 6,
         "user_id": 21,
+        "id": 6,
         "user_team_points": 0
     },
     {
-        "id": 7,
         "user_id": 22,
+        "id": 7,
         "user_team_points": 0
     },
     {
-        "id": 8,
         "user_id": 7,
+        "id": 8,
         "user_team_points": 0
     },
     {
-        "id": 9,
         "user_id": 8,
+        "id": 9,
         "user_team_points": 67
     }
 ]

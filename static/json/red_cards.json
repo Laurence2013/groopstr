@@ -3,52 +3,52 @@
         "table_name": "Red Cards"
     },
     {
+        "player_id": 1,
         "id": 12,
         "week_no_id_id": 9,
         "player_name": "Leonel Messi",
-        "player_id": 1,
         "points": 0
     },
     {
+        "player_id": 2,
         "id": 13,
         "week_no_id_id": 9,
         "player_name": "Sergio Aguero",
-        "player_id": 2,
         "points": 0
     },
     {
+        "player_id": 3,
         "id": 14,
         "week_no_id_id": 9,
         "player_name": "Javier Hernandez",
-        "player_id": 3,
         "points": 0
     },
     {
+        "player_id": 4,
         "id": 15,
         "week_no_id_id": 9,
         "player_name": "Gary Cahill",
-        "player_id": 4,
         "points": 0
     },
     {
+        "player_id": 5,
         "id": 16,
         "week_no_id_id": 9,
         "player_name": "Jordan Pickford",
-        "player_id": 5,
         "points": 0
     },
     {
+        "player_id": 6,
         "id": 17,
         "week_no_id_id": 9,
         "player_name": "Paul Pogba",
-        "player_id": 6,
         "points": 0
     },
     {
+        "player_id": 7,
         "id": 19,
         "week_no_id_id": 9,
         "player_name": "Hugo Lloris",
-        "player_id": 7,
         "points": 0
     }
 ]

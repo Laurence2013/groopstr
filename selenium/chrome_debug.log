@@ -1,0 +1,5 @@
+[12884:12884:0906/084422.130383:WARNING:password_store_factory.cc(241)] Using basic (unencrypted) store for password storage. See https://chromium.googlesource.com/chromium/src/+/master/docs/linux_password_storage.md for more information about password storage options.
+[12884:12884:0906/084422.283429:ERROR:gpu_process_transport_factory.cc(1019)] Lost UI shared context.
+[1:10:0906/084422.380462:ERROR:command_buffer_proxy_impl.cc(133)] ContextResult::kTransientFailure: Failed to send GpuChannelMsg_CreateCommandBuffer.
+[12983:12983:0906/084422.438866:WARNING:ipc_message_attachment_set.cc(49)] MessageAttachmentSet destroyed with unconsumed attachments: 0/1
+[12884:12884:0906/084425.799159:INFO:chrome_cryptauth_service.cc(231)] Profile is not authenticated yet; waiting before starting CryptAuth managers.
