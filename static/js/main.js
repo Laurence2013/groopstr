@@ -16,7 +16,7 @@ CreateANewRequest.prototype = {
           week_ids_arr.push(weekly_fixs[i].week_no);
           if (weekly_fixs[i].has_this_week_passed == false) {
             mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week: </b>'+ weekly_fixs[i].week_no + ' -- ' +
-            '<b>Start date: </b>'+ weekly_fixs[i].start_date + ' -- ' + '<b>End date:</b>' + weekly_fixs[i].end_date + ' -- ' +'<b>Check this week to be the CURRENT WEEK:</b> '+
+            '<b>Start date: </b>'+ weekly_fixs[i].start_date + ' -- ' + '<b>End date:</b>' + weekly_fixs[i].end_date + ' -- ' +'<b>This is the current week, check to pass:</b> '+
             '<input type="radio" id="check_w" name="which_check_week" value="'+ weekly_fixs[i].id +'"> </li>';
             mainHtml += '<input name="csrfmiddlewaretoken" value='+ csrftoken +' type="hidden">'
           } else {
