@@ -30,7 +30,6 @@ CreateANewRequest.prototype = {
         mainHtml += '</form>';
         mainHtml += '</ul>';
         get_week.innerHTML = mainHtml;
-        var pass_week_ids = new CreateANewRequest();
         if (typeof Get_Fixtures != 'undefined'){
           pass_week_ids.Get_Fixtures(week_ids_arr);
         }
@@ -81,36 +80,8 @@ CreateANewRequest.prototype = {
       http.send();
       get_fixtures.innerHTML = 'Weekly fixtures ...';
     } catch (e) {
-      console.log(e);
       window.location = "http://localhost:8000/admin_update";
     }
-    // if (e != undefined) {
-    //   var http = new XMLHttpRequest();
-    //   http.onreadystatechange = function() {
-    //     if (http.readyState == 4 && http.status == 200) {
-    //         var weekly_fixtures = JSON.parse(http.responseText);
-    //         var mainHtml = '';
-    //         mainHtml = '<h2 class="weekly_fixtures">Fixtures in each week</h2>';
-    //         mainHtml += '<ul class="nav flex-column list-group">';
-    //         for (i = 0; i < e.length; i++) {
-    //           mainHtml += '<h4>'+' <b>Week: </b> '+e[i] +'</h4>';
-    //           for (j = 0; j < weekly_fixtures.length; j++) {
-    //             if (e[i] == weekly_fixtures[j].week_no) {
-    //               mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'
-    //               +' <b>Fixture: </b> '+ weekly_fixtures[j].fixture +' -- <b>Date of game: </b> '+ weekly_fixtures[j].date_of_game +' -- <b>Competition: </b> '+ weekly_fixtures[j].competition +
-    //               '</li>';
-    //             }
-    //           }
-    //         }
-    //         mainHtml += '</ul>';
-    //         get_fixtures.innerHTML = mainHtml;
-    //     }
-    //   }
-    //   http.open("GET", "admin_get_fixtures", true);
-    //   http.setRequestHeader('Content-type', 'application/json', true);
-    //   http.send();
-    //   get_fixtures.innerHTML = 'Weekly fixtures ...';
-    // }
   },
   Get_Goals: function() {
     var http = new XMLHttpRequest();

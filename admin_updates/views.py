@@ -17,7 +17,6 @@ from admin_updates.saving_points import Saving_Points
 
 class AdminUpdateView(View):
     def get(self, request, *args, **kwargs):
-        print(kwargs.get('fixtures'))
         what_is = kwargs.get('fixtures')
         get_latest_week =   Week_table.objects.all().latest('week_no')
         context = {
@@ -38,7 +37,6 @@ class AdminUpdateView(View):
             # 'get_players_points': True,
             # 'get_user_total_points': True,
         }
-        print(context)
         return render(request, 'admin_update.html', context)
 
 class CalculateUserTotalPoints(View):
