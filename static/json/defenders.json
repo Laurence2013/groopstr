@@ -1,11 +1,11 @@
 [
     {
-        "current_player_value": "1800.00",
-        "id": 4,
         "player_name": "Gary Cahill",
-        "is_player_not_playing": false,
-        "real_football_team": "Chelsea",
         "total_points": 21,
-        "player_position_1": "Defender"
+        "player_position_1": "Defender",
+        "id": 4,
+        "real_football_team": "Chelsea",
+        "is_player_not_playing": false,
+        "current_player_value": "1800.00"
     }
 ]

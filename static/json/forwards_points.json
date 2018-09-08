@@ -1,23 +1,23 @@
 [
     {
         "player_id_id": 1,
+        "players_points": 29,
         "position": "Forwards",
         "user_id_id": 8,
-        "id": 2,
-        "players_points": 19
+        "id": 2
     },
     {
         "player_id_id": 2,
+        "players_points": 10,
         "position": "Forwards",
         "user_id_id": 4,
-        "id": 3,
-        "players_points": 10
+        "id": 3
     },
     {
         "player_id_id": 3,
+        "players_points": 11,
         "position": "Forwards",
         "user_id_id": 5,
-        "id": 4,
-        "players_points": 11
+        "id": 4
     }
 ]

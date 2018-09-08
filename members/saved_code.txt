@@ -29,3 +29,14 @@ def __get_right_member(self, get_member, get_user_id):
           #     'team_name': return_get_member[1],
           #     'players': return_get_member[2],
           # }
+
+
+
+javascript stuff
+
+if (e == undefined) {
+  console.log(true);
+  get_weeks = new CreateANewRequest();
+  console.dir(get_weeks.Get_Week);
+  // console.log(get_weeks.Get_Week.week_id);
+}

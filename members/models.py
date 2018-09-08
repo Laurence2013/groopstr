@@ -35,7 +35,7 @@ class Members_table(models.Model):
 
 class Week_table(models.Model):
     week_no = models.IntegerField(default = 0)
-    is_current_week = models.BooleanField(default = False)
+    has_this_week_passed = models.BooleanField(default = False)
     start_date = models.DateField(blank = True, null = True)
     end_date = models.DateField(blank = True, null = True)
     date_updated = models.DateTimeField(auto_now_add = True)

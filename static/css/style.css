@@ -14,10 +14,13 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
-#center-nav {
+#center-nav, #center-section {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
+}
+#center-section {
+  padding-top: 30px;
 }
 #font-colour {
   color: #F8F8FF;

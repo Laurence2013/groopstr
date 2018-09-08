@@ -1,23 +1,23 @@
 [
     {
         "player_id_id": 6,
+        "players_points": 11,
         "position": "Midfielders",
         "user_id_id": 8,
-        "id": 1,
-        "players_points": 11
+        "id": 1
     },
     {
         "player_id_id": 6,
+        "players_points": 11,
         "position": "Midfielders",
         "user_id_id": 4,
-        "id": 2,
-        "players_points": 11
+        "id": 2
     },
     {
         "player_id_id": 6,
+        "players_points": 11,
         "position": "Midfielders",
         "user_id_id": 5,
-        "id": 3,
-        "players_points": 11
+        "id": 3
     }
 ]

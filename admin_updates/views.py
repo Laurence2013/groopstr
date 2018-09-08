@@ -17,25 +17,28 @@ from admin_updates.saving_points import Saving_Points
 
 class AdminUpdateView(View):
     def get(self, request, *args, **kwargs):
+        print(kwargs.get('fixtures'))
+        what_is = kwargs.get('fixtures')
         get_latest_week =   Week_table.objects.all().latest('week_no')
         context = {
-            'get_week': True if Week_table.objects.all().count() > 0 else False,
-            'get_fixtures': True if Fixtures_table.objects.all().count() > 0 else False,
-            'get_goals_table': True if get_latest_week else False,
-            'get_goals_assist_table': True if get_latest_week else False,
-            'get_man_of_the_match_table': True if get_latest_week else False,
-            'get_own_goals': True if get_latest_week else False,
-            'get_yellow_cards': True if get_latest_week else False,
-            'get_red_cards': True if get_latest_week else False,
-            'get_clean_sheets': True if get_latest_week else False,
-            'get_form': True if get_latest_week else False,
-            'get_goalkeepers': True,
-            'get_defenders': True,
-            'get_midfielders': True,
-            'get_forwards': True,
-            'get_players_points': True,
-            'get_user_total_points': True,
+            'get_week': True if what_is is None else False,
+            'get_fixtures': True if what_is == 'fixtures' else False,
+            # 'get_goals_table': True if get_latest_week else False,
+            # 'get_goals_assist_table': True if get_latest_week else False,
+            # 'get_man_of_the_match_table': True if get_latest_week else False,
+            # 'get_own_goals': True if get_latest_week else False,
+            # 'get_yellow_cards': True if get_latest_week else False,
+            # 'get_red_cards': True if get_latest_week else False,
+            # 'get_clean_sheets': True if get_latest_week else False,
+            # 'get_form': True if get_latest_week else False,
+            # 'get_goalkeepers': True,
+            # 'get_defenders': True,
+            # 'get_midfielders': True,
+            # 'get_forwards': True,
+            # 'get_players_points': True,
+            # 'get_user_total_points': True,
         }
+        print(context)
         return render(request, 'admin_update.html', context)
 
 class CalculateUserTotalPoints(View):
@@ -542,7 +545,7 @@ class AdminGetWeeklyFixtures(View):
         get_week_fixtures = self.__get_weekly_fixtures()
         week_fixture = self.__set_fixtures_and_week(get_week_fixtures)
         '''
-        2 - Show all Weeks in Week_table and display in Admin page - show is_current_week - so admin can check which one should be current
+        2 - Show all Weeks in Week_table and display in Admin page - show has_this_week_passed - so admin can check which one should be current
         2(i) - Save into json format
         '''
         get_json.save_json(week_fixture, get_weekly_fixtures)
@@ -556,14 +559,14 @@ class AdminGetWeeklyFixtures(View):
 
     def __show_all_weeks(self):
         week = []
-        get_weeks = Week_table.objects.all().values('id','week_no','start_date','end_date','is_current_week')
+        get_weeks = Week_table.objects.all().values('id','week_no','start_date','end_date','has_this_week_passed')
         for i in range(0, len(get_weeks)):
             context = {
                 'id': get_weeks[i].get('id'),
                 'week_no': get_weeks[i].get('week_no'),
                 'start_date': get_weeks[i].get('start_date'),
                 'end_date': get_weeks[i].get('end_date'),
-                'is_current_week': get_weeks[i].get('is_current_week'),
+                'has_this_week_passed': get_weeks[i].get('has_this_week_passed'),
             }
             week.append(context)
         return week
@@ -572,7 +575,7 @@ class AdminGetWeeklyFixtures(View):
         '''
         1 - Connect fixtures to its correct week before displaying - test_database_tables.Fixtures_and_Weeks class
         '''
-        get_weeks = Week_table.objects.all().values('id','week_no','start_date','end_date','is_current_week')
+        get_weeks = Week_table.objects.all().values('id','week_no','start_date','end_date','has_this_week_passed')
         get_fixtures = Fixtures_table.objects.all().values('id','fixture','competition','date_of_game','week_no_id')
         return get_weeks, get_fixtures
 
@@ -591,7 +594,7 @@ class AdminGetWeeklyFixtures(View):
                         'week_no': get_week_fixtures[0][i].get('week_no'),
                         'start_date': get_week_fixtures[0][i].get('start_date'),
                         'end_date': get_week_fixtures[0][i].get('end_date'),
-                        'is_current_week': get_week_fixtures[0][i].get('is_current_week'),
+                        'has_this_week_passed': get_week_fixtures[0][i].get('has_this_week_passed'),
                         'week_id': get_week_fixtures[0][i].get('id'),
                     }
                     week_fixture.append(context)

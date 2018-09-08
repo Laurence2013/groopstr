@@ -3,25 +3,25 @@ function CreateANewRequest(){}
 CreateANewRequest.prototype = {
   Get_Week: function() {
     var http = new XMLHttpRequest();
-    var week_ids_arr = []
+    var week_ids_arr = [];
     http.onreadystatechange = function() {
       if (http.readyState == 4 && http.status == 200) {
         var csrftoken = Cookies.get('csrftoken');
         var weekly_fixs = JSON.parse(http.responseText);
         var mainHtml = '';
-        mainHtml = '<h2 class="weekly_fixtures">All weeks in a season</h2>';
+        mainHtml = '<h2 class="weekly_fixtures">All weekly games this season</h2>';
         mainHtml += '<ul class="nav flex-column list-group">';
         mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/admin_get_current_week/" method="POST">';
         for (i = 0; i < weekly_fixs.length; i++) {
           week_ids_arr.push(weekly_fixs[i].week_no);
-          if (weekly_fixs[i].is_current_week == false) {
+          if (weekly_fixs[i].has_this_week_passed == false) {
             mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week: </b>'+ weekly_fixs[i].week_no + ' -- ' +
-            '<b>Start date: </b>'+ weekly_fixs[i].start_date + ' -- ' + '<b>End date:</b>' + weekly_fixs[i].end_date + ' -- ' +'<b>Check this week to True:</b> '+
+            '<b>Start date: </b>'+ weekly_fixs[i].start_date + ' -- ' + '<b>End date:</b>' + weekly_fixs[i].end_date + ' -- ' +'<b>Check this week to be the CURRENT WEEK:</b> '+
             '<input type="radio" id="check_w" name="which_check_week" value="'+ weekly_fixs[i].id +'"> </li>';
             mainHtml += '<input name="csrfmiddlewaretoken" value='+ csrftoken +' type="hidden">'
           } else {
             mainHtml += '<li id="backg-colour" class="nav-item list-group-item"><b>Week: </b>'+ weekly_fixs[i].week_no + ' -- ' +
-            '<b>Start date: </b>'+ weekly_fixs[i].start_date + ' -- ' + '<b>End date:</b>' + weekly_fixs[i].end_date + ' -- ' +'<b>This is already current week:</b> '+
+            '<b>Start date: </b>'+ weekly_fixs[i].start_date + ' -- ' + '<b>End date:</b>' + weekly_fixs[i].end_date + ' -- ' +'<b>This week has already passed:</b> '+
             '<input type="radio" id="check_w" name="which_check_week" value="'+ weekly_fixs[i].id +'" disabled> </li>';
             mainHtml += '<input name="csrfmiddlewaretoken" value='+ csrftoken +' type="hidden">'
           }
@@ -31,7 +31,12 @@ CreateANewRequest.prototype = {
         mainHtml += '</ul>';
         get_week.innerHTML = mainHtml;
         var pass_week_ids = new CreateANewRequest();
-        pass_week_ids.Get_Fixtures(week_ids_arr);
+        if (typeof Get_Fixtures != 'undefined'){
+          pass_week_ids.Get_Fixtures(week_ids_arr);
+        }
+        else {
+          sessionStorage.setItem('key',week_ids_arr);
+        }
       }
     }
     http.open("GET", "admin_get_weekly_fixtures", true);
@@ -39,8 +44,17 @@ CreateANewRequest.prototype = {
     http.send();
     get_week.innerHTML = 'Season games ...';
   },
-  Get_Fixtures: function(e) {
-    if (e != undefined) {
+  Get_Fixtures: function(ids) {
+    try {
+      var e = [];
+      if (ids == undefined) {
+        var get_items = sessionStorage.getItem('key');
+        for (k = 0; k < get_items.length; k++) {
+          if (parseInt(get_items[k])) {
+            e.push(get_items[k]);
+          }
+        }
+      }
       var http = new XMLHttpRequest();
       http.onreadystatechange = function() {
         if (http.readyState == 4 && http.status == 200) {
@@ -66,7 +80,37 @@ CreateANewRequest.prototype = {
       http.setRequestHeader('Content-type', 'application/json', true);
       http.send();
       get_fixtures.innerHTML = 'Weekly fixtures ...';
+    } catch (e) {
+      console.log(e);
+      window.location = "http://localhost:8000/admin_update";
     }
+    // if (e != undefined) {
+    //   var http = new XMLHttpRequest();
+    //   http.onreadystatechange = function() {
+    //     if (http.readyState == 4 && http.status == 200) {
+    //         var weekly_fixtures = JSON.parse(http.responseText);
+    //         var mainHtml = '';
+    //         mainHtml = '<h2 class="weekly_fixtures">Fixtures in each week</h2>';
+    //         mainHtml += '<ul class="nav flex-column list-group">';
+    //         for (i = 0; i < e.length; i++) {
+    //           mainHtml += '<h4>'+' <b>Week: </b> '+e[i] +'</h4>';
+    //           for (j = 0; j < weekly_fixtures.length; j++) {
+    //             if (e[i] == weekly_fixtures[j].week_no) {
+    //               mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'
+    //               +' <b>Fixture: </b> '+ weekly_fixtures[j].fixture +' -- <b>Date of game: </b> '+ weekly_fixtures[j].date_of_game +' -- <b>Competition: </b> '+ weekly_fixtures[j].competition +
+    //               '</li>';
+    //             }
+    //           }
+    //         }
+    //         mainHtml += '</ul>';
+    //         get_fixtures.innerHTML = mainHtml;
+    //     }
+    //   }
+    //   http.open("GET", "admin_get_fixtures", true);
+    //   http.setRequestHeader('Content-type', 'application/json', true);
+    //   http.send();
+    //   get_fixtures.innerHTML = 'Weekly fixtures ...';
+    // }
   },
   Get_Goals: function() {
     var http = new XMLHttpRequest();
@@ -81,10 +125,10 @@ CreateANewRequest.prototype = {
         mainHtml += '<input type="hidden" name="week_no" value="'+ goals[1].week_no_id_id +'">'
         for (i = 1; i < goals.length; i++) {
           mainHtml += '<li id="backg-colour" class="nav-item list-group-item">'+ '<b>Player name: </b>' + goals[i].player_name
-          + '<br /><b>Week number: </b>' + goals[i].week_no_id_id
+          + '<br /><b>Week ID number: </b>' + goals[i].week_no_id_id
           + '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">'
           + '<input type="hidden" name="player_id" value="'+ goals[i].player_id +'">'
-          + '<input type="text" name="goals" value="'+ 0 +'">'
+          + '<br /><b>Enter goals scored: </b><input type="text" name="goals" value="'+ 0 +'">'
           + '<br /><b>Total points: </b>' + goals[i].points +'</li>';
         }
         mainHtml += '<input type="submit" value="Submit">';
