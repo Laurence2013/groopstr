@@ -293,7 +293,7 @@ class AdminGetGoalsAssistView(View):
 
     def post(self, request, *args, **kwargs):
         '''
-        5 - Enter new points to the right player in the right week for example if week 8, then make sure it is week 8, right player id, then ad points
+        5 - Enter new points to the right player in the right week for example if week 8, then make sure it is week 8, right player id, then add points
         '''
         saving_points = Saving_Points()
         goals_player = []

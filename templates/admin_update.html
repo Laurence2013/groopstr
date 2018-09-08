@@ -1,7 +1,42 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 {% block content %}
-</script>
+<div id="col" class="row">
+  <nav id="center-nav" class="navbar navbar-expand-lg navbar-light ">
+    <a id="font-colour" class="navbar-brand" href="#">Groopstr</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul  class="navbar-nav">
+        <li class="nav-item active">
+          <a id="font-colour" class="nav-link" href="#">View all Weeks <span class="sr-only">(current)</span></a>
+        </li>
+        <div class="vl"></div>
+        <li class="nav-item">
+          <a id="font-colour" class="nav-link" href="#">View all Fixtures</a>
+        </li>
+        <div class="vl"></div>
+        <li class="nav-item">
+          <a id="font-colour" class="nav-link" href="#">Statistics tables</a>
+        </li>
+        <div class="vl"></div>
+        <li class="nav-item">
+          <a id="font-colour" class="nav-link" href="#">Players points</a>
+        </li>
+        <div class="vl"></div>
+        <li class="nav-item">
+          <a id="font-colour" class="nav-link" href="#">Members players points</a>
+        </li>
+        <div class="vl"></div>
+        <li class="nav-item">
+          <a id="font-colour" class="nav-link" href="#">Users total players points</a>
+        </li>
+        <div class="vl"></div>
+      </ul>
+    </div>
+  </nav>
+</div>
 <h1>Admin update Page</h1>
 {% if messages %}
 <ul class="messages">

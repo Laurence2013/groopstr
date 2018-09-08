@@ -1,6 +1,9 @@
-from django.test import TestCase
+from django.test import TestCase, RequestFactory, Client
+from admin_updates.saving_points import Saving_Points
+from members.members_team import GetMembersTeam
 from nose.tools import nottest
 from members.models import *
+from players.models import *
 from members.forms import *
 import datetime
 from test_database_tables import Fixtures_and_Weeks
@@ -24,6 +27,8 @@ Admin will always update players points into the players statistics tables
 class Behaviours_In_Admin_Page(TestCase):
     def setUp(self):
         self.test = Fixtures_and_Weeks()
+        self.admin_get_goals = GetMembersTeam()
+        self.factory = RequestFactory()
         self.week_fixture_0 = {'end_date': datetime.date(2018, 8, 11), 'fixture': 'Chelsea vs Fiorentina', 'date_of_game': datetime.date(2018, 8, 8), 'start_date': datetime.date(2018, 8, 5), 'week_no': 1, 'competition': 'cl'}
         self.week_fixture_1 = {'end_date': datetime.date(2018, 8, 11), 'fixture': 'Chelsea vs Arsenal', 'date_of_game': datetime.date(2018, 8, 10), 'start_date': datetime.date(2018, 8, 5), 'week_no': 1, 'competition': 'pl'}
         self.week_fixture_2 = {'end_date': datetime.date(2018, 8, 18), 'fixture': 'Liverpool vs Everton', 'date_of_game': datetime.date(2018, 8, 10), 'start_date': datetime.date(2018, 8, 12), 'week_no': 2, 'competition': 'pl'}
@@ -61,10 +66,40 @@ class Behaviours_In_Admin_Page(TestCase):
     '''
     def test_03_check_if_goals_table_is_null(self):
         get_goals_table = self.test.stats_goals_table00()
-        print(get_goals_table)
         self.assertEqual(None, get_goals_table[0].get('player_id'))
-        self.assertEqual(None, get_goals_table[0].get('points'))
+        self.assertEqual(0, get_goals_table[0].get('points'))
 
     def test_04_check_if_goals_table_is_null(self):
         get_points_from_goals_table = self.test.stats_goals_table01(1, 20)
         self.assertEqual(20, get_points_from_goals_table[0].get('points'))
+
+    def test_05_testing_admin(self):
+        self.test.week_table_for_client()
+        user = Client()
+        response = user.get('/admin_update/')
+        self.assertEqual(200, response.status_code)
+
+    def test_06_testing_admin(self):
+        self.test.week_table_for_client()
+        response = self.factory.post('/admin_update/8/', {'csrfmiddlewaretoken': ['PfVXhnxP0Ygj7xp0hlmQMlwqp061vW92xeen5ws5lFskTAkT5mNrodNgJIuD70i8', 'PfVXhnxP0Ygj7xp0hlmQMlwqp061vW92xeen5ws5lFskTAkT5mNrodNgJIuD70i8', 'PfVXhnxP0Ygj7xp0hlmQMlwqp061vW92xeen5ws5lFskTAkT5mNrodNgJIuD70i8', 'PfVXhnxP0Ygj7xp0hlmQMlwqp061vW92xeen5ws5lFskTAkT5mNrodNgJIuD70i8'], 'which_check_week': ['8']})
+        self.assertEqual(8, int(response.POST['which_check_week']))
+
+    def test_07_testing_admin(self):
+        self.test.week_table_for_client()
+        response = self.factory.post('/admin_update/9/', {'csrfmiddlewaretoken': ['PfVXhnxP0Ygj7xp0hlmQMlwqp061vW92xeen5ws5lFskTAkT5mNrodNgJIuD70i8', 'PfVXhnxP0Ygj7xp0hlmQMlwqp061vW92xeen5ws5lFskTAkT5mNrodNgJIuD70i8', 'PfVXhnxP0Ygj7xp0hlmQMlwqp061vW92xeen5ws5lFskTAkT5mNrodNgJIuD70i8', 'PfVXhnxP0Ygj7xp0hlmQMlwqp061vW92xeen5ws5lFskTAkT5mNrodNgJIuD70i8'], 'which_check_week': ['9']})
+        self.assertEqual(9, int(response.POST['which_check_week']))
+
+    def test_08_testing_admin(self):
+        self.test.week_table_for_admin()
+        saving_points = Saving_Points()
+        request = self.factory.post('/admin_update/8/admin_get_goals/', {'player_id': ['1', '2', '3', '4', '5', '6', '7'], 'goals': ['5', '5', '5', '5', '5', '6', '6'], 'csrfmiddlewaretoken': ['PfVXhnxP0Ygj7xp0hlmQMlwqp061vW92xeen5ws5lFskTAkT5mNrodNgJIuD70i8', 'PfVXhnxP0Ygj7xp0hlmQMlwqp061vW92xeen5ws5lFskTAkT5mNrodNgJIuD70i8', 'PfVXhnxP0Ygj7xp0hlmQMlwqp061vW92xeen5ws5lFskTAkT5mNrodNgJIuD70i8', 'PfVXhnxP0Ygj7xp0hlmQMlwqp061vW92xeen5ws5lFskTAkT5mNrodNgJIuD70i8', 'PfVXhnxP0Ygj7xp0hlmQMlwqp061vW92xeen5ws5lFskTAkT5mNrodNgJIuD70i8', 'PfVXhnxP0Ygj7xp0hlmQMlwqp061vW92xeen5ws5lFskTAkT5mNrodNgJIuD70i8', 'PfVXhnxP0Ygj7xp0hlmQMlwqp061vW92xeen5ws5lFskTAkT5mNrodNgJIuD70i8'], 'week_no': ['8']})
+        # print(dir(response))
+        # print()
+        # print(response.POST.getlist('goals'))
+        goals_player = []
+        goals_player.append({'week_no': request.POST.get('week_no')})
+        goals_assists = request.POST.getlist('goals')
+        player_id = request.POST.getlist('player_id')
+        points_is_saved = saving_points.save_points(goals_player, goals_assists, player_id, Goals_table)
+        # points_is_saved = self.admin_get_goals.admin_get_goals_view_post({'week_no': request.POST.get('week_no')}, request.POST.getlist('goals'), request.POST.getlist('player_id'))
+        print(points_is_saved)

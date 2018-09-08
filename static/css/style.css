@@ -1,1 +1,28 @@
-
+/* #container-width {
+  margin-top: 0px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+} */
+#container-colour {
+  margin-top: 0px;
+  background-color: #F8F8FF;
+}
+#col {
+  margin-top: 0px;
+  background-color: #C72097;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#center-nav {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+#font-colour {
+  color: #F8F8FF;
+  font-weight: bold;
+}
+.vl {
+    border-left: 1.5px solid #C6C6CC;
+}

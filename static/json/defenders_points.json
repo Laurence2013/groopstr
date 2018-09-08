@@ -1,23 +1,23 @@
 [
     {
-        "position": "Defenders",
-        "players_points": 16,
         "player_id_id": 4,
+        "position": "Defenders",
         "user_id_id": 8,
-        "id": 1
+        "id": 1,
+        "players_points": 21
     },
     {
-        "position": "Defenders",
-        "players_points": 16,
         "player_id_id": 4,
+        "position": "Defenders",
         "user_id_id": 4,
-        "id": 2
+        "id": 2,
+        "players_points": 21
     },
     {
-        "position": "Defenders",
-        "players_points": 16,
         "player_id_id": 4,
+        "position": "Defenders",
         "user_id_id": 5,
-        "id": 3
+        "id": 3,
+        "players_points": 21
     }
 ]
