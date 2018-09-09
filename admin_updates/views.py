@@ -473,38 +473,45 @@ class AdminGetCurrentWeek(View):
 
 class AdminGetStatsTables(View):
     def get(self, request, *args, **kwargs):
-        get_json = Saving_And_Getting_Json()
-        '''
-        4(i) - Get all players id add first time or again in all statistics table with new pk and new week number
-        '''
-        goals = Goals_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-        goals_assists = Goals_Assist_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-        man_of_the_match = Man_of_Match_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-        own_goals = Own_Goals_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-        yellow_cards = Yellow_Card_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-        red_cards = Red_Card_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-        clean_sheets = Clean_Sheets_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-        form = Form_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-
-        get_goals = self.__get_stats_goals_table(goals, 'Goals')
-        get_goals_assist = self.__get_stats_goals_table(goals_assists, 'Goals Assist')
-        get_man_of_the_match = self.__get_stats_goals_table(man_of_the_match, 'Man of the Match')
-        get_own_goals = self.__get_stats_goals_table(own_goals, 'Own goals')
-        get_yellow_cards = self.__get_stats_goals_table(yellow_cards, 'Yellow Cards')
-        get_red_cards = self.__get_stats_goals_table(red_cards, 'Red Cards')
-        get_clean_sheets = self.__get_stats_goals_table(clean_sheets, 'Clean Sheets')
-        get_form = self.__get_stats_goals_table(form, 'Form')
-
-        get_json.save_json(get_goals, 'goals_stats_tables')
-        get_json.save_json(get_goals_assist,'goals_assist_stats_tables')
-        get_json.save_json(get_man_of_the_match,'man_of_the_match_tables')
-        get_json.save_json(get_own_goals,'own_goals_tables')
-        get_json.save_json(get_yellow_cards,'yellow_cards')
-        get_json.save_json(get_red_cards,'red_cards')
-        get_json.save_json(get_clean_sheets,'clean_sheets')
-        get_json.save_json(get_form,'form')
-
-        return redirect('admin_update', week_no = kwargs.get('week_no'))
+        get_week = Week_table.objects.filter(has_this_week_passed = 0).values('id','week_no')
+        print(len(get_week))
+        if len(get_week) >= 1:
+            get_json = Saving_And_Getting_Json()
+            '''
+            4(i) - Get all players id add first time or again in all statistics table with new pk and new week number
+            '''
+            # goals = Goals_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+            # goals_assists = Goals_Assist_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+            # man_of_the_match = Man_of_Match_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+            # own_goals = Own_Goals_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+            # yellow_cards = Yellow_Card_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+            # red_cards = Red_Card_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+            # clean_sheets = Clean_Sheets_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+            # form = Form_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+            #
+            # get_goals = self.__get_stats_goals_table(goals, 'Goals')
+            # get_goals_assist = self.__get_stats_goals_table(goals_assists, 'Goals Assist')
+            # get_man_of_the_match = self.__get_stats_goals_table(man_of_the_match, 'Man of the Match')
+            # get_own_goals = self.__get_stats_goals_table(own_goals, 'Own goals')
+            # get_yellow_cards = self.__get_stats_goals_table(yellow_cards, 'Yellow Cards')
+            # get_red_cards = self.__get_stats_goals_table(red_cards, 'Red Cards')
+            # get_clean_sheets = self.__get_stats_goals_table(clean_sheets, 'Clean Sheets')
+            # get_form = self.__get_stats_goals_table(form, 'Form')
+            #
+            # get_json.save_json(get_goals, 'goals_stats_tables')
+            # get_json.save_json(get_goals_assist,'goals_assist_stats_tables')
+            # get_json.save_json(get_man_of_the_match,'man_of_the_match_tables')
+            # get_json.save_json(get_own_goals,'own_goals_tables')
+            # get_json.save_json(get_yellow_cards,'yellow_cards')
+            # get_json.save_json(get_red_cards,'red_cards')
+            # get_json.save_json(get_clean_sheets,'clean_sheets')
+            # get_json.save_json(get_form,'form')
+            #
+            # return redirect('admin_update', week_no = kwargs.get('week_no'))
+            messages.success(request, 'All weeks were checked properly')
+            return redirect('admin_update')
+        messages.error(request, 'All the weeks had been checked, you need to go to the database in Weeks table to sort it out')
+        return redirect('admin_update')
 
     def __get_stats_goals_table(self, goals, table_name):
         goals_table = []

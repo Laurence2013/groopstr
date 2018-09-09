@@ -26,7 +26,7 @@ CreateANewRequest.prototype = {
             mainHtml += '<input name="csrfmiddlewaretoken" value='+ csrftoken +' type="hidden">'
           }
         }
-        mainHtml += '<input type="submit" id="submit_new_week" value="Submit the new current week">';
+        mainHtml += '<input type="submit" id="submit_new_week" value="Check to pass current week">';
         mainHtml += '</form>';
         mainHtml += '</ul>';
         get_week.innerHTML = mainHtml;
