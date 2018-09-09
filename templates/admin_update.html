@@ -95,6 +95,13 @@
       {% endif %}
     </div>
   </div>
+  <div class="row">
+    <div class="col">
+      {% if statistics_tables == True %}
+        <div id="statistics_tables"></div>
+      {% endif %}
+    </div>
+  </div>
 </div>
 <script src="{% static '/js/main.js' %}"></script>
 {% endblock %}

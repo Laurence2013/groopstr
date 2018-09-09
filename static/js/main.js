@@ -467,6 +467,11 @@ CreateANewRequest.prototype = {
     http.send();
     get_user_total_points.innerHTML = 'User Players Total Points...';
   },
+  None_Statistics_table: function() {
+    mainHtml = '';
+    mainHtml += '<div class="alert alert-warning"><strong>Warning!</strong> You need to check a current week in order to display fixtures for that week.<a href="http://localhost:8000/admin_update"> Click here</a></div>';
+    statistics_tables.innerHTML = mainHtml;
+  }
 }
 window.onload = function() {
   main = new CreateANewRequest();
@@ -517,5 +522,8 @@ window.onload = function() {
   }
   if (document.getElementById('get_user_total_points')) {
     main.Get_User_Players_Total_Points();
+  }
+  if (document.getElementById('statistics_tables')) {
+    main.None_Statistics_table();
   }
 }

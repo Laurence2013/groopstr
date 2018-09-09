@@ -18,8 +18,9 @@ from admin_updates.context import Context
 
 class AdminUpdateView(View):
     get_context = Context()
+
     def get(self, request, *args, **kwargs):
-        print(kwargs)
+        url = request.get_raw_uri()
         is_weeks_set_to = False
         has_this_week_passed = Week_table.objects.values('has_this_week_passed')
         get_has_week_passed = [has_this_week_passed[i].get('has_this_week_passed') for i in range(0, len(has_this_week_passed))]
@@ -30,7 +31,10 @@ class AdminUpdateView(View):
         if is_weeks_set_to is True:
             context = self.get_context.get_context(kwargs, kwargs.get('fixtures'), kwargs.get('statistics'))
         else:
-            context = self.get_context.get_context(kwargs, kwargs.get('fixtures'), False)
+            context = self.get_context.get_context_false_not_uri(kwargs, kwargs.get('fixtures'))
+        if is_weeks_set_to is False and url == "http://localhost:8000/admin_update/statistics/statistics/":
+            context = self.get_context.get_context_false(kwargs, kwargs.get('fixtures'), True)
+        print(context)
         return render(request, 'admin_update.html', context)
 
 class CalculateUserTotalPoints(View):
