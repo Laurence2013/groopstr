@@ -14,29 +14,23 @@ from admin_updates.saving_and_getting_json import Saving_And_Getting_Json
 from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from admin_updates.saving_points import Saving_Points
+from admin_updates.context import Context
 
 class AdminUpdateView(View):
+    get_context = Context()
     def get(self, request, *args, **kwargs):
-        what_is = kwargs.get('fixtures')
-        get_latest_week =   Week_table.objects.all().latest('week_no')
-        context = {
-            'get_week': True if what_is is None else False,
-            'get_fixtures': True if what_is == 'fixtures' else False,
-            # 'get_goals_table': True if get_latest_week else False,
-            # 'get_goals_assist_table': True if get_latest_week else False,
-            # 'get_man_of_the_match_table': True if get_latest_week else False,
-            # 'get_own_goals': True if get_latest_week else False,
-            # 'get_yellow_cards': True if get_latest_week else False,
-            # 'get_red_cards': True if get_latest_week else False,
-            # 'get_clean_sheets': True if get_latest_week else False,
-            # 'get_form': True if get_latest_week else False,
-            # 'get_goalkeepers': True,
-            # 'get_defenders': True,
-            # 'get_midfielders': True,
-            # 'get_forwards': True,
-            # 'get_players_points': True,
-            # 'get_user_total_points': True,
-        }
+        print(kwargs)
+        is_weeks_set_to = False
+        has_this_week_passed = Week_table.objects.values('has_this_week_passed')
+        get_has_week_passed = [has_this_week_passed[i].get('has_this_week_passed') for i in range(0, len(has_this_week_passed))]
+        for i in range(0, len(get_has_week_passed)):
+            if get_has_week_passed[i] == True:
+                is_weeks_set_to = True
+                break
+        if is_weeks_set_to is True:
+            context = self.get_context.get_context(kwargs, kwargs.get('fixtures'), kwargs.get('statistics'))
+        else:
+            context = self.get_context.get_context(kwargs, kwargs.get('fixtures'), False)
         return render(request, 'admin_update.html', context)
 
 class CalculateUserTotalPoints(View):
@@ -474,41 +468,41 @@ class AdminGetCurrentWeek(View):
 class AdminGetStatsTables(View):
     def get(self, request, *args, **kwargs):
         get_week = Week_table.objects.filter(has_this_week_passed = 0).values('id','week_no')
-        print(len(get_week))
         if len(get_week) >= 1:
             get_json = Saving_And_Getting_Json()
             '''
             4(i) - Get all players id add first time or again in all statistics table with new pk and new week number
             '''
-            # goals = Goals_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-            # goals_assists = Goals_Assist_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-            # man_of_the_match = Man_of_Match_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-            # own_goals = Own_Goals_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-            # yellow_cards = Yellow_Card_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-            # red_cards = Red_Card_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-            # clean_sheets = Clean_Sheets_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-            # form = Form_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
-            #
-            # get_goals = self.__get_stats_goals_table(goals, 'Goals')
-            # get_goals_assist = self.__get_stats_goals_table(goals_assists, 'Goals Assist')
-            # get_man_of_the_match = self.__get_stats_goals_table(man_of_the_match, 'Man of the Match')
-            # get_own_goals = self.__get_stats_goals_table(own_goals, 'Own goals')
-            # get_yellow_cards = self.__get_stats_goals_table(yellow_cards, 'Yellow Cards')
-            # get_red_cards = self.__get_stats_goals_table(red_cards, 'Red Cards')
-            # get_clean_sheets = self.__get_stats_goals_table(clean_sheets, 'Clean Sheets')
-            # get_form = self.__get_stats_goals_table(form, 'Form')
-            #
-            # get_json.save_json(get_goals, 'goals_stats_tables')
-            # get_json.save_json(get_goals_assist,'goals_assist_stats_tables')
-            # get_json.save_json(get_man_of_the_match,'man_of_the_match_tables')
-            # get_json.save_json(get_own_goals,'own_goals_tables')
-            # get_json.save_json(get_yellow_cards,'yellow_cards')
-            # get_json.save_json(get_red_cards,'red_cards')
-            # get_json.save_json(get_clean_sheets,'clean_sheets')
-            # get_json.save_json(get_form,'form')
-            #
+            goals = Goals_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+            goals_assists = Goals_Assist_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+            man_of_the_match = Man_of_Match_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+            own_goals = Own_Goals_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+            yellow_cards = Yellow_Card_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+            red_cards = Red_Card_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+            clean_sheets = Clean_Sheets_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+            form = Form_table.objects.filter(week_no_id_id = kwargs.get('week_no')).values('id','points','player_id','week_no_id_id')
+
+            get_goals = self.__get_stats_goals_table(goals, 'Goals')
+            get_goals_assist = self.__get_stats_goals_table(goals_assists, 'Goals Assist')
+            get_man_of_the_match = self.__get_stats_goals_table(man_of_the_match, 'Man of the Match')
+            get_own_goals = self.__get_stats_goals_table(own_goals, 'Own goals')
+            get_yellow_cards = self.__get_stats_goals_table(yellow_cards, 'Yellow Cards')
+            get_red_cards = self.__get_stats_goals_table(red_cards, 'Red Cards')
+            get_clean_sheets = self.__get_stats_goals_table(clean_sheets, 'Clean Sheets')
+            get_form = self.__get_stats_goals_table(form, 'Form')
+
+            get_json.save_json(get_goals, 'goals_stats_tables')
+            get_json.save_json(get_goals_assist,'goals_assist_stats_tables')
+            get_json.save_json(get_man_of_the_match,'man_of_the_match_tables')
+            get_json.save_json(get_own_goals,'own_goals_tables')
+            get_json.save_json(get_yellow_cards,'yellow_cards')
+            get_json.save_json(get_red_cards,'red_cards')
+            get_json.save_json(get_clean_sheets,'clean_sheets')
+            get_json.save_json(get_form,'form')
+
+            Week_table.objects.filter(id = kwargs.get('week_no')).update(has_this_week_passed = 1)
+            messages.success(request, 'Weeks have been currently updated')
             # return redirect('admin_update', week_no = kwargs.get('week_no'))
-            messages.success(request, 'All weeks were checked properly')
             return redirect('admin_update')
         messages.error(request, 'All the weeks had been checked, you need to go to the database in Weeks table to sort it out')
         return redirect('admin_update')

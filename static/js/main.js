@@ -129,7 +129,7 @@ CreateANewRequest.prototype = {
           + '<br /><b>Week number: </b>' + goals_assists[i].week_no_id_id
           + '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">'
           + '<input type="hidden" name="player_id" value="'+ goals_assists[i].player_id +'">'
-          + '<input type="text" name="goals_assists" value="'+ 0 +'">'
+          + '<br /><b>Enter goals scored: </b><input type="text" name="goals" value="'+ 0 +'">'
           + '<br /><b>Total points: </b>' + goals_assists[i].points +'</li>';
         }
         mainHtml += '<input type="submit" value="Submit">';

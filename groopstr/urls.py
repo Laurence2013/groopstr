@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin_update/', AdminUpdateView.as_view(), name='admin_update'),
     path('admin_update/<int:week_no>/', AdminUpdateView.as_view(), name='admin_update'),
     path('admin_update/view_fixtures/<slug:fixtures>/', AdminUpdateView.as_view(), name='view_fixtures'),
+    path('admin_update/statistics/<slug:statistics>/', AdminUpdateView.as_view(), name='statistics'),
 
     path('admin_update/get_stats_table/<int:week_no>/', AdminGetStatsTables.as_view(), name='get_stats_table'),
 
@@ -33,14 +34,16 @@ urlpatterns = [
     path('admin_update/view_fixtures/<slug:fixtures>/admin_get_fixtures/', AdminGetFixtures.as_view(), name='admin_get_fixtures'),
     path('admin_update/<int:week_no>/admin_get_fixtures/', AdminGetFixtures.as_view(), name='admin_get_fixtures'),
 
-    # path('admin_update/admin_get_current_week/', AdminGetCurrentWeek.as_view(), name='admin_get_current_week'),
-    # path('admin_update/<int:week_no>/admin_get_current_week/', AdminGetCurrentWeek.as_view(), name='admin_get_current_week'),
-    #
-    # path('admin_update/admin_get_goals/', AdminGetGoalsView.as_view(), name='admin_get_goals'),
-    # path('admin_update/<int:week_no>/admin_get_goals/', AdminGetGoalsView.as_view(), name='admin_get_goals'),
-    #
-    # path('admin_update/admin_get_goals_assist/', AdminGetGoalsAssistView.as_view(), name='admin_get_goals_assist'),
-    # path('admin_update/<int:week_no>/admin_get_goals_assist/', AdminGetGoalsAssistView.as_view(), name='admin_get_goals_assist'),
+    path('admin_update/admin_get_current_week/', AdminGetCurrentWeek.as_view(), name='admin_get_current_week'),
+    path('admin_update/<int:week_no>/admin_get_current_week/', AdminGetCurrentWeek.as_view(), name='admin_get_current_week'),
+
+    path('admin_update/admin_get_goals/', AdminGetGoalsView.as_view(), name='admin_get_goals'),
+    path('admin_update/<int:week_no>/admin_get_goals/', AdminGetGoalsView.as_view(), name='admin_get_goals'),
+    path('admin_update/statistics/<slug:statistics>/admin_get_goals/', AdminGetGoalsView.as_view(), name='admin_get_goals'),
+
+    path('admin_update/admin_get_goals_assist/', AdminGetGoalsAssistView.as_view(), name='admin_get_goals_assist'),
+    path('admin_update/<int:week_no>/admin_get_goals_assist/', AdminGetGoalsAssistView.as_view(), name='admin_get_goals_assist'),
+    path('admin_update/statistics/<slug:statistics>/admin_get_goals_assist/', AdminGetGoalsAssistView.as_view(), name='admin_get_goals_assist'),
     #
     # path('admin_update/admin_man_of_the_match/', AdminManOfTheMatchView.as_view(), name='admin_man_of_the_match'),
     # path('admin_update/<int:week_no>/admin_man_of_the_match/', AdminManOfTheMatchView.as_view(), name='admin_man_of_the_match'),
