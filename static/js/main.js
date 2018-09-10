@@ -129,7 +129,7 @@ CreateANewRequest.prototype = {
           + '<br /><b>Week number: </b>' + goals_assists[i].week_no_id_id
           + '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">'
           + '<input type="hidden" name="player_id" value="'+ goals_assists[i].player_id +'">'
-          + '<br /><b>Enter goals scored: </b><input type="text" name="goals" value="'+ 0 +'">'
+          + '<br /><b>Enter goals assists: </b><input type="text" name="goals" value="'+ 0 +'">'
           + '<br /><b>Total points: </b>' + goals_assists[i].points +'</li>';
         }
         mainHtml += '<input type="submit" value="Submit">';
@@ -159,7 +159,7 @@ CreateANewRequest.prototype = {
           + '<br /><b>Week number: </b>' + man_of_the_match[i].week_no_id_id
           + '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">'
           + '<input type="hidden" name="player_id" value="'+ man_of_the_match[i].player_id +'">'
-          + '<input type="text" name="man_of_the_match" value="'+ 0 +'">'
+          + '<br /><b>Enter Man of Match points: </b><input type="text" name="goals" value="'+ 0 +'">'
           + '<br /><b>Total points: </b>' + man_of_the_match[i].points +'</li>';
         }
         mainHtml += '<input type="submit" value="Submit">';
@@ -467,6 +467,32 @@ CreateANewRequest.prototype = {
     http.send();
     get_user_total_points.innerHTML = 'User Players Total Points...';
   },
+  Get_Most_Current_Week: function() {
+    var http = new XMLHttpRequest();
+    var csrftoken = Cookies.get('csrftoken');
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var get_weeks = JSON.parse(http.responseText);
+        var mainHtml = '';
+        mainHtml += '<h5 id="most_current_week">Most current week: '+'<b>'+ get_weeks[0].get_most_current_week.week_no +'</b>'+'</h5>';
+        mainHtml += '<h5 id="select_current_week">Select passed weeks history: </h5>';
+        mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/statistics/statistics/most_current_week/" method="POST">';
+        mainHtml += '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">';
+        mainHtml += '<select name="get_current_week" id="get_current_week" onchange="this.form.submit()">';
+        mainHtml += '<option>Choose one of the weeks</option>';
+          for (i = 1; i < get_weeks.length; i++){
+            mainHtml += '<option value="'+ get_weeks[i].all_weeks_id +'">Week no: '+ get_weeks[i].all_weeks_week_no +'</option>';
+          }
+        mainHtml += '</select>';
+        mainHtml += '</form>';
+        get_most_current_week.innerHTML = mainHtml;
+      }
+    }
+    http.open("GET", "get_most_current_week", true);
+    http.setRequestHeader('Content-type', 'application/json', true);
+    http.send();
+    get_most_current_week.innerHTML = 'Get most current week...';
+  },
   None_Statistics_table: function() {
     mainHtml = '';
     mainHtml += '<div class="alert alert-warning"><strong>Warning!</strong> You need to check a current week in order to display fixtures for that week.<a href="http://localhost:8000/admin_update"> Click here</a></div>';
@@ -525,5 +551,8 @@ window.onload = function() {
   }
   if (document.getElementById('statistics_tables')) {
     main.None_Statistics_table();
+  }
+  if (document.getElementById('get_most_current_week')) {
+    main.Get_Most_Current_Week();
   }
 }

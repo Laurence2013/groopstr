@@ -17,6 +17,13 @@
   {% endif %}
   <div class="row">
     <div class="col">
+      {% if get_most_current_week == True %}
+        <div id="get_most_current_week"></div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
       {% if get_goals_table == True %}
         <div id="get_goals_table"></div>
       {% endif %}

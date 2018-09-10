@@ -29,3 +29,13 @@
 .vl {
     border-left: 1.5px solid #C6C6CC;
 }
+/* #most_current_week {
+  padding-bottom: 10px;
+  padding-right: 10px;
+  float: left;
+} */
+#select_current_week {
+  padding-bottom: 20px;
+  padding-right: 10px;
+  float: left;
+}

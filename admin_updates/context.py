@@ -5,7 +5,7 @@ class Context:
             'get_fixtures': True if context_fix == 'fixtures' else False,
             'get_goals_table': True if context_stats == 'statistics' else False,
             'get_goals_assist_table': True if context_stats == 'statistics' else False,
-            # 'get_man_of_the_match_table': True if get_latest_week else False,
+            'get_man_of_the_match_table': True if context_stats == 'statistics' else False,
             # 'get_own_goals': True if get_latest_week else False,
             # 'get_yellow_cards': True if get_latest_week else False,
             # 'get_red_cards': True if get_latest_week else False,
@@ -17,7 +17,7 @@ class Context:
             # 'get_forwards': True,
             # 'get_players_points': True,
             # 'get_user_total_points': True,
-            'get_most_current_week': True,
+            'get_most_current_week': True if context_stats == 'statistics' else False,
         }
         return context
 

@@ -24,6 +24,9 @@ urlpatterns = [
     path('admin_update/view_fixtures/<slug:fixtures>/', AdminUpdateView.as_view(), name='view_fixtures'),
     path('admin_update/statistics/<slug:statistics>/', AdminUpdateView.as_view(), name='statistics'),
 
+    path('admin_update/statistics/<slug:statistics>/get_most_current_week/', GetMostCurrentWeekView.as_view(), name='get_most_current_week'),
+    path('admin_update/statistics/statistics/most_current_week/', GetMostCurrentWeekView.as_view(), name='most_current_week'),
+
     path('admin_update/get_stats_table/<int:week_no>/', AdminGetStatsTables.as_view(), name='get_stats_table'),
 
     path('admin_update/admin_get_weekly_fixtures/', AdminGetWeeklyFixtures.as_view(), name='admin_get_weekly_fixtures'),
@@ -45,8 +48,9 @@ urlpatterns = [
     path('admin_update/<int:week_no>/admin_get_goals_assist/', AdminGetGoalsAssistView.as_view(), name='admin_get_goals_assist'),
     path('admin_update/statistics/<slug:statistics>/admin_get_goals_assist/', AdminGetGoalsAssistView.as_view(), name='admin_get_goals_assist'),
     #
-    # path('admin_update/admin_man_of_the_match/', AdminManOfTheMatchView.as_view(), name='admin_man_of_the_match'),
-    # path('admin_update/<int:week_no>/admin_man_of_the_match/', AdminManOfTheMatchView.as_view(), name='admin_man_of_the_match'),
+    path('admin_update/admin_man_of_the_match/', AdminManOfTheMatchView.as_view(), name='admin_man_of_the_match'),
+    path('admin_update/<int:week_no>/admin_man_of_the_match/', AdminManOfTheMatchView.as_view(), name='admin_man_of_the_match'),
+    path('admin_update/statistics/<slug:statistics>/admin_man_of_the_match/', AdminManOfTheMatchView.as_view(), name='admin_man_of_the_match'),
     #
     # path('admin_update/admin_own_goals/', AdminOwnGoalsView.as_view(), name='admin_own_goals'),
     # path('admin_update/<int:week_no>/admin_own_goals/', AdminOwnGoalsView.as_view(), name='admin_own_goals'),

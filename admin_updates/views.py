@@ -55,6 +55,17 @@ class AdminUpdateView(View):
         except Exception as e:
             print('Week table has_this_week_passed field are all set to 0 - ',e)
 
+class GetMostCurrentWeekView(View):
+    get_json = Saving_And_Getting_Json()
+
+    def get(self, request, *args, **kwargs):
+        get_main_json = self.get_json.get_json_file('get_most_current_weeks_for_stats_table')
+        return JsonResponse(get_main_json, safe = False)
+
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        return HttpResponse('Hello')
+
 class CalculateUserTotalPoints(View):
     get_json = Saving_And_Getting_Json()
 
