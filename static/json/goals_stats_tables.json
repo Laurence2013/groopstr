@@ -4,51 +4,51 @@
     },
     {
         "player_name": "Leonel Messi",
-        "week_no_id_id": 8,
         "player_id": 1,
-        "id": 24,
-        "points": 5
+        "id": 30,
+        "week_no_id_id": 9,
+        "points": 10
     },
     {
         "player_name": "Sergio Aguero",
-        "week_no_id_id": 8,
         "player_id": 2,
-        "id": 25,
-        "points": 5
+        "id": 31,
+        "week_no_id_id": 9,
+        "points": 0
     },
     {
         "player_name": "Javier Hernandez",
-        "week_no_id_id": 8,
         "player_id": 3,
-        "id": 26,
-        "points": 5
+        "id": 32,
+        "week_no_id_id": 9,
+        "points": 0
     },
     {
         "player_name": "Gary Cahill",
-        "week_no_id_id": 8,
         "player_id": 4,
-        "id": 27,
-        "points": 5
+        "id": 33,
+        "week_no_id_id": 9,
+        "points": 3
     },
     {
         "player_name": "Jordan Pickford",
-        "week_no_id_id": 8,
         "player_id": 5,
-        "id": 28,
-        "points": 5
+        "id": 34,
+        "week_no_id_id": 9,
+        "points": 0
     },
     {
         "player_name": "Paul Pogba",
-        "week_no_id_id": 8,
         "player_id": 6,
-        "id": 29,
-        "points": 5
+        "id": 35,
+        "week_no_id_id": 9,
+        "points": 0
     },
     {
         "player_name": "Hugo Lloris",
-        "week_no_id_id": 8,
         "player_id": 7,
-        "id": 36,
-        "points": 5
+        "id": 37,
+        "week_no_id_id": 9,
+        "points": 0
     }
 ]

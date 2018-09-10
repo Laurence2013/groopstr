@@ -18,11 +18,13 @@ from admin_updates.context import Context
 
 class AdminUpdateView(View):
     get_context = Context()
+    get_json = Saving_And_Getting_Json()
 
     def get(self, request, *args, **kwargs):
         url = request.get_raw_uri()
         is_weeks_set_to = False
         has_this_week_passed = Week_table.objects.values('has_this_week_passed')
+        self.__save_most_current_weeks_to_json()
         get_has_week_passed = [has_this_week_passed[i].get('has_this_week_passed') for i in range(0, len(has_this_week_passed))]
         for i in range(0, len(get_has_week_passed)):
             if get_has_week_passed[i] == True:
@@ -34,8 +36,24 @@ class AdminUpdateView(View):
             context = self.get_context.get_context_false_not_uri(kwargs, kwargs.get('fixtures'))
         if is_weeks_set_to is False and url == "http://localhost:8000/admin_update/statistics/statistics/":
             context = self.get_context.get_context_false(kwargs, kwargs.get('fixtures'), True)
-        print(context)
         return render(request, 'admin_update.html', context)
+
+    def __save_most_current_weeks_to_json(self):
+        get_weeks = []
+        try:
+            get_most_current_week = Week_table.objects.filter(has_this_week_passed = 1).values('id','week_no').latest('week_no')
+            get_all_passed_week = Week_table.objects.filter(has_this_week_passed = 1).values('id','week_no')
+            current_week_context = {'get_most_current_week': get_most_current_week,}
+            get_weeks.append(current_week_context)
+            for i in range(0, len(get_all_passed_week)):
+                all_weeks_context = {
+                    'all_weeks_id': get_all_passed_week[i].get('id'),
+                    'all_weeks_week_no': get_all_passed_week[i].get('week_no'),
+                }
+                get_weeks.append(all_weeks_context)
+            self.get_json.save_json(get_weeks, 'get_most_current_weeks_for_stats_table')
+        except Exception as e:
+            print('Week table has_this_week_passed field are all set to 0 - ',e)
 
 class CalculateUserTotalPoints(View):
     get_json = Saving_And_Getting_Json()
