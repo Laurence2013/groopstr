@@ -21,6 +21,13 @@ class Context:
         }
         return context
 
+    def get_context_most_current_week(self, most_current_week):
+        context = {
+            'most_current_week': True if most_current_week else False,
+            'get_most_current_week': True,
+        }
+        return context
+
     def get_context_false(self, kwargs_context, context_fix, true_or_false):
         context = {
             'get_week': True if not kwargs_context else False,

@@ -26,13 +26,15 @@ class AdminUpdateView(View):
         has_this_week_passed = Week_table.objects.values('has_this_week_passed')
         self.__save_most_current_weeks_to_json()
         get_has_week_passed = [has_this_week_passed[i].get('has_this_week_passed') for i in range(0, len(has_this_week_passed))]
+
         for i in range(0, len(get_has_week_passed)):
             if get_has_week_passed[i] == True:
                 is_weeks_set_to = True
                 break
+
         if is_weeks_set_to is True:
             context = self.get_context.get_context(kwargs, kwargs.get('fixtures'), kwargs.get('statistics'))
-        else:
+        if is_weeks_set_to is False:
             context = self.get_context.get_context_false_not_uri(kwargs, kwargs.get('fixtures'))
         if is_weeks_set_to is False and url == "http://localhost:8000/admin_update/statistics/statistics/":
             context = self.get_context.get_context_false(kwargs, kwargs.get('fixtures'), True)
@@ -43,7 +45,7 @@ class AdminUpdateView(View):
         try:
             get_most_current_week = Week_table.objects.filter(has_this_week_passed = 1).values('id','week_no').latest('week_no')
             get_all_passed_week = Week_table.objects.filter(has_this_week_passed = 1).values('id','week_no')
-            current_week_context = {'get_most_current_week': get_most_current_week,}
+            current_week_context = {'name': 'most_current_week','get_most_current_week': get_most_current_week,}
             get_weeks.append(current_week_context)
             for i in range(0, len(get_all_passed_week)):
                 all_weeks_context = {
@@ -56,6 +58,7 @@ class AdminUpdateView(View):
             print('Week table has_this_week_passed field are all set to 0 - ',e)
 
 class GetMostCurrentWeekView(View):
+    get_context = Context()
     get_json = Saving_And_Getting_Json()
 
     def get(self, request, *args, **kwargs):
@@ -63,8 +66,54 @@ class GetMostCurrentWeekView(View):
         return JsonResponse(get_main_json, safe = False)
 
     def post(self, request, *args, **kwargs):
-        print(request.POST)
-        return HttpResponse('Hello')
+        if_is_current_week = self.__save_current_weeks_stats_table(request.POST['get_current_week'])
+        self.get_json.save_json(if_is_current_week, 'get_most_current_weeks_for_stats_table')
+        context = self.get_context.get_context_most_current_week(request.POST['most_current_week'])
+        return render(request, 'admin_update.html', context)
+
+    def __save_current_weeks_stats_table(self, most_current_week):
+        current_weeks_all_stats_tables = []
+        current_weeks_goals_context = {
+            'name': 'current_weeks_goals',
+            'current_weeks_goals_stats': list(Goals_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
+        }
+        current_weeks_clean_sheets_context = {
+            'name': 'current_weeks_clean_sheets',
+            'current_weeks_clean_sheets_stats': list(Clean_Sheets_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
+        }
+        current_weeks_form_context = {
+            'name': 'current_weeks_form',
+            'current_weeks_form_stats': list(Form_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
+        }
+        current_weeks_goals_assists_context = {
+            'name': 'current_weeks_goals_assists',
+            'current_weeks_goals_assists_stats': list(Goals_Assist_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
+        }
+        current_weeks_man_of_match_context = {
+            'name': 'current_weeks_man_of_match',
+            'current_weeks_man_of_match_stats': list(Man_of_Match_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
+        }
+        current_weeks_own_goals_context = {
+            'name': 'current_weeks_own_goals',
+            'current_weeks_own_goals_stats': list(Own_Goals_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
+        }
+        current_weeks_red_cards_context = {
+            'name': 'current_weeks_red_cards',
+            'current_weeks_red_cards_stats': list(Red_Card_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
+        }
+        current_weeks_yellow_cards_context = {
+            'name': 'current_weeks_yellow_cards',
+            'current_weeks_yellow_cards_stats': list(Yellow_Card_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
+        }
+        current_weeks_all_stats_tables.append(current_weeks_goals_context)
+        current_weeks_all_stats_tables.append(current_weeks_clean_sheets_context)
+        current_weeks_all_stats_tables.append(current_weeks_form_context)
+        current_weeks_all_stats_tables.append(current_weeks_goals_assists_context)
+        current_weeks_all_stats_tables.append(current_weeks_man_of_match_context)
+        current_weeks_all_stats_tables.append(current_weeks_own_goals_context)
+        current_weeks_all_stats_tables.append(current_weeks_red_cards_context)
+        current_weeks_all_stats_tables.append(current_weeks_yellow_cards_context)
+        return current_weeks_all_stats_tables
 
 class CalculateUserTotalPoints(View):
     get_json = Saving_And_Getting_Json()
