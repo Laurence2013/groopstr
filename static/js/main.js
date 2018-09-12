@@ -476,30 +476,7 @@ CreateANewRequest.prototype = {
         var mainHtml = '';
         if (get_weeks[0].name == 'most_current_week'){
           mainHtml += '<h5 id="most_current_week">Most current week: '+'<b>'+ get_weeks[0].get_most_current_week.week_no +'</b>'+'</h5>';
-          mainHtml += '<h5 id="select_current_week">Select passed weeks history: </h5>';
-          mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/statistics/statistics/most_current_week/" method="POST">';
-          mainHtml += '<input type="hidden" name="most_current_week" value="'+ get_weeks[0].name +'">';
-          mainHtml += '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">';
-          mainHtml += '<select name="get_current_week" id="get_current_week" onchange="this.form.submit()">';
-          mainHtml += '<option>Choose one of the weeks</option>';
-          for (i = 1; i < get_weeks.length; i++){
-            mainHtml += '<option value="'+ get_weeks[i].all_weeks_id +'">Week no: '+ get_weeks[i].all_weeks_week_no +'</option>';
-          }
-          mainHtml += '</select>';
-          mainHtml += '</form>';
-        } else {
-          mainHtml += '<h5 id="most_current_week">Most current week: '+'<b>'+ get_weeks[0].get_most_current_week.week_no +'</b>'+'</h5>';
-          mainHtml += '<h5 id="select_current_week">Select passed weeks history: </h5>';
-          mainHtml += '<form name="_csrf" action="http://localhost:8000/admin_update/statistics/statistics/most_current_week/" method="POST">';
-          mainHtml += '<input type="hidden" name="most_current_week" value="'+ get_weeks[0].name +'">';
-          mainHtml += '<input type="hidden" name="csrfmiddlewaretoken" value="'+csrftoken+'">';
-          mainHtml += '<select name="get_current_week" id="get_current_week" onchange="this.form.submit()">';
-          mainHtml += '<option>Choose one of the weeks</option>';
-          for (i = 1; i < get_weeks.length; i++){
-            mainHtml += '<option value="'+ get_weeks[i].all_weeks_id +'">Week no: '+ get_weeks[i].all_weeks_week_no +'</option>';
-          }
-          mainHtml += '</select>';
-          mainHtml += '</form>';
+          mainHtml += '<h5 id="most_current_week"><a href="http://localhost:8000/admin_update/statistics/statistics/stats_search">Click here for detailed search</a></h5>';
         }
         get_most_current_week.innerHTML = mainHtml;
       }

@@ -15,6 +15,9 @@ from django.views.decorators.csrf import csrf_protect, ensure_csrf_cookie
 from django.utils.decorators import method_decorator
 from admin_updates.saving_points import Saving_Points
 from admin_updates.context import Context
+from admin_updates.statistics_tables import Statistics_Tables
+from admin_updates.weeks_table import Weeks_Table
+from admin_updates.group_tables import Group_Tables
 
 class AdminUpdateView(View):
     get_context = Context()
@@ -57,63 +60,57 @@ class AdminUpdateView(View):
         except Exception as e:
             print('Week table has_this_week_passed field are all set to 0 - ',e)
 
+class GetAllStatsTable(View):
+    get_json = Saving_And_Getting_Json()
+
+    def get(self, request, *args, **kwargs):
+        get_goals_tbl = Statistics_Tables(Goals_table, 'goals_table', 'goals_as_list')
+        goals_tbl = get_goals_tbl.set_stats_table()
+        get_goalss_tbl = get_goals_tbl.set_to_save(goals_tbl, 'name', 'goals_as_list')
+
+        get_clean_sheets_tbl = Statistics_Tables(Clean_Sheets_table, 'clean_sheets_table', 'clean_sheets_as_list')
+        clean_sheets_tbl = get_clean_sheets_tbl.set_stats_table()
+        get_clean_sheetss_tbl = get_clean_sheets_tbl.set_to_save(clean_sheets_tbl, 'name', 'clean_sheets_as_list')
+
+        get_form_tbl = Statistics_Tables(Form_table, 'form_table', 'form_as_list')
+        form_tbl = get_form_tbl.set_stats_table()
+        get_formm_tbl = get_form_tbl.set_to_save(form_tbl, 'name', 'form_as_list')
+
+        get_goals_assist_tbl = Statistics_Tables(Goals_Assist_table, 'goals_assist_table', 'goals_assist_as_list')
+        goals_assist_tbl = get_goals_assist_tbl.set_stats_table()
+        get_goals_assistt_tbl = get_goals_assist_tbl.set_to_save(goals_assist_tbl, 'name', 'goals_assist_as_list')
+
+        get_man_of_the_match_tbl = Statistics_Tables(Man_of_Match_table, 'man_of_the_match_table', 'man_of_the_match_as_list')
+        man_of_the_match_tbl = get_man_of_the_match_tbl.set_stats_table()
+        get_man_of_the_matchh_tbl = get_man_of_the_match_tbl.set_to_save(man_of_the_match_tbl, 'name', 'man_of_the_match_as_list')
+
+        get_own_goals_tbl = Statistics_Tables(Own_Goals_table, 'own_goals_table', 'own_goals_as_list')
+        own_goals_tbl = get_own_goals_tbl.set_stats_table()
+        get_own_goalss_tbl = get_own_goals_tbl.set_to_save(own_goals_tbl, 'name', 'own_goals_as_list')
+
+        get_red_card_tbl = Statistics_Tables(Red_Card_table, 'red_card_table', 'red_card_as_list')
+        red_card_tbl = get_red_card_tbl.set_stats_table()
+        get_red_cardd_tbl = get_red_card_tbl.set_to_save(red_card_tbl, 'name', 'red_card_as_list')
+
+        get_yellow_card_tbl = Statistics_Tables(Yellow_Card_table, 'yellow_card_table', 'yellow_card_as_list')
+        yellow_card_tbl = get_yellow_card_tbl.set_stats_table()
+        get_yellow_cardd_tbl = get_yellow_card_tbl.set_to_save(yellow_card_tbl, 'name', 'yellow_card_as_list')
+
+        get_all_weeks = Weeks_Table(None, Week_table, 'weeks')
+        all_weeks = get_all_weeks.set_weeks()
+        get_all_weekss = get_all_weeks.set_to_save(all_weeks)
+
+        group_tbl = Group_Tables(get_goalss_tbl, get_clean_sheetss_tbl, get_formm_tbl, get_goals_assistt_tbl, get_man_of_the_matchh_tbl, get_own_goalss_tbl, get_red_cardd_tbl, get_yellow_cardd_tbl, get_all_weekss, 'statistics_page')
+        group_tbl.set_group_table()
+
+        return HttpResponse(True)
+
 class GetMostCurrentWeekView(View):
-    get_context = Context()
     get_json = Saving_And_Getting_Json()
 
     def get(self, request, *args, **kwargs):
         get_main_json = self.get_json.get_json_file('get_most_current_weeks_for_stats_table')
         return JsonResponse(get_main_json, safe = False)
-
-    def post(self, request, *args, **kwargs):
-        if_is_current_week = self.__save_current_weeks_stats_table(request.POST['get_current_week'])
-        self.get_json.save_json(if_is_current_week, 'get_most_current_weeks_for_stats_table')
-        context = self.get_context.get_context_most_current_week(request.POST['most_current_week'])
-        return render(request, 'admin_update.html', context)
-
-    def __save_current_weeks_stats_table(self, most_current_week):
-        current_weeks_all_stats_tables = []
-        current_weeks_goals_context = {
-            'name': 'current_weeks_goals',
-            'current_weeks_goals_stats': list(Goals_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
-        }
-        current_weeks_clean_sheets_context = {
-            'name': 'current_weeks_clean_sheets',
-            'current_weeks_clean_sheets_stats': list(Clean_Sheets_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
-        }
-        current_weeks_form_context = {
-            'name': 'current_weeks_form',
-            'current_weeks_form_stats': list(Form_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
-        }
-        current_weeks_goals_assists_context = {
-            'name': 'current_weeks_goals_assists',
-            'current_weeks_goals_assists_stats': list(Goals_Assist_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
-        }
-        current_weeks_man_of_match_context = {
-            'name': 'current_weeks_man_of_match',
-            'current_weeks_man_of_match_stats': list(Man_of_Match_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
-        }
-        current_weeks_own_goals_context = {
-            'name': 'current_weeks_own_goals',
-            'current_weeks_own_goals_stats': list(Own_Goals_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
-        }
-        current_weeks_red_cards_context = {
-            'name': 'current_weeks_red_cards',
-            'current_weeks_red_cards_stats': list(Red_Card_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
-        }
-        current_weeks_yellow_cards_context = {
-            'name': 'current_weeks_yellow_cards',
-            'current_weeks_yellow_cards_stats': list(Yellow_Card_table.objects.filter(week_no_id_id = most_current_week).values('id','points','player_id','week_no_id_id')),
-        }
-        current_weeks_all_stats_tables.append(current_weeks_goals_context)
-        current_weeks_all_stats_tables.append(current_weeks_clean_sheets_context)
-        current_weeks_all_stats_tables.append(current_weeks_form_context)
-        current_weeks_all_stats_tables.append(current_weeks_goals_assists_context)
-        current_weeks_all_stats_tables.append(current_weeks_man_of_match_context)
-        current_weeks_all_stats_tables.append(current_weeks_own_goals_context)
-        current_weeks_all_stats_tables.append(current_weeks_red_cards_context)
-        current_weeks_all_stats_tables.append(current_weeks_yellow_cards_context)
-        return current_weeks_all_stats_tables
 
 class CalculateUserTotalPoints(View):
     get_json = Saving_And_Getting_Json()

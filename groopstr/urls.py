@@ -24,9 +24,11 @@ urlpatterns = [
     path('admin_update/view_fixtures/<slug:fixtures>/', AdminUpdateView.as_view(), name='view_fixtures'),
     path('admin_update/statistics/<slug:statistics>/', AdminUpdateView.as_view(), name='statistics'),
 
-    path('admin_update/statistics/<slug:statistics>/get_most_current_week/', GetMostCurrentWeekView.as_view(), name='get_most_current_week'),
-    path('admin_update/statistics/statistics/most_current_week/get_most_current_week', GetMostCurrentWeekView.as_view(), name='get_most_current_week'),
     path('admin_update/statistics/statistics/most_current_week/', GetMostCurrentWeekView.as_view(), name='most_current_week'),
+    path('admin_update/statistics/statistics/most_current_week/get_most_current_week', GetMostCurrentWeekView.as_view(), name='get_most_current_week'),
+    path('admin_update/statistics/<slug:statistics>/get_most_current_week/', GetMostCurrentWeekView.as_view(), name='get_most_current_week'),
+
+    path('admin_update/statistics/statistics/stats_search/', GetAllStatsTable.as_view(), name='stats_search'),
 
     path('admin_update/get_stats_table/<int:week_no>/', AdminGetStatsTables.as_view(), name='get_stats_table'),
 
