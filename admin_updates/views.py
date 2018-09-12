@@ -36,7 +36,7 @@ class AdminUpdateView(View):
                 break
 
         if is_weeks_set_to is True:
-            context = self.get_context.get_context(kwargs, kwargs.get('fixtures'), kwargs.get('statistics'))
+            context = self.get_context.get_context(kwargs, kwargs.get('fixtures'), kwargs.get('statistics'), kwargs.get('weeks_stats'))
         if is_weeks_set_to is False:
             context = self.get_context.get_context_false_not_uri(kwargs, kwargs.get('fixtures'))
         if is_weeks_set_to is False and url == "http://localhost:8000/admin_update/statistics/statistics/":
@@ -101,9 +101,10 @@ class GetAllStatsTable(View):
         get_all_weekss = get_all_weeks.set_to_save(all_weeks)
 
         group_tbl = Group_Tables(get_goalss_tbl, get_clean_sheetss_tbl, get_formm_tbl, get_goals_assistt_tbl, get_man_of_the_matchh_tbl, get_own_goalss_tbl, get_red_cardd_tbl, get_yellow_cardd_tbl, get_all_weekss, 'statistics_page')
-        group_tbl.set_group_table()
-
-        return HttpResponse(True)
+        group_tbll =  group_tbl.set_group_table()
+        if group_tbll is False:
+            messages.success(request, 'Something went wrong!')
+        return redirect('admin_update', weeks_stats = group_tbll)
 
 class GetMostCurrentWeekView(View):
     get_json = Saving_And_Getting_Json()

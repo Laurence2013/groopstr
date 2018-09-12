@@ -1,3 +1,5 @@
+import os
+from django.conf import settings
 from admin_updates.saving_and_getting_json import Saving_And_Getting_Json
 
 class Group_Tables:
@@ -25,7 +27,9 @@ class Group_Tables:
         tables_list.append(self.__red_card_table)
         tables_list.append(self.__yello_card_table)
         tables_list.append(self.__all_weeks_table)
-        return self.__save_list_to_json(tables_list)
+        return True if self.__save_list_to_json(tables_list) is True else False
 
     def __save_list_to_json(self, tables_list):
         self.__saving_to_json.save_json(tables_list, self.__json_file_name)
+        json_file_path = settings.BASE_DIR + '/static/json/'+ self.__json_file_name +'.json'
+        return os.path.getsize(json_file_path) > 0

@@ -476,7 +476,7 @@ CreateANewRequest.prototype = {
         var mainHtml = '';
         if (get_weeks[0].name == 'most_current_week'){
           mainHtml += '<h5 id="most_current_week">Most current week: '+'<b>'+ get_weeks[0].get_most_current_week.week_no +'</b>'+'</h5>';
-          mainHtml += '<h5 id="most_current_week"><a href="http://localhost:8000/admin_update/statistics/statistics/stats_search">Click here for detailed search</a></h5>';
+          mainHtml += '<h5 id="most_current_week"><a href="http://localhost:8000/admin_update/stats_search">Click here for detailed search</a></h5>';
         }
         get_most_current_week.innerHTML = mainHtml;
       }
