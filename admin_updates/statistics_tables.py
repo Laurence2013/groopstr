@@ -14,6 +14,9 @@ class Statistics_Tables:
         return self.__set_to_save_to_json(table_name, name, table_as_list)
 
     def __save_stats_table(self, set_table_name, table_name, table_as_list):
+        get_players = Player_table.objects.values('id','player_name')
+        print(get_players);
+
         current_weeks_goals_context = {
             'name': table_name,
             table_as_list: list(set_table_name.objects.values('id','points','player_id','week_no_id_id')),

@@ -486,6 +486,27 @@ CreateANewRequest.prototype = {
     http.send();
     get_most_current_week.innerHTML = 'Get most current week...';
   },
+  All_Stats_Tabl: function() {
+    var http = new XMLHttpRequest();
+    http.onreadystatechange = function() {
+      if (http.readyState == 4 && http.status == 200) {
+        var all_stats_tables = JSON.parse(http.responseText);
+        console.log(all_stats_tables);
+        var mainHtml = '';
+        mainHtml += '<h5 class="weekly_fixtures">Detailed search</h5>';
+        for (i = 0; i < all_stats_tables.length; i++){
+          if (all_stats_tables[i][0].name != 'weeks') {
+            console.log(true);
+          }
+        }
+        get_all_stats.innerHTML = mainHtml;
+      }
+    }
+    http.open("GET", "get_all_stats", true);
+    http.setRequestHeader('Content-type', 'application/json', true);
+    http.send();
+    get_all_stats.innerHTML = 'All stats tables...';
+  },
   None_Statistics_table: function() {
     mainHtml = '';
     mainHtml += '<div class="alert alert-warning"><strong>Warning!</strong> You need to check a current week in order to display fixtures for that week.<a href="http://localhost:8000/admin_update"> Click here</a></div>';
@@ -547,5 +568,8 @@ window.onload = function() {
   }
   if (document.getElementById('get_most_current_week')) {
     main.Get_Most_Current_Week();
+  }
+  if (document.getElementById('get_all_stats')) {
+    main.All_Stats_Tabl();
   }
 }

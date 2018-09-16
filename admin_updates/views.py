@@ -36,7 +36,7 @@ class AdminUpdateView(View):
                 break
 
         if is_weeks_set_to is True:
-            context = self.get_context.get_context(kwargs, kwargs.get('fixtures'), kwargs.get('statistics'), kwargs.get('weeks_stats'))
+            context = self.get_context.get_context(kwargs, kwargs.get('fixtures'), kwargs.get('statistics'))
         if is_weeks_set_to is False:
             context = self.get_context.get_context_false_not_uri(kwargs, kwargs.get('fixtures'))
         if is_weeks_set_to is False and url == "http://localhost:8000/admin_update/statistics/statistics/":
@@ -60,7 +60,7 @@ class AdminUpdateView(View):
         except Exception as e:
             print('Week table has_this_week_passed field are all set to 0 - ',e)
 
-class GetAllStatsTable(View):
+class SetAllStatsTable(View):
     get_json = Saving_And_Getting_Json()
 
     def get(self, request, *args, **kwargs):
@@ -103,8 +103,16 @@ class GetAllStatsTable(View):
         group_tbl = Group_Tables(get_goalss_tbl, get_clean_sheetss_tbl, get_formm_tbl, get_goals_assistt_tbl, get_man_of_the_matchh_tbl, get_own_goalss_tbl, get_red_cardd_tbl, get_yellow_cardd_tbl, get_all_weekss, 'statistics_page')
         group_tbll =  group_tbl.set_group_table()
         if group_tbll is False:
-            messages.success(request, 'Something went wrong!')
-        return redirect('admin_update', weeks_stats = group_tbll)
+            messages.error(request, 'Something went wrong!')
+        return render(request, 'admin_update.html', {'get_all_stats': True})
+        # return redirect('admin_update', weeks_stats='get_all_stats')
+
+class GetAllStatsTable(View):
+    get_json = Saving_And_Getting_Json()
+
+    def get(self, request, *args, **kwargs):
+        get_main_json = self.get_json.get_json_file('statistics_page')
+        return JsonResponse(get_main_json, safe = False)
 
 class GetMostCurrentWeekView(View):
     get_json = Saving_And_Getting_Json()

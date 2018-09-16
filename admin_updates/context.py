@@ -1,5 +1,5 @@
 class Context:
-    def get_context(self, kwargs_context, context_fix, context_stats, weeks_stats):
+    def get_context(self, kwargs_context, context_fix, context_stats):
         context = {
             'get_week': True if not kwargs_context else False,
             'get_fixtures': True if context_fix == 'fixtures' else False,
