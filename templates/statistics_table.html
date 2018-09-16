@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block content %}
+<div id="center-section">
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+      <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+  <div class="row">
+    <div class="col">
+      {% if get_all_stats == True %}
+        <div id="get_all_stats"></div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<script src="{% static '/js/statistics_table.js' %}"></script>
+{% endblock %}

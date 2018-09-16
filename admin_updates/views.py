@@ -100,12 +100,13 @@ class SetAllStatsTable(View):
         all_weeks = get_all_weeks.set_weeks()
         get_all_weekss = get_all_weeks.set_to_save(all_weeks)
 
-        group_tbl = Group_Tables(get_goalss_tbl, get_clean_sheetss_tbl, get_formm_tbl, get_goals_assistt_tbl, get_man_of_the_matchh_tbl, get_own_goalss_tbl, get_red_cardd_tbl, get_yellow_cardd_tbl, get_all_weekss, 'statistics_page')
+        get_all_players = Player_table.objects.values('id', 'player_name')
+
+        group_tbl = Group_Tables(get_goalss_tbl, get_clean_sheetss_tbl, get_formm_tbl, get_goals_assistt_tbl, get_man_of_the_matchh_tbl, get_own_goalss_tbl, get_red_cardd_tbl, get_yellow_cardd_tbl, get_all_weekss, get_all_players, 'statistics_page')
         group_tbll =  group_tbl.set_group_table()
         if group_tbll is False:
             messages.error(request, 'Something went wrong!')
-        return render(request, 'admin_update.html', {'get_all_stats': True})
-        # return redirect('admin_update', weeks_stats='get_all_stats')
+        return render(request, 'statistics_table.html', {'get_all_stats': True})
 
 class GetAllStatsTable(View):
     get_json = Saving_And_Getting_Json()
