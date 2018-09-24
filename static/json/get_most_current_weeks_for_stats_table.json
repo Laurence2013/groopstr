@@ -2,8 +2,8 @@
     {
         "name": "most_current_week",
         "get_most_current_week": {
-            "id": 9,
-            "week_no": 2
+            "week_no": 2,
+            "id": 9
         }
     },
     {
