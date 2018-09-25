@@ -47,7 +47,6 @@
         let get_stats_name = get_stats[get_stats.selectedIndex].value
 
         let get_correct_stats = function(index, stats_len){
-          let players = []
           if (index === stats_len) return;
           try {
             if (get_all_stats[index][0].name === get_stats_name){
@@ -57,9 +56,17 @@
                 if (stats_index === stats_len) return;
                 if (get_all_stats[index][stats_index].table.week_no_id_id === parseInt(get_value)) {
                   console.log(get_all_stats[index][stats_index].table);
-                  console.log(get_all_stats[index][stats_index].table.player_id);
-                  mainHtml1 += '<li id="backg-colour" class="nav-item list-group-item"><b>ID: </b>'+ get_all_stats[index][stats_index].table.id
-                  + '<br /><b>Player ID: </b>'+ get_all_stats[index][stats_index].table.player_id +'</li>';
+                  let player_name = function(p_id){
+                    let get_player = function(player_len, index){
+                      if (index === player_len) return;
+                      console.log(index);
+                      get_player(player_len, index + 1);
+                    }
+                    get_player(get_all_stats.length, index = 0);
+                  }
+                  player_name(get_all_stats[index][stats_index].table.player_id);
+                  // mainHtml1 += '<li id="backg-colour" class="nav-item list-group-item"><b>ID: </b>'+ get_all_stats[index][stats_index].table.id
+                  // + '<br /><b>Player ID: </b>'+ get_all_stats[index][stats_index].table.player_id +'</li>';
                 }
                 get_stats_details(stats_index + 1, table_num + 1, stats_len);
               }
