@@ -40,20 +40,26 @@
       get_all_stats_table.innerHTML = mainHtml;
 
       function get_statistics() {
+        let mainHtml1 = ''
         let get_week = document.getElementById('week_no');
         let get_stats = document.getElementById('stats_tables');
         let get_value = get_week[get_week.selectedIndex].value
         let get_stats_name = get_stats[get_stats.selectedIndex].value
 
         let get_correct_stats = function(index, stats_len){
+          let players = []
           if (index === stats_len) return;
           try {
             if (get_all_stats[index][0].name === get_stats_name){
-              console.log(get_all_stats[index][0].name);
+              mainHtml1 += '<h5 class="weekly_fixtures">'+ get_all_stats[index][0].name +'</h5>';
+              mainHtml1 += '<ul class="nav flex-column list-group">';
               let get_stats_details = function(stats_index, table_num, stats_len) {
                 if (stats_index === stats_len) return;
                 if (get_all_stats[index][stats_index].table.week_no_id_id === parseInt(get_value)) {
                   console.log(get_all_stats[index][stats_index].table);
+                  console.log(get_all_stats[index][stats_index].table.player_id);
+                  mainHtml1 += '<li id="backg-colour" class="nav-item list-group-item"><b>ID: </b>'+ get_all_stats[index][stats_index].table.id
+                  + '<br /><b>Player ID: </b>'+ get_all_stats[index][stats_index].table.player_id +'</li>';
                 }
                 get_stats_details(stats_index + 1, table_num + 1, stats_len);
               }
@@ -65,6 +71,8 @@
           get_correct_stats(index + 1, stats_len);
         }
         get_correct_stats(index = 0, get_all_stats.length);
+        mainHtml1 += '</ul>';
+        get_all_stats_info.innerHTML = mainHtml1;
       }
       document.getElementById('get_statss').addEventListener('click', get_statistics);
     }
