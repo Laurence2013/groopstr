@@ -26,6 +26,6 @@ class Statistics_Tables:
         list_context.append(name_context)
 
         for j in range(0, len(save_list.get(table_as_list))):
-            table_name_context = {'table_'+ str(j): save_list.get(table_as_list)[j],}
+            table_name_context = {'table': save_list.get(table_as_list)[j],}
             list_context.append(table_name_context)
         return list_context

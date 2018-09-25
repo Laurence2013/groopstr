@@ -35,17 +35,38 @@
       }
       get_stats_table(get_stats_names.length, index = 0);
       mainHtml += '</select>';
+      mainHtml += '<br />';
+      mainHtml += '<input type="button" id="get_statss" value="Get values" />'
       get_all_stats_table.innerHTML = mainHtml;
 
-      let get_all_statss = function(){
-        document.getElementById('week_no').onclick = function EventHandler() {
-          console.log(this.value);
+      function get_statistics() {
+        let get_week = document.getElementById('week_no');
+        let get_stats = document.getElementById('stats_tables');
+        let get_value = get_week[get_week.selectedIndex].value
+        let get_stats_name = get_stats[get_stats.selectedIndex].value
+
+        let get_correct_stats = function(index, stats_len){
+          if (index === stats_len) return;
+          try {
+            if (get_all_stats[index][0].name === get_stats_name){
+              console.log(get_all_stats[index][0].name);
+              let get_stats_details = function(stats_index, table_num, stats_len) {
+                if (stats_index === stats_len) return;
+                if (get_all_stats[index][stats_index].table.week_no_id_id === parseInt(get_value)) {
+                  console.log(get_all_stats[index][stats_index].table);
+                }
+                get_stats_details(stats_index + 1, table_num + 1, stats_len);
+              }
+              get_stats_details(stats_index = 1, table_num = 0, get_all_stats[index].length);
+            }
+          } catch (e) {
+            console.log(e);
+          }
+          get_correct_stats(index + 1, stats_len);
         }
-        document.getElementById('stats_tables').onclick = function EventHandler() {
-          console.log(this.value);
-        }
+        get_correct_stats(index = 0, get_all_stats.length);
       }
-      get_all_statss();
+      document.getElementById('get_statss').addEventListener('click', get_statistics);
     }
   }
   http.send();
