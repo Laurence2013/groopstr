@@ -62,7 +62,9 @@
                       }
                       if (get_all_stats[index][stats_index].table.player_id === get_all_stats[get_all_stats.length - 1][i].player_id) {
                         mainHtml1 += '<li id="backg-colour" class="nav-item list-group-item"><b>Table id: </b>'+ get_all_stats[index][stats_index].table.id
-                        + '<br /><b>Player id: </b>'+ get_all_stats[get_all_stats.length - 1][i].player_name +'</li>';
+                        + '<br /><b>Player id: </b>'+ get_all_stats[get_all_stats.length - 1][i].player_name
+                        + '<br /><b>Points: </b>'+ get_all_stats[index][stats_index].table.points
+                        + '<br /><b>Week no: </b>'+ get_all_stats[index][stats_index].table.week_no_id_id +'</li>';
                         continue;
                       }
                     }
