@@ -55,18 +55,19 @@
               let get_stats_details = function(stats_index, table_num, stats_len) {
                 if (stats_index === stats_len) return;
                 if (get_all_stats[index][stats_index].table.week_no_id_id === parseInt(get_value)) {
-                  console.log(get_all_stats[index][stats_index].table);
                   let player_name = function(p_id){
-                    let get_player = function(player_len, index){
-                      if (index === player_len) return;
-                      console.log(index);
-                      get_player(player_len, index + 1);
+                    for (let i = 0; i < get_all_stats[get_all_stats.length - 1].length; i++) {
+                      if (get_all_stats[get_all_stats.length - 1][i].player_name === undefined) {
+                        continue;
+                      }
+                      if (get_all_stats[index][stats_index].table.player_id === get_all_stats[get_all_stats.length - 1][i].player_id) {
+                        mainHtml1 += '<li id="backg-colour" class="nav-item list-group-item"><b>Table id: </b>'+ get_all_stats[index][stats_index].table.id
+                        + '<br /><b>Player id: </b>'+ get_all_stats[get_all_stats.length - 1][i].player_name +'</li>';
+                        continue;
+                      }
                     }
-                    get_player(get_all_stats.length, index = 0);
                   }
                   player_name(get_all_stats[index][stats_index].table.player_id);
-                  // mainHtml1 += '<li id="backg-colour" class="nav-item list-group-item"><b>ID: </b>'+ get_all_stats[index][stats_index].table.id
-                  // + '<br /><b>Player ID: </b>'+ get_all_stats[index][stats_index].table.player_id +'</li>';
                 }
                 get_stats_details(stats_index + 1, table_num + 1, stats_len);
               }

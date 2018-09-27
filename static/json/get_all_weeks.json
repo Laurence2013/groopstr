@@ -1,30 +1,30 @@
 [
     {
         "has_this_week_passed": true,
-        "start_date": "2018-08-05",
-        "id": 8,
         "week_no": 1,
-        "end_date": "2018-08-11"
+        "end_date": "2018-08-11",
+        "id": 8,
+        "start_date": "2018-08-05"
     },
     {
         "has_this_week_passed": true,
-        "start_date": "2018-08-12",
-        "id": 9,
         "week_no": 2,
-        "end_date": "2018-08-18"
+        "end_date": "2018-08-18",
+        "id": 9,
+        "start_date": "2018-08-12"
     },
     {
         "has_this_week_passed": false,
-        "start_date": "2018-08-26",
-        "id": 10,
         "week_no": 3,
-        "end_date": "2018-09-01"
+        "end_date": "2018-09-01",
+        "id": 10,
+        "start_date": "2018-08-26"
     },
     {
         "has_this_week_passed": false,
-        "start_date": "2018-09-02",
-        "id": 12,
         "week_no": 4,
-        "end_date": "2018-09-08"
+        "end_date": "2018-09-08",
+        "id": 12,
+        "start_date": "2018-09-02"
     }
 ]
